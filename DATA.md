@@ -9,6 +9,7 @@ ChipStain uses only public, openly licensed data. No clinical, personal or restr
 | Name | *Automatic labelling of HeLa "Kyoto" cells using Deep Learning tools* — `training_dataset.zip` |
 | DOI | [10.5281/zenodo.6140064](https://doi.org/10.5281/zenodo.6140064) |
 | Derived from | *HeLa "Kyoto" cells under the scope*, [10.5281/zenodo.6139958](https://doi.org/10.5281/zenodo.6139958) |
+| Author | Romain Guiet, EPFL BioImaging & Optics Platform (PTBIOP) |
 | License | CC BY 4.0 |
 | Cells | HeLa "Kyoto" expressing EGFP-α-tubulin and mCherry-H2B |
 | Microscope | PerkinElmer Operetta, 20× / NA 0.8, Andor Zyla 5.5 |

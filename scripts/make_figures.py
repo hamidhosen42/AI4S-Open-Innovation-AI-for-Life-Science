@@ -1,0 +1,115 @@
+"""Build report figures from outputs/eval.
+
+    python scripts/make_figures.py --eval outputs/eval --out report/figures
+"""
+import argparse
+import glob
+import os
+
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+from chipstain.metrics import sparsification
+
+plt.rcParams.update({"font.size": 9, "axes.spines.top": False, "axes.spines.right": False})
+
+
+def load_preds(path):
+    z = np.load(path)
+    n = max(int(k.split("_")[-1]) for k in z.files) + 1
+    out = []
+    for j in range(n):
+        d = {k[: -len(f"_{j}")]: z[k] for k in z.files if k.endswith(f"_{j}")}
+        out.append(d)
+    return out
+
+
+def qualitative(preds, path, idx=(0, 3, 6)):
+    cols = ["bf", "gt", "pred", "err", "unc"]
+    titles = ["Bright-field input", "Real H2B fluorescence", "Predicted H2B", "|error|", "Predicted σ"]
+    fig, ax = plt.subplots(len(idx), 5, figsize=(13, 2.7 * len(idx)))
+    for r, i in enumerate(idx):
+        d = preds[i]
+        err = np.abs(d["pred"] - d["gt"])
+        ims = [d["bf"], d["gt"], np.clip(d["pred"], 0, 1), err, d.get("unc")]
+        cmaps = ["gray", "magma", "magma", "inferno", "viridis"]
+        for c in range(5):
+            a = ax[r, c]
+            if ims[c] is None:
+                a.axis("off"); continue
+            kw = {"vmin": 0, "vmax": 1} if c in (1, 2) else ({"vmin": 0, "vmax": 0.3} if c == 3 else {})
+            a.imshow(ims[c], cmap=cmaps[c], **kw)
+            a.set_xticks([]); a.set_yticks([])
+            if r == 0:
+                a.set_title(titles[c])
+    plt.tight_layout(); plt.savefig(path, dpi=150); plt.close(fig)
+
+
+def sparsification_plot(preds, path):
+    fig, ax = plt.subplots(figsize=(4.6, 3.4))
+    for j, d in enumerate(preds[:6]):
+        if d.get("unc") is None:
+            continue
+        err = np.abs(d["pred"] - d["gt"])
+        fr, cu, co, ause = sparsification(err, d["unc"])
+        ax.plot(fr, cu / cu[0], color="#3E6FD9", alpha=0.6, lw=1.2, label="by predicted σ" if j == 0 else None)
+        ax.plot(fr, co / co[0], color="#12A36F", alpha=0.6, lw=1.2, ls="--", label="oracle (by |error|)" if j == 0 else None)
+    ax.plot([0, 1], [1, 1], color="#999", lw=1, ls=":", label="random")
+    ax.set_xlabel("fraction of most-uncertain pixels removed"); ax.set_ylabel("remaining MAE (normalised)")
+    ax.set_title("Sparsification (test images)"); ax.legend(frameon=False)
+    plt.tight_layout(); plt.savefig(path, dpi=150); plt.close(fig)
+
+
+def calib_scatter(df, path):
+    d = df[df["mean_sigma"].notna()]
+    if d.empty:
+        return
+    fig, ax = plt.subplots(1, len(d["run"].unique()), figsize=(4.2 * len(d["run"].unique()), 3.4), squeeze=False)
+    for a, (run, g) in zip(ax[0], d.groupby("run")):
+        a.scatter(g["mean_sigma"], g["mae"], s=14, alpha=0.7, color="#3E6FD9")
+        from scipy.stats import spearmanr
+        r = spearmanr(g["mean_sigma"], g["mae"]).statistic
+        a.set_title(f"{run}\nimage-level Spearman ρ = {r:.2f}")
+        a.set_xlabel("mean predicted σ per image"); a.set_ylabel("MAE per image")
+    plt.tight_layout(); plt.savefig(path, dpi=150); plt.close(fig)
+
+
+def ablation_bars(df, path):
+    metrics = ["pearson", "ssim", "seg_f1"]
+    g = df.groupby("run")[metrics].agg(["mean", "std"])
+    runs = list(g.index)
+    fig, ax = plt.subplots(1, 3, figsize=(11, 3.2))
+    for a, m in zip(ax, metrics):
+        a.bar(range(len(runs)), g[(m, "mean")], yerr=g[(m, "std")], color=["#9AA5A0", "#7FA3F2", "#3E6FD9", "#12A36F"][: len(runs)], capsize=3)
+        a.set_xticks(range(len(runs))); a.set_xticklabels(runs, rotation=20, ha="right", fontsize=8)
+        a.set_title(m); a.set_ylim(min(0.0, g[(m, "mean")].min() - 0.05), 1.0)
+        if m == "seg_f1" and "seg_f1_realfluo" in df:
+            a.axhline(df["seg_f1_realfluo"].mean(), color="#C97A12", ls="--", lw=1, label="real fluorescence")
+            a.legend(frameon=False, fontsize=8)
+    plt.tight_layout(); plt.savefig(path, dpi=150); plt.close(fig)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--eval", default="outputs/eval")
+    ap.add_argument("--out", default="report/figures")
+    a = ap.parse_args()
+    os.makedirs(a.out, exist_ok=True)
+    df = pd.read_csv(os.path.join(a.eval, "per_image_test.csv"))
+    ablation_bars(df, os.path.join(a.out, "ablation.png"))
+    calib_scatter(df, os.path.join(a.out, "calibration_image_level.png"))
+    for p in glob.glob(os.path.join(a.eval, "preds_*.npz")):
+        tag = os.path.basename(p)[6:-4]
+        preds = load_preds(p)
+        qualitative(preds, os.path.join(a.out, f"qualitative_{tag}.png"))
+        if preds[0].get("unc") is not None:
+            sparsification_plot(preds, os.path.join(a.out, f"sparsification_{tag}.png"))
+    print("figures ->", a.out)
+
+
+if __name__ == "__main__":
+    main()
