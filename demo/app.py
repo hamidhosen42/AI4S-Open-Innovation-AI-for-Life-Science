@@ -9,7 +9,7 @@ import sys
 import gradio as gr
 import numpy as np
 import torch
-from matplotlib import cm
+import matplotlib
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from chipstain.metrics import segment_nuclei  # noqa: E402
@@ -32,7 +32,7 @@ def to_rgb(a, cmap, vmin=None, vmax=None):
     vmin = a.min() if vmin is None else vmin
     vmax = a.max() if vmax is None else vmax
     n = np.clip((a - vmin) / max(vmax - vmin, 1e-6), 0, 1)
-    return (cm.get_cmap(cmap)(n)[..., :3] * 255).astype(np.uint8)
+    return (matplotlib.colormaps[cmap](n)[..., :3] * 255).astype(np.uint8)
 
 
 def predict(file, tta):
