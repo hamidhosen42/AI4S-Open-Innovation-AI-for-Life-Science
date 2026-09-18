@@ -1,0 +1,20 @@
+date: 2026-09-19
+o_pearson: 0.779
+o_ssim: 0.808
+o_segf1: 0.718
+b_pearson: 0.766
+b_ssim: 0.830
+real_segf1: 0.765
+o_rho: 0.44
+sparse_gain: 55
+rho_img: 0.88
+pretrain_note: Pearson 0.756 vs 0.766, SSIM 0.825 vs 0.830
+unc_summary: ρ = 0.44 per pixel, ρ = 0.88 per image
+tp_table: <table><tr><th>Time-point</th><th>Pearson r</th><th>SSIM</th><th>seg-F1 (pred)</th><th>seg-F1 (real)</th><th>mean σ</th><th>MAE</th></tr>
+<tr><td>1</td><td class='n'>0.813</td><td class='n'>0.893</td><td class='n'>0.817</td><td class='n'>0.829</td><td class='n'>0.0338</td><td class='n'>0.0205</td></tr>
+<tr><td>10</td><td class='n'>0.809</td><td class='n'>0.877</td><td class='n'>0.787</td><td class='n'>0.820</td><td class='n'>0.0356</td><td class='n'>0.0213</td></tr>
+<tr><td>50</td><td class='n'>0.792</td><td class='n'>0.824</td><td class='n'>0.753</td><td class='n'>0.767</td><td class='n'>0.0409</td><td class='n'>0.0288</td></tr>
+<tr><td>100</td><td class='n'>0.754</td><td class='n'>0.753</td><td class='n'>0.640</td><td class='n'>0.720</td><td class='n'>0.0597</td><td class='n'>0.0387</td></tr>
+<tr><td>150</td><td class='n'>0.724</td><td class='n'>0.691</td><td class='n'>0.593</td><td class='n'>0.689</td><td class='n'>0.0796</td><td class='n'>0.0487</td></tr>
+</table>
+pr_text: <p>Over the test set the full model detects 14964 nuclei against 15866 reference objects (94.3 %).</p>

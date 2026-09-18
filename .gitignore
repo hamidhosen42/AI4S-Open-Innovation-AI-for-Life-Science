@@ -24,9 +24,4 @@ runs/
 *.pt
 *.pth
 *.egg-info/
-outputs/
-!outputs/eval/summary_test.md
-!outputs/eval_tta/summary_test.md
-!outputs/pred/panel.png
-!outputs/key_numbers.txt
 weights/
