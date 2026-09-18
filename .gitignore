@@ -1,0 +1,17 @@
+# secrets
+token.txt
+*.token
+.env
+kaggle.json
+
+# data archives
+*.zip
+
+# python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+
+# os
+.DS_Store
