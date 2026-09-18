@@ -18,9 +18,16 @@ ChipStain predicts the **nuclear fluorescence channel (H2B / DNA) from a plain b
 
 ## Results (held-out well R05-C03, 125 images, mean ± std over images)
 
-See `outputs/eval/summary_test.md` after running the evaluation; the numbers reported in the technical report are reproduced by the commands below.
+| Model | Pearson r ↑ | SSIM ↑ | seg-F1 ↑ | ρ(σ, error) ↑ | AUSE ↓ | image-level ρ(mean σ, MAE) |
+|---|---|---|---|---|---|---|
+| U-Net baseline (L1) | 0.766 | 0.830 | 0.693 | — | — | — |
+| + ImageNet encoder (L1) | 0.756 | 0.825 | 0.667 | — | — | — |
+| U-Net baseline + TTA (σ = view variance) | 0.780 | 0.834 | 0.710 | 0.315 | 0.244 | 0.90 |
+| ChipStain (β-NLL head) | 0.774 | 0.814 | 0.711 | 0.426 | 0.242 | **0.95** |
+| **ChipStain + TTA (full)** | 0.779 | 0.808 | **0.718** | **0.441** | **0.201** | 0.88 |
+| Real fluorescence, same segmentation pipeline (ceiling) | — | — | 0.765 | — | — | — |
 
-<!-- RESULTS_TABLE -->
+Removing the 20 % most-uncertain pixels cuts the remaining MAE by 55 %. Full tables with standard deviations, per-time-point breakdown and figures: [report/ChipStain_Technical_Report.pdf](report/ChipStain_Technical_Report.pdf).
 
 ## Quick start
 
@@ -37,14 +44,14 @@ python scripts/download_data.py
 python scripts/download_weights.py          # -> weights/chipstain.pt
 
 # 3. predict on one bright-field image (CPU is fine, ~5 s with TTA)
-python scripts/inference.py --image demo/examples/example_bf.tif --weights weights/chipstain.pt --out outputs/pred
+python scripts/inference.py --image demo/examples/example_bf_dense_t150.tif --weights weights/chipstain.pt --out outputs/pred --device cpu
 #    -> outputs/pred/prediction.tif, uncertainty.tif, panel.png
 
 # 4. reproduce training + evaluation (≈30 min per run on an Apple M-series / any GPU)
 bash scripts/run_all.sh 0            # baseline, pretrained, ours (seed 0)
 python scripts/evaluate.py --runs runs/baseline_unet_s0 runs/pretrained_l1_s0 runs/chipstain_nll_s0 --out outputs/eval
-python scripts/evaluate.py --runs runs/chipstain_nll_s0 --tta --out outputs/eval
-python scripts/make_figures.py
+python scripts/evaluate.py --runs runs/baseline_unet_s0 runs/chipstain_nll_s0 --tta --out outputs/eval_tta
+python scripts/make_figures.py && python scripts/build_report.py
 
 # 5. interactive demo
 python demo/app.py --weights weights/chipstain.pt     # http://localhost:7860
