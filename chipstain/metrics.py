@@ -56,7 +56,11 @@ def segment_nuclei(fluo01: np.ndarray, min_size: int = 30) -> np.ndarray:
     sm = filters.gaussian(fluo01, sigma=1.0)
     thr = filters.threshold_otsu(sm)
     mask = sm > thr
-    mask = morphology.remove_small_objects(mask, min_size)
+    # skimage >= 0.26 renamed min_size -> max_size (remove objects <= max_size)
+    try:
+        mask = morphology.remove_small_objects(mask, max_size=min_size - 1)
+    except TypeError:
+        mask = morphology.remove_small_objects(mask, min_size=min_size)
     mask = ndi.binary_fill_holes(mask)
     dist = ndi.distance_transform_edt(mask)
     peaks = feature.peak_local_max(dist, min_distance=6, labels=measure.label(mask))
