@@ -1,0 +1,10 @@
+torch>=2.1
+segmentation-models-pytorch>=0.3.3
+tifffile
+scikit-image
+scipy
+numpy
+pyyaml
+tqdm
+matplotlib
+pandas

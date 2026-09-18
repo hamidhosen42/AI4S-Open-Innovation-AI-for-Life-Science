@@ -1,0 +1,10 @@
+name: baseline_unet
+encoder: resnet34
+pretrained: false
+uncertainty: false
+loss: l1
+crop: 256
+batch_size: 8
+iters_per_epoch: 2
+epochs: 40
+lr: 0.001

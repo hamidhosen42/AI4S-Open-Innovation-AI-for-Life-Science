@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chipstain"
+version = "0.1.0"
+description = "Uncertainty-aware bright-field to fluorescence in-silico labeling for organ-on-a-chip imaging"
+requires-python = ">=3.10"
+dependencies = [
+  "torch>=2.1",
+  "segmentation-models-pytorch>=0.3.3",
+  "tifffile",
+  "scikit-image",
+  "scipy",
+  "numpy",
+  "pyyaml",
+  "tqdm",
+  "matplotlib",
+  "pandas",
+]
+
+[tool.setuptools.packages.find]
+include = ["chipstain*"]

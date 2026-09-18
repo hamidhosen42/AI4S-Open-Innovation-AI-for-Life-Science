@@ -15,3 +15,11 @@ __pycache__/
 
 # os
 .DS_Store
+
+# raw/processed data (downloaded via scripts/download_data.py)
+data/raw/
+data/processed/
+outputs/
+runs/
+*.pt
+*.pth

@@ -1,0 +1,10 @@
+name: chipstain_nll
+encoder: resnet34
+pretrained: true
+uncertainty: true
+loss: nll
+crop: 256
+batch_size: 8
+iters_per_epoch: 2
+epochs: 40
+lr: 0.0005
