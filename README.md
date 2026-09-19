@@ -82,9 +82,10 @@ AI_ASSISTANCE.md      pre-trained models and AI tools disclosure
 * Pre-trained encoder and AI-tool use: [AI_ASSISTANCE.md](AI_ASSISTANCE.md).
 * Code: MIT ([LICENSE](LICENSE)).
 
-## Team
+## Team — Hack2Publish
 
-* Md. Hamid Hosen — AI/ML ([@hamidhosen42](https://github.com/hamidhosen42))
+* Md. Hamid Hosen (team leader) — CSE, AI/ML ([@hamidhosen42](https://github.com/hamidhosen42))
+* Esfer Sami — CSE
 
 ## Citation of the data
 

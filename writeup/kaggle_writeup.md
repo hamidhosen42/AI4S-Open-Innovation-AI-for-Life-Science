@@ -76,5 +76,8 @@ Data: Zenodo 10.5281/zenodo.6140064 / 6139958 (R. Guiet, EPFL PTBIOP), CC BY 4.0
 ## Optional demo
 🖥 **[DEMO LINK — Hugging Face Space, paste here if deployed]** — if the Space is down, the same app runs locally with `python demo/app.py`; screenshots are in the report (Figure 2) and `outputs/pred/panel.png`.
 
-## Team
-Md. Hamid Hosen (team leader) — AI / machine learning. Single-member team; no biology/bioengineering member, so no cross-disciplinary bonus is claimed.
+## Team — Hack2Publish
+* Md. Hamid Hosen (team leader) — computer science & engineering, AI/ML
+* Esfer Sami — computer science & engineering
+
+Both members are AI/CS; no biology/bioengineering member, so no cross-disciplinary bonus is claimed.
