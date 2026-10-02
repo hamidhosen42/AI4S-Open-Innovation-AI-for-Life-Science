@@ -21,5 +21,7 @@ python scripts/build_report.py
 python scripts/build_writeup.py
 python scripts/build_slides.py
 [ "${1:-}" = "--no-video" ] || python scripts/build_video.py
-command -v pbcopy >/dev/null && pbcopy < writeup/kaggle_writeup.md && echo "Writeup text copied to the clipboard - paste it into the Kaggle editor."
+command -v pbcopy >/dev/null && pbcopy < writeup/kaggle_writeup.md
+# push the new text into the Kaggle Writeup draft (Save Draft only, never Submit); non-fatal if Chrome is unavailable
+python scripts/kaggle_sync_writeup.py || echo "Kaggle sync skipped - the text is on the clipboard; paste it into the draft"
 echo "Rebuilt: report/ChipStain_Technical_Report.pdf, README.md, writeup/kaggle_writeup.md, writeup/ChipStain_slides.pdf, writeup/video_script.md, writeup/video/ChipStain_video.mp4"
