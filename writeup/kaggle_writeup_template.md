@@ -69,8 +69,8 @@ Data: Zenodo 10.5281/zenodo.6140064 / 6139958 / 6140111 (R. Guiet, EPFL BIOP) an
 🖥 **{{demo_link}}** — the same app runs locally with `python demo/app.py`; example outputs: `report/figures/demo_panel_dense_t150.png`, `report/figures/demo_panel_sparse_t010.png`.
 
 ## Team — Hack2Publish
-* **Md. Hamid Hosen** (team leader; Kaggle [@hosen42](https://www.kaggle.com/hosen42)) — CSE student, AI/ML
-* **Esfer Sami** (Kaggle [@esfersami50](https://www.kaggle.com/esfersami50)) — CSE student
-* **Foysal** (Kaggle [@foysalemonshanto](https://www.kaggle.com/foysalemonshanto)) — CSE student
+* **Md. Hamid Hosen** (team leader; Kaggle [@hosen42](https://www.kaggle.com/hosen42)) — Computer Science and Engineering
+* **Esfer Sami** (Kaggle [@esfersami50](https://www.kaggle.com/esfersami50)) — Computer Science and Engineering
+* **Foysal** (Kaggle [@foysalemonshanto](https://www.kaggle.com/foysalemonshanto)) — Computer Science and Engineering
 
-All three members are computer science & engineering (CSE) students; no member has a biology/bioengineering/clinical background, so no cross-disciplinary bonus is claimed.
+All three members are in Computer Science and Engineering; no member has a biology/bioengineering/clinical background, so no cross-disciplinary bonus is claimed.

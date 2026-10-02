@@ -9,7 +9,7 @@
    "title": "ChipStain",
    "subtitle": "Label-free nuclear staining that tells you where not to trust it",
    "bullets": [
-    "Team Hack2Publish — Md. Hamid Hosen, Esfer Sami, Foysal (CSE students)"
+    "Team Hack2Publish — Md. Hamid Hosen, Esfer Sami, Foysal (Computer Science and Engineering)"
    ],
    "figure": "qualitative_chipstain_nll_s0_tta.png",
    "narration": "We are team Hack2Publish — Hamid, Esfer and Foysal — and this is ChipStain, in the Model and Algorithm category."
@@ -140,7 +140,7 @@
    "bullets": [
     "Code, seed-0 weights, data links, CPU inference script",
     "One script regenerates every number, figure, this deck and the report",
-    "Team Hack2Publish — Md. Hamid Hosen · Esfer Sami · Foysal (CSE students)"
+    "Team Hack2Publish — Md. Hamid Hosen · Esfer Sami · Foysal (Computer Science and Engineering)"
    ],
    "narration": "Everything is open: code, weights, data links, a CPU inference script — and one script regenerates every number, figure, this deck and the report. Thank you."
   }
