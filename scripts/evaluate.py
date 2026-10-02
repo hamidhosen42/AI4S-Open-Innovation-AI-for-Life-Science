@@ -41,19 +41,21 @@ def load_run(run_dir, device):
 
 
 @torch.no_grad()
-def predict(model, x, tta):
+def predict(model, x, tta, parts=False):
+    """Returns (mu, variance). With parts=True also returns the learned (aleatoric) and the
+    TTA-disagreement variance terms separately (None when not applicable)."""
     if tta:
         mu, ale, epi = predict_tta(model, x)
         unc = (ale + epi) if ale is not None else epi
-    else:
-        mu, logvar = model(x)
-        unc = logvar.exp() if logvar is not None else None
-    return mu, unc
+        return (mu, unc, ale, epi) if parts else (mu, unc)
+    mu, logvar = model(x)
+    unc = logvar.exp() if logvar is not None else None
+    return (mu, unc, unc, None) if parts else (mu, unc)
 
 
-def score_image(p, g, sigma, ref):
+def score_image(p, g, sigma, ref, sigma_parts=None):
     """All per-image metrics for prediction p, target g (both normalised), sigma (or None)
-    and the reference nuclei label image."""
+    and the reference nuclei label image. sigma_parts: optional {"ale": s, "epi": s} scored too."""
     m = image_metrics(p, g)
     seg_pred = segment_nuclei(np.clip(p, 0, 1))
     f_pred = match_f1(seg_pred, ref)
@@ -68,6 +70,10 @@ def score_image(p, g, sigma, ref):
         c = calibration_metrics(p, g, sc)
         m.update({f"spearman_{name}_err": c["spearman_unc_err"], f"ause_{name}": c["ause"], f"gain20_{name}": c["gain20"]})
     m["gain20_oracle"] = removal_gain(err, err)
+    for name, sp in (sigma_parts or {}).items():
+        if sp is not None:
+            c = calibration_metrics(p, g, sp)
+            m.update({f"spearman_{name}_err": c["spearman_unc_err"], f"ause_{name}": c["ause"], f"mean_sigma_{name}": float(sp.mean())})
     return m, seg_pred
 
 
@@ -96,6 +102,7 @@ def main():
     ap.add_argument("--out", default="outputs/eval")
     ap.add_argument("--cache", default=None, help="directory to store float16 predictions per run")
     ap.add_argument("--save_preds", type=int, default=8, help="save the first N full-precision predictions per run (figures only)")
+    ap.add_argument("--from_cache", action="store_true", help="re-score cached predictions instead of running the model (needs --cache)")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
     device = get_device()
@@ -104,28 +111,46 @@ def main():
     ds = PairDataset(samples, crop=None, augment=False, cache=False)
     rows = []
     for run in a.runs:
-        model, cfg = load_run(run, device)
         tag = os.path.basename(run.rstrip("/")) + ("_tta" if a.tta else "")
-        preds, mus, sigs = [], [], []
-        for i in tqdm(range(len(ds)), desc=tag):
+        cached = os.path.join(a.cache, f"{tag}.npz") if a.cache else None
+        use_cache = a.from_cache and cached and os.path.exists(cached)
+        if use_cache:
+            zc = np.load(cached)
+            cfg = {"uncertainty": bool(zc["has_sigma"])}
+        else:
+            model, cfg = load_run(run, device)
+        preds, mus, sigs, part_store = [], [], [], {}
+        for i in tqdm(range(len(ds)), desc=tag + (" (cache)" if use_cache else "")):
             x, y = ds[i]
-            mu, unc = predict(model, x[None].to(device), a.tta)
             h, w = 540, 540
-            p = mu[0, 0, :h, :w].cpu().numpy()
             g = y[0, :h, :w].numpy()
-            u = np.sqrt(unc[0, 0, :h, :w].cpu().numpy()) if unc is not None else None
+            if use_cache:
+                p = zc["mu"][i].astype(np.float32)
+                u = zc["sigma"][i].astype(np.float32) if bool(zc["has_sigma"]) else None
+                parts = {k: zc[f"sigma_{k}"][i].astype(np.float32) for k in ("ale", "epi") if f"sigma_{k}" in zc.files} or None
+            else:
+                mu, unc, ale, epi = predict(model, x[None].to(device), a.tta, parts=True)
+                p = mu[0, 0, :h, :w].cpu().numpy()
+                u = np.sqrt(unc[0, 0, :h, :w].cpu().numpy()) if unc is not None else None
+                parts = {"ale": np.sqrt(ale[0, 0, :h, :w].cpu().numpy()) if ale is not None else None,
+                         "epi": np.sqrt(epi[0, 0, :h, :w].cpu().numpy()) if epi is not None else None} if a.tta else None
             ref = load_mask(samples[i])
-            m, seg_pred = score_image(p, g, u, ref)
+            m, seg_pred = score_image(p, g, u, ref, parts)
             m.update({"run": tag, "well": samples[i].well, "field": samples[i].field, "timepoint": samples[i].timepoint})
             rows.append(m)
-            if a.cache:
+            if a.cache and not use_cache:
                 mus.append(p.astype(np.float16))
                 sigs.append(u.astype(np.float16) if u is not None else np.zeros((h, w), np.float16))
+                if parts:
+                    for k, v in parts.items():
+                        if v is not None:
+                            part_store.setdefault(k, []).append(v.astype(np.float16))
             if i < a.save_preds:
                 preds.append({"bf": x[0, :h, :w].numpy(), "gt": g, "pred": p, "unc": u, "ref": ref, "seg_pred": seg_pred})
-        if a.cache:
+        if a.cache and not use_cache:
             os.makedirs(a.cache, exist_ok=True)
-            np.savez(os.path.join(a.cache, f"{tag}.npz"), mu=np.stack(mus), sigma=np.stack(sigs), has_sigma=np.array(cfg["uncertainty"] or a.tta))
+            np.savez(os.path.join(a.cache, f"{tag}.npz"), mu=np.stack(mus), sigma=np.stack(sigs), has_sigma=np.array(cfg["uncertainty"] or a.tta),
+                     **{f"sigma_{k}": np.stack(v) for k, v in part_store.items()})
         if preds:
             np.savez_compressed(os.path.join(a.out, f"preds_{tag}.npz"), **{f"{k}_{j}": v for j, d in enumerate(preds) for k, v in d.items() if v is not None})
     df = pd.DataFrame(rows)

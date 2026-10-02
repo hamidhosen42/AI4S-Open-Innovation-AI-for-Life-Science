@@ -1,30 +1,42 @@
 """Gradio demo: upload a bright-field image -> predicted nuclear fluorescence + uncertainty.
 
-    python demo/app.py --weights weights/chipstain.pt
+    python demo/app.py [--weights weights/chipstain.pt] [--share]
+Runs from any working directory (paths are resolved from the repository root).
 """
 import argparse
 import os
 import sys
+from pathlib import Path
 
 import gradio as gr
+import matplotlib
 import numpy as np
 import torch
-import matplotlib
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 from chipstain.metrics import segment_nuclei  # noqa: E402
 from scripts.inference import load_model, read_grey, run  # noqa: E402
 
+# Mean sigma (8x TTA) above this is outside anything seen on clean images: the maximum over the 50
+# validation images is 0.173 and over the 125 test images 0.133 (seed-0 checkpoint). Gaussian blur of
+# >= 2 px or a phase-contrast input gives >= 0.35; 1 px blur is caught in about half of the images, and
+# 20 % sensor noise (~0.19) is NOT caught (report/results/shift_test.md).
+OOD_SIGMA = 0.20
+# reference nuclei (StarDist on the real H2B stain, from the dataset) for the bundled examples
+REF = {"example_bf_sparse_t010.tif": 64, "example_bf_dense_t150.tif": 180, "example_bf_dense_t150_blur1px.tif": 180}
+
 ap = argparse.ArgumentParser()
-ap.add_argument("--weights", default=os.environ.get("CHIPSTAIN_WEIGHTS", "weights/chipstain.pt"))
+ap.add_argument("--weights", default=os.environ.get("CHIPSTAIN_WEIGHTS", str(ROOT / "weights" / "chipstain.pt")))
 ap.add_argument("--share", action="store_true")
 args, _ = ap.parse_known_args()
+if not os.path.exists(args.weights):
+    sys.exit(f"weights not found at {args.weights} - run: python scripts/download_weights.py")
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MODEL, CFG = load_model(args.weights, DEVICE)
-EXAMPLES = sorted(
-    os.path.join("demo/examples", f) for f in os.listdir("demo/examples") if f.endswith((".tif", ".png"))
-) if os.path.isdir("demo/examples") else []
+EX_DIR = ROOT / "demo" / "examples"
+EXAMPLES = sorted(str(EX_DIR / f) for f in os.listdir(EX_DIR) if f.endswith((".tif", ".png")) and "_bf_" in f) if EX_DIR.is_dir() else []
 
 
 def to_rgb(a, cmap, vmin=None, vmax=None):
@@ -36,28 +48,37 @@ def to_rgb(a, cmap, vmin=None, vmax=None):
 
 
 def predict(file, tta):
-    bf = read_grey(file)
+    if file is None:
+        raise gr.Error("Upload a bright-field image first.")
+    try:
+        bf = read_grey(file)
+    except Exception as e:  # noqa: BLE001 - show the reason in the UI
+        raise gr.Error(f"Could not read the image: {e}")
     pred, sigma = run(MODEL, bf, DEVICE, tta=tta)
-    seg = segment_nuclei(pred)
-    n = int(seg.max())
+    n = int(segment_nuclei(pred).max())
+    ref = REF.get(os.path.basename(str(file)))
     hi = float(np.percentile(sigma, 99))
-    summary = (
-        f"**Detected nuclei:** {n}  \n"
-        f"**Mean σ:** {sigma.mean():.4f} · **99th pct σ:** {hi:.4f}  \n"
-        f"Bright regions in the uncertainty map are where the model is least confident — check those by eye before trusting a count."
-    )
-    return to_rgb(bf, "gray", *np.percentile(bf, [1, 99])), to_rgb(pred, "magma", 0, 1), to_rgb(sigma, "viridis", 0, hi), summary
+    lines = []
+    if tta and sigma.mean() > OOD_SIGMA:
+        lines.append(f"⚠ **Mean σ = {sigma.mean():.3f} is above anything seen on clean validation images (≤ 0.17).** The input looks unlike the "
+                     "training bright-field (defocus, another modality, fluorescence…). Treat the prediction and the count as unreliable.  \n")
+    lines.append(f"**Detected nuclei:** {n}" + (f" · reference annotation (StarDist on the real H2B stain): {ref}" if ref else "") + "  \n")
+    lines.append(f"**Mean σ:** {sigma.mean():.4f} · **99th pct σ:** {hi:.4f}" + ("" if tta else " · (warning check needs TTA)") + "  \n")
+    lines.append("σ is the predicted uncertainty per pixel: it is higher on nuclei (brighter = noisier) and highest where the prediction is least reliable. "
+                 "A low mean σ is necessary but not sufficient — mild defocus and 20 % noise are not always flagged.")
+    return to_rgb(bf, "gray", *np.percentile(bf, [1, 99])), to_rgb(pred, "magma", 0, 1), to_rgb(sigma, "viridis", 0, hi), "".join(lines)
 
 
 with gr.Blocks(title="ChipStain") as demo:
     gr.Markdown(
         "# ChipStain — label-free nuclear staining with uncertainty\n"
-        "Upload a bright-field image (TIFF/PNG). The model predicts the H2B/nuclear fluorescence channel and a per-pixel "
-        "uncertainty map (σ). Trained on HeLa 'Kyoto' cells (Zenodo 10.5281/zenodo.6140064, CC BY 4.0)."
+        "Upload a bright-field image (TIFF/PNG). The model predicts the H2B nuclear fluorescence channel and a per-pixel "
+        "uncertainty map σ. Trained on HeLa 'Kyoto' cells (R. Guiet, EPFL BIOP; Zenodo 10.5281/zenodo.6140064; CC BY 4.0). "
+        "The third example is the dense example blurred by 1 px, to show the uncertainty response."
     )
     with gr.Row():
         inp = gr.File(label="Bright-field image", file_types=[".tif", ".tiff", ".png", ".jpg"], type="filepath")
-        tta = gr.Checkbox(value=True, label="Test-time augmentation (8×, slower, better)")
+        tta = gr.Checkbox(value=True, label="Test-time augmentation (8×, slower, recommended)")
     btn = gr.Button("Predict", variant="primary")
     with gr.Row():
         o1 = gr.Image(label="Input (bright-field)")

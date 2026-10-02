@@ -7,6 +7,8 @@ from scipy.stats import spearmanr
 from skimage import filters, measure, morphology, segmentation, feature
 from skimage.metrics import peak_signal_noise_ratio, structural_similarity
 
+_trapz = getattr(np, "trapezoid", None) or np.trapz  # NumPy >= 2.0 renamed trapz
+
 
 # ---------- image quality (inputs are normalised targets in [0,1]) ----------
 def image_metrics(pred: np.ndarray, gt: np.ndarray) -> dict:
@@ -37,7 +39,7 @@ def sparsification(err: np.ndarray, unc: np.ndarray, n_bins: int = 20):
         cu.append(err[order_u[k:]].mean())
         co.append(err[order_o[k:]].mean())
     cu, co = np.array(cu), np.array(co)
-    ause = float(np.trapezoid(cu - co, fr) / max(cu[0], 1e-9))
+    ause = float(_trapz(cu - co, fr) / max(cu[0], 1e-9))
     return fr, cu, co, ause
 
 

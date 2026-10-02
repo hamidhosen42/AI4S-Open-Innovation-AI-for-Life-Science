@@ -1,0 +1,876 @@
+source,seed,field,hours,count
+StarDist reference (real H2B),-1,0,0.0,79
+StarDist reference (real H2B),-1,0,2.25,82
+StarDist reference (real H2B),-1,0,12.25,101
+StarDist reference (real H2B),-1,0,24.75,156
+StarDist reference (real H2B),-1,0,37.25,228
+StarDist reference (real H2B),-1,1,0.0,139
+StarDist reference (real H2B),-1,1,2.25,146
+StarDist reference (real H2B),-1,1,12.25,199
+StarDist reference (real H2B),-1,1,24.75,314
+StarDist reference (real H2B),-1,1,37.25,434
+StarDist reference (real H2B),-1,2,0.0,83
+StarDist reference (real H2B),-1,2,2.25,88
+StarDist reference (real H2B),-1,2,12.25,110
+StarDist reference (real H2B),-1,2,24.75,179
+StarDist reference (real H2B),-1,2,37.25,259
+StarDist reference (real H2B),-1,3,0.0,59
+StarDist reference (real H2B),-1,3,2.25,64
+StarDist reference (real H2B),-1,3,12.25,81
+StarDist reference (real H2B),-1,3,24.75,129
+StarDist reference (real H2B),-1,3,37.25,180
+StarDist reference (real H2B),-1,4,0.0,62
+StarDist reference (real H2B),-1,4,2.25,69
+StarDist reference (real H2B),-1,4,12.25,104
+StarDist reference (real H2B),-1,4,24.75,150
+StarDist reference (real H2B),-1,4,37.25,204
+StarDist reference (real H2B),-1,5,0.0,54
+StarDist reference (real H2B),-1,5,2.25,56
+StarDist reference (real H2B),-1,5,12.25,72
+StarDist reference (real H2B),-1,5,24.75,112
+StarDist reference (real H2B),-1,5,37.25,159
+StarDist reference (real H2B),-1,6,0.0,46
+StarDist reference (real H2B),-1,6,2.25,54
+StarDist reference (real H2B),-1,6,12.25,74
+StarDist reference (real H2B),-1,6,24.75,110
+StarDist reference (real H2B),-1,6,37.25,137
+StarDist reference (real H2B),-1,7,0.0,28
+StarDist reference (real H2B),-1,7,2.25,32
+StarDist reference (real H2B),-1,7,12.25,41
+StarDist reference (real H2B),-1,7,24.75,61
+StarDist reference (real H2B),-1,7,37.25,94
+StarDist reference (real H2B),-1,8,0.0,66
+StarDist reference (real H2B),-1,8,2.25,67
+StarDist reference (real H2B),-1,8,12.25,86
+StarDist reference (real H2B),-1,8,24.75,132
+StarDist reference (real H2B),-1,8,37.25,169
+StarDist reference (real H2B),-1,9,0.0,112
+StarDist reference (real H2B),-1,9,2.25,120
+StarDist reference (real H2B),-1,9,12.25,163
+StarDist reference (real H2B),-1,9,24.75,235
+StarDist reference (real H2B),-1,9,37.25,352
+StarDist reference (real H2B),-1,10,0.0,186
+StarDist reference (real H2B),-1,10,2.25,196
+StarDist reference (real H2B),-1,10,12.25,263
+StarDist reference (real H2B),-1,10,24.75,392
+StarDist reference (real H2B),-1,10,37.25,538
+StarDist reference (real H2B),-1,11,0.0,148
+StarDist reference (real H2B),-1,11,2.25,166
+StarDist reference (real H2B),-1,11,12.25,235
+StarDist reference (real H2B),-1,11,24.75,354
+StarDist reference (real H2B),-1,11,37.25,449
+StarDist reference (real H2B),-1,12,0.0,108
+StarDist reference (real H2B),-1,12,2.25,120
+StarDist reference (real H2B),-1,12,12.25,150
+StarDist reference (real H2B),-1,12,24.75,227
+StarDist reference (real H2B),-1,12,37.25,361
+StarDist reference (real H2B),-1,13,0.0,32
+StarDist reference (real H2B),-1,13,2.25,34
+StarDist reference (real H2B),-1,13,12.25,52
+StarDist reference (real H2B),-1,13,24.75,78
+StarDist reference (real H2B),-1,13,37.25,117
+StarDist reference (real H2B),-1,14,0.0,29
+StarDist reference (real H2B),-1,14,2.25,33
+StarDist reference (real H2B),-1,14,12.25,42
+StarDist reference (real H2B),-1,14,24.75,63
+StarDist reference (real H2B),-1,14,37.25,88
+StarDist reference (real H2B),-1,15,0.0,48
+StarDist reference (real H2B),-1,15,2.25,48
+StarDist reference (real H2B),-1,15,12.25,57
+StarDist reference (real H2B),-1,15,24.75,82
+StarDist reference (real H2B),-1,15,37.25,122
+StarDist reference (real H2B),-1,16,0.0,47
+StarDist reference (real H2B),-1,16,2.25,45
+StarDist reference (real H2B),-1,16,12.25,64
+StarDist reference (real H2B),-1,16,24.75,96
+StarDist reference (real H2B),-1,16,37.25,141
+StarDist reference (real H2B),-1,17,0.0,33
+StarDist reference (real H2B),-1,17,2.25,35
+StarDist reference (real H2B),-1,17,12.25,36
+StarDist reference (real H2B),-1,17,24.75,59
+StarDist reference (real H2B),-1,17,37.25,87
+StarDist reference (real H2B),-1,18,0.0,85
+StarDist reference (real H2B),-1,18,2.25,92
+StarDist reference (real H2B),-1,18,12.25,108
+StarDist reference (real H2B),-1,18,24.75,170
+StarDist reference (real H2B),-1,18,37.25,229
+StarDist reference (real H2B),-1,19,0.0,97
+StarDist reference (real H2B),-1,19,2.25,110
+StarDist reference (real H2B),-1,19,12.25,156
+StarDist reference (real H2B),-1,19,24.75,225
+StarDist reference (real H2B),-1,19,37.25,327
+StarDist reference (real H2B),-1,20,0.0,116
+StarDist reference (real H2B),-1,20,2.25,121
+StarDist reference (real H2B),-1,20,12.25,170
+StarDist reference (real H2B),-1,20,24.75,247
+StarDist reference (real H2B),-1,20,37.25,353
+StarDist reference (real H2B),-1,21,0.0,38
+StarDist reference (real H2B),-1,21,2.25,43
+StarDist reference (real H2B),-1,21,12.25,58
+StarDist reference (real H2B),-1,21,24.75,92
+StarDist reference (real H2B),-1,21,37.25,150
+StarDist reference (real H2B),-1,22,0.0,34
+StarDist reference (real H2B),-1,22,2.25,37
+StarDist reference (real H2B),-1,22,12.25,50
+StarDist reference (real H2B),-1,22,24.75,84
+StarDist reference (real H2B),-1,22,37.25,119
+StarDist reference (real H2B),-1,23,0.0,37
+StarDist reference (real H2B),-1,23,2.25,36
+StarDist reference (real H2B),-1,23,12.25,45
+StarDist reference (real H2B),-1,23,24.75,55
+StarDist reference (real H2B),-1,23,37.25,73
+StarDist reference (real H2B),-1,24,0.0,52
+StarDist reference (real H2B),-1,24,2.25,63
+StarDist reference (real H2B),-1,24,12.25,84
+StarDist reference (real H2B),-1,24,24.75,134
+StarDist reference (real H2B),-1,24,37.25,184
+U-Net + TTA,0,0,0.0,72
+U-Net + TTA,0,0,2.25,72
+U-Net + TTA,0,0,12.25,87
+U-Net + TTA,0,0,24.75,138
+U-Net + TTA,0,0,37.25,199
+U-Net + TTA,0,1,0.0,123
+U-Net + TTA,0,1,2.25,140
+U-Net + TTA,0,1,12.25,178
+U-Net + TTA,0,1,24.75,288
+U-Net + TTA,0,1,37.25,312
+U-Net + TTA,0,10,0.0,175
+U-Net + TTA,0,10,2.25,198
+U-Net + TTA,0,10,12.25,255
+U-Net + TTA,0,10,24.75,343
+U-Net + TTA,0,10,37.25,409
+U-Net + TTA,0,11,0.0,142
+U-Net + TTA,0,11,2.25,162
+U-Net + TTA,0,11,12.25,226
+U-Net + TTA,0,11,24.75,315
+U-Net + TTA,0,11,37.25,321
+U-Net + TTA,0,12,0.0,99
+U-Net + TTA,0,12,2.25,115
+U-Net + TTA,0,12,12.25,149
+U-Net + TTA,0,12,24.75,222
+U-Net + TTA,0,12,37.25,316
+U-Net + TTA,0,13,0.0,36
+U-Net + TTA,0,13,2.25,38
+U-Net + TTA,0,13,12.25,53
+U-Net + TTA,0,13,24.75,80
+U-Net + TTA,0,13,37.25,110
+U-Net + TTA,0,14,0.0,33
+U-Net + TTA,0,14,2.25,34
+U-Net + TTA,0,14,12.25,42
+U-Net + TTA,0,14,24.75,66
+U-Net + TTA,0,14,37.25,90
+U-Net + TTA,0,15,0.0,43
+U-Net + TTA,0,15,2.25,41
+U-Net + TTA,0,15,12.25,45
+U-Net + TTA,0,15,24.75,71
+U-Net + TTA,0,15,37.25,96
+U-Net + TTA,0,16,0.0,42
+U-Net + TTA,0,16,2.25,44
+U-Net + TTA,0,16,12.25,62
+U-Net + TTA,0,16,24.75,84
+U-Net + TTA,0,16,37.25,110
+U-Net + TTA,0,17,0.0,27
+U-Net + TTA,0,17,2.25,29
+U-Net + TTA,0,17,12.25,32
+U-Net + TTA,0,17,24.75,49
+U-Net + TTA,0,17,37.25,77
+U-Net + TTA,0,18,0.0,79
+U-Net + TTA,0,18,2.25,87
+U-Net + TTA,0,18,12.25,99
+U-Net + TTA,0,18,24.75,158
+U-Net + TTA,0,18,37.25,202
+U-Net + TTA,0,19,0.0,99
+U-Net + TTA,0,19,2.25,105
+U-Net + TTA,0,19,12.25,155
+U-Net + TTA,0,19,24.75,212
+U-Net + TTA,0,19,37.25,287
+U-Net + TTA,0,2,0.0,76
+U-Net + TTA,0,2,2.25,79
+U-Net + TTA,0,2,12.25,108
+U-Net + TTA,0,2,24.75,156
+U-Net + TTA,0,2,37.25,230
+U-Net + TTA,0,20,0.0,107
+U-Net + TTA,0,20,2.25,110
+U-Net + TTA,0,20,12.25,164
+U-Net + TTA,0,20,24.75,218
+U-Net + TTA,0,20,37.25,278
+U-Net + TTA,0,21,0.0,35
+U-Net + TTA,0,21,2.25,39
+U-Net + TTA,0,21,12.25,56
+U-Net + TTA,0,21,24.75,81
+U-Net + TTA,0,21,37.25,112
+U-Net + TTA,0,22,0.0,29
+U-Net + TTA,0,22,2.25,29
+U-Net + TTA,0,22,12.25,42
+U-Net + TTA,0,22,24.75,73
+U-Net + TTA,0,22,37.25,108
+U-Net + TTA,0,23,0.0,28
+U-Net + TTA,0,23,2.25,27
+U-Net + TTA,0,23,12.25,41
+U-Net + TTA,0,23,24.75,48
+U-Net + TTA,0,23,37.25,66
+U-Net + TTA,0,24,0.0,50
+U-Net + TTA,0,24,2.25,59
+U-Net + TTA,0,24,12.25,84
+U-Net + TTA,0,24,24.75,115
+U-Net + TTA,0,24,37.25,155
+U-Net + TTA,0,3,0.0,58
+U-Net + TTA,0,3,2.25,59
+U-Net + TTA,0,3,12.25,79
+U-Net + TTA,0,3,24.75,118
+U-Net + TTA,0,3,37.25,168
+U-Net + TTA,0,4,0.0,62
+U-Net + TTA,0,4,2.25,67
+U-Net + TTA,0,4,12.25,102
+U-Net + TTA,0,4,24.75,149
+U-Net + TTA,0,4,37.25,183
+U-Net + TTA,0,5,0.0,44
+U-Net + TTA,0,5,2.25,51
+U-Net + TTA,0,5,12.25,64
+U-Net + TTA,0,5,24.75,112
+U-Net + TTA,0,5,37.25,153
+U-Net + TTA,0,6,0.0,48
+U-Net + TTA,0,6,2.25,55
+U-Net + TTA,0,6,12.25,66
+U-Net + TTA,0,6,24.75,93
+U-Net + TTA,0,6,37.25,127
+U-Net + TTA,0,7,0.0,24
+U-Net + TTA,0,7,2.25,30
+U-Net + TTA,0,7,12.25,34
+U-Net + TTA,0,7,24.75,55
+U-Net + TTA,0,7,37.25,80
+U-Net + TTA,0,8,0.0,61
+U-Net + TTA,0,8,2.25,67
+U-Net + TTA,0,8,12.25,84
+U-Net + TTA,0,8,24.75,121
+U-Net + TTA,0,8,37.25,153
+U-Net + TTA,0,9,0.0,102
+U-Net + TTA,0,9,2.25,116
+U-Net + TTA,0,9,12.25,149
+U-Net + TTA,0,9,24.75,223
+U-Net + TTA,0,9,37.25,316
+U-Net + TTA,1,0,0.0,70
+U-Net + TTA,1,0,2.25,73
+U-Net + TTA,1,0,12.25,87
+U-Net + TTA,1,0,24.75,136
+U-Net + TTA,1,0,37.25,194
+U-Net + TTA,1,1,0.0,123
+U-Net + TTA,1,1,2.25,141
+U-Net + TTA,1,1,12.25,178
+U-Net + TTA,1,1,24.75,287
+U-Net + TTA,1,1,37.25,315
+U-Net + TTA,1,10,0.0,176
+U-Net + TTA,1,10,2.25,199
+U-Net + TTA,1,10,12.25,260
+U-Net + TTA,1,10,24.75,351
+U-Net + TTA,1,10,37.25,418
+U-Net + TTA,1,11,0.0,142
+U-Net + TTA,1,11,2.25,164
+U-Net + TTA,1,11,12.25,221
+U-Net + TTA,1,11,24.75,318
+U-Net + TTA,1,11,37.25,339
+U-Net + TTA,1,12,0.0,101
+U-Net + TTA,1,12,2.25,115
+U-Net + TTA,1,12,12.25,155
+U-Net + TTA,1,12,24.75,218
+U-Net + TTA,1,12,37.25,309
+U-Net + TTA,1,13,0.0,36
+U-Net + TTA,1,13,2.25,39
+U-Net + TTA,1,13,12.25,54
+U-Net + TTA,1,13,24.75,78
+U-Net + TTA,1,13,37.25,107
+U-Net + TTA,1,14,0.0,33
+U-Net + TTA,1,14,2.25,33
+U-Net + TTA,1,14,12.25,43
+U-Net + TTA,1,14,24.75,67
+U-Net + TTA,1,14,37.25,89
+U-Net + TTA,1,15,0.0,40
+U-Net + TTA,1,15,2.25,42
+U-Net + TTA,1,15,12.25,48
+U-Net + TTA,1,15,24.75,74
+U-Net + TTA,1,15,37.25,99
+U-Net + TTA,1,16,0.0,40
+U-Net + TTA,1,16,2.25,44
+U-Net + TTA,1,16,12.25,63
+U-Net + TTA,1,16,24.75,79
+U-Net + TTA,1,16,37.25,111
+U-Net + TTA,1,17,0.0,27
+U-Net + TTA,1,17,2.25,28
+U-Net + TTA,1,17,12.25,32
+U-Net + TTA,1,17,24.75,48
+U-Net + TTA,1,17,37.25,78
+U-Net + TTA,1,18,0.0,80
+U-Net + TTA,1,18,2.25,86
+U-Net + TTA,1,18,12.25,99
+U-Net + TTA,1,18,24.75,159
+U-Net + TTA,1,18,37.25,200
+U-Net + TTA,1,19,0.0,99
+U-Net + TTA,1,19,2.25,104
+U-Net + TTA,1,19,12.25,152
+U-Net + TTA,1,19,24.75,220
+U-Net + TTA,1,19,37.25,293
+U-Net + TTA,1,2,0.0,76
+U-Net + TTA,1,2,2.25,79
+U-Net + TTA,1,2,12.25,110
+U-Net + TTA,1,2,24.75,161
+U-Net + TTA,1,2,37.25,224
+U-Net + TTA,1,20,0.0,108
+U-Net + TTA,1,20,2.25,111
+U-Net + TTA,1,20,12.25,166
+U-Net + TTA,1,20,24.75,212
+U-Net + TTA,1,20,37.25,298
+U-Net + TTA,1,21,0.0,34
+U-Net + TTA,1,21,2.25,40
+U-Net + TTA,1,21,12.25,60
+U-Net + TTA,1,21,24.75,81
+U-Net + TTA,1,21,37.25,112
+U-Net + TTA,1,22,0.0,28
+U-Net + TTA,1,22,2.25,30
+U-Net + TTA,1,22,12.25,43
+U-Net + TTA,1,22,24.75,68
+U-Net + TTA,1,22,37.25,110
+U-Net + TTA,1,23,0.0,26
+U-Net + TTA,1,23,2.25,27
+U-Net + TTA,1,23,12.25,40
+U-Net + TTA,1,23,24.75,46
+U-Net + TTA,1,23,37.25,66
+U-Net + TTA,1,24,0.0,50
+U-Net + TTA,1,24,2.25,58
+U-Net + TTA,1,24,12.25,82
+U-Net + TTA,1,24,24.75,114
+U-Net + TTA,1,24,37.25,154
+U-Net + TTA,1,3,0.0,54
+U-Net + TTA,1,3,2.25,57
+U-Net + TTA,1,3,12.25,77
+U-Net + TTA,1,3,24.75,118
+U-Net + TTA,1,3,37.25,171
+U-Net + TTA,1,4,0.0,61
+U-Net + TTA,1,4,2.25,68
+U-Net + TTA,1,4,12.25,104
+U-Net + TTA,1,4,24.75,149
+U-Net + TTA,1,4,37.25,185
+U-Net + TTA,1,5,0.0,46
+U-Net + TTA,1,5,2.25,54
+U-Net + TTA,1,5,12.25,64
+U-Net + TTA,1,5,24.75,113
+U-Net + TTA,1,5,37.25,152
+U-Net + TTA,1,6,0.0,47
+U-Net + TTA,1,6,2.25,51
+U-Net + TTA,1,6,12.25,67
+U-Net + TTA,1,6,24.75,91
+U-Net + TTA,1,6,37.25,125
+U-Net + TTA,1,7,0.0,25
+U-Net + TTA,1,7,2.25,30
+U-Net + TTA,1,7,12.25,35
+U-Net + TTA,1,7,24.75,56
+U-Net + TTA,1,7,37.25,83
+U-Net + TTA,1,8,0.0,62
+U-Net + TTA,1,8,2.25,67
+U-Net + TTA,1,8,12.25,85
+U-Net + TTA,1,8,24.75,119
+U-Net + TTA,1,8,37.25,145
+U-Net + TTA,1,9,0.0,101
+U-Net + TTA,1,9,2.25,116
+U-Net + TTA,1,9,12.25,151
+U-Net + TTA,1,9,24.75,225
+U-Net + TTA,1,9,37.25,325
+U-Net + TTA,2,0,0.0,68
+U-Net + TTA,2,0,2.25,64
+U-Net + TTA,2,0,12.25,82
+U-Net + TTA,2,0,24.75,120
+U-Net + TTA,2,0,37.25,167
+U-Net + TTA,2,1,0.0,121
+U-Net + TTA,2,1,2.25,142
+U-Net + TTA,2,1,12.25,177
+U-Net + TTA,2,1,24.75,244
+U-Net + TTA,2,1,37.25,242
+U-Net + TTA,2,10,0.0,165
+U-Net + TTA,2,10,2.25,186
+U-Net + TTA,2,10,12.25,239
+U-Net + TTA,2,10,24.75,285
+U-Net + TTA,2,10,37.25,332
+U-Net + TTA,2,11,0.0,141
+U-Net + TTA,2,11,2.25,164
+U-Net + TTA,2,11,12.25,207
+U-Net + TTA,2,11,24.75,264
+U-Net + TTA,2,11,37.25,257
+U-Net + TTA,2,12,0.0,97
+U-Net + TTA,2,12,2.25,114
+U-Net + TTA,2,12,12.25,140
+U-Net + TTA,2,12,24.75,199
+U-Net + TTA,2,12,37.25,230
+U-Net + TTA,2,13,0.0,33
+U-Net + TTA,2,13,2.25,38
+U-Net + TTA,2,13,12.25,51
+U-Net + TTA,2,13,24.75,72
+U-Net + TTA,2,13,37.25,91
+U-Net + TTA,2,14,0.0,30
+U-Net + TTA,2,14,2.25,31
+U-Net + TTA,2,14,12.25,39
+U-Net + TTA,2,14,24.75,55
+U-Net + TTA,2,14,37.25,67
+U-Net + TTA,2,15,0.0,41
+U-Net + TTA,2,15,2.25,37
+U-Net + TTA,2,15,12.25,42
+U-Net + TTA,2,15,24.75,62
+U-Net + TTA,2,15,37.25,80
+U-Net + TTA,2,16,0.0,39
+U-Net + TTA,2,16,2.25,41
+U-Net + TTA,2,16,12.25,59
+U-Net + TTA,2,16,24.75,79
+U-Net + TTA,2,16,37.25,98
+U-Net + TTA,2,17,0.0,25
+U-Net + TTA,2,17,2.25,27
+U-Net + TTA,2,17,12.25,31
+U-Net + TTA,2,17,24.75,40
+U-Net + TTA,2,17,37.25,51
+U-Net + TTA,2,18,0.0,74
+U-Net + TTA,2,18,2.25,76
+U-Net + TTA,2,18,12.25,90
+U-Net + TTA,2,18,24.75,145
+U-Net + TTA,2,18,37.25,186
+U-Net + TTA,2,19,0.0,99
+U-Net + TTA,2,19,2.25,99
+U-Net + TTA,2,19,12.25,149
+U-Net + TTA,2,19,24.75,197
+U-Net + TTA,2,19,37.25,230
+U-Net + TTA,2,2,0.0,76
+U-Net + TTA,2,2,2.25,77
+U-Net + TTA,2,2,12.25,101
+U-Net + TTA,2,2,24.75,138
+U-Net + TTA,2,2,37.25,186
+U-Net + TTA,2,20,0.0,107
+U-Net + TTA,2,20,2.25,107
+U-Net + TTA,2,20,12.25,149
+U-Net + TTA,2,20,24.75,198
+U-Net + TTA,2,20,37.25,203
+U-Net + TTA,2,21,0.0,31
+U-Net + TTA,2,21,2.25,38
+U-Net + TTA,2,21,12.25,52
+U-Net + TTA,2,21,24.75,70
+U-Net + TTA,2,21,37.25,103
+U-Net + TTA,2,22,0.0,27
+U-Net + TTA,2,22,2.25,27
+U-Net + TTA,2,22,12.25,40
+U-Net + TTA,2,22,24.75,63
+U-Net + TTA,2,22,37.25,95
+U-Net + TTA,2,23,0.0,26
+U-Net + TTA,2,23,2.25,27
+U-Net + TTA,2,23,12.25,37
+U-Net + TTA,2,23,24.75,44
+U-Net + TTA,2,23,37.25,58
+U-Net + TTA,2,24,0.0,47
+U-Net + TTA,2,24,2.25,58
+U-Net + TTA,2,24,12.25,71
+U-Net + TTA,2,24,24.75,102
+U-Net + TTA,2,24,37.25,115
+U-Net + TTA,2,3,0.0,53
+U-Net + TTA,2,3,2.25,56
+U-Net + TTA,2,3,12.25,76
+U-Net + TTA,2,3,24.75,108
+U-Net + TTA,2,3,37.25,142
+U-Net + TTA,2,4,0.0,61
+U-Net + TTA,2,4,2.25,63
+U-Net + TTA,2,4,12.25,98
+U-Net + TTA,2,4,24.75,134
+U-Net + TTA,2,4,37.25,159
+U-Net + TTA,2,5,0.0,43
+U-Net + TTA,2,5,2.25,47
+U-Net + TTA,2,5,12.25,57
+U-Net + TTA,2,5,24.75,99
+U-Net + TTA,2,5,37.25,139
+U-Net + TTA,2,6,0.0,45
+U-Net + TTA,2,6,2.25,52
+U-Net + TTA,2,6,12.25,65
+U-Net + TTA,2,6,24.75,83
+U-Net + TTA,2,6,37.25,112
+U-Net + TTA,2,7,0.0,22
+U-Net + TTA,2,7,2.25,26
+U-Net + TTA,2,7,12.25,33
+U-Net + TTA,2,7,24.75,52
+U-Net + TTA,2,7,37.25,74
+U-Net + TTA,2,8,0.0,63
+U-Net + TTA,2,8,2.25,67
+U-Net + TTA,2,8,12.25,78
+U-Net + TTA,2,8,24.75,110
+U-Net + TTA,2,8,37.25,133
+U-Net + TTA,2,9,0.0,102
+U-Net + TTA,2,9,2.25,114
+U-Net + TTA,2,9,12.25,140
+U-Net + TTA,2,9,24.75,206
+U-Net + TTA,2,9,37.25,294
+ChipStain + TTA,0,0,0.0,69
+ChipStain + TTA,0,0,2.25,75
+ChipStain + TTA,0,0,12.25,93
+ChipStain + TTA,0,0,24.75,137
+ChipStain + TTA,0,0,37.25,206
+ChipStain + TTA,0,1,0.0,127
+ChipStain + TTA,0,1,2.25,147
+ChipStain + TTA,0,1,12.25,197
+ChipStain + TTA,0,1,24.75,301
+ChipStain + TTA,0,1,37.25,364
+ChipStain + TTA,0,10,0.0,188
+ChipStain + TTA,0,10,2.25,204
+ChipStain + TTA,0,10,12.25,258
+ChipStain + TTA,0,10,24.75,365
+ChipStain + TTA,0,10,37.25,457
+ChipStain + TTA,0,11,0.0,146
+ChipStain + TTA,0,11,2.25,171
+ChipStain + TTA,0,11,12.25,233
+ChipStain + TTA,0,11,24.75,319
+ChipStain + TTA,0,11,37.25,367
+ChipStain + TTA,0,12,0.0,104
+ChipStain + TTA,0,12,2.25,116
+ChipStain + TTA,0,12,12.25,151
+ChipStain + TTA,0,12,24.75,222
+ChipStain + TTA,0,12,37.25,327
+ChipStain + TTA,0,13,0.0,36
+ChipStain + TTA,0,13,2.25,40
+ChipStain + TTA,0,13,12.25,58
+ChipStain + TTA,0,13,24.75,86
+ChipStain + TTA,0,13,37.25,117
+ChipStain + TTA,0,14,0.0,34
+ChipStain + TTA,0,14,2.25,38
+ChipStain + TTA,0,14,12.25,46
+ChipStain + TTA,0,14,24.75,68
+ChipStain + TTA,0,14,37.25,86
+ChipStain + TTA,0,15,0.0,42
+ChipStain + TTA,0,15,2.25,42
+ChipStain + TTA,0,15,12.25,52
+ChipStain + TTA,0,15,24.75,76
+ChipStain + TTA,0,15,37.25,106
+ChipStain + TTA,0,16,0.0,41
+ChipStain + TTA,0,16,2.25,47
+ChipStain + TTA,0,16,12.25,65
+ChipStain + TTA,0,16,24.75,89
+ChipStain + TTA,0,16,37.25,133
+ChipStain + TTA,0,17,0.0,28
+ChipStain + TTA,0,17,2.25,31
+ChipStain + TTA,0,17,12.25,31
+ChipStain + TTA,0,17,24.75,49
+ChipStain + TTA,0,17,37.25,82
+ChipStain + TTA,0,18,0.0,81
+ChipStain + TTA,0,18,2.25,91
+ChipStain + TTA,0,18,12.25,104
+ChipStain + TTA,0,18,24.75,167
+ChipStain + TTA,0,18,37.25,206
+ChipStain + TTA,0,19,0.0,100
+ChipStain + TTA,0,19,2.25,107
+ChipStain + TTA,0,19,12.25,154
+ChipStain + TTA,0,19,24.75,219
+ChipStain + TTA,0,19,37.25,298
+ChipStain + TTA,0,2,0.0,81
+ChipStain + TTA,0,2,2.25,82
+ChipStain + TTA,0,2,12.25,112
+ChipStain + TTA,0,2,24.75,158
+ChipStain + TTA,0,2,37.25,227
+ChipStain + TTA,0,20,0.0,109
+ChipStain + TTA,0,20,2.25,114
+ChipStain + TTA,0,20,12.25,168
+ChipStain + TTA,0,20,24.75,220
+ChipStain + TTA,0,20,37.25,322
+ChipStain + TTA,0,21,0.0,34
+ChipStain + TTA,0,21,2.25,43
+ChipStain + TTA,0,21,12.25,57
+ChipStain + TTA,0,21,24.75,86
+ChipStain + TTA,0,21,37.25,164
+ChipStain + TTA,0,22,0.0,27
+ChipStain + TTA,0,22,2.25,29
+ChipStain + TTA,0,22,12.25,39
+ChipStain + TTA,0,22,24.75,75
+ChipStain + TTA,0,22,37.25,109
+ChipStain + TTA,0,23,0.0,28
+ChipStain + TTA,0,23,2.25,29
+ChipStain + TTA,0,23,12.25,41
+ChipStain + TTA,0,23,24.75,59
+ChipStain + TTA,0,23,37.25,83
+ChipStain + TTA,0,24,0.0,50
+ChipStain + TTA,0,24,2.25,63
+ChipStain + TTA,0,24,12.25,84
+ChipStain + TTA,0,24,24.75,115
+ChipStain + TTA,0,24,37.25,161
+ChipStain + TTA,0,3,0.0,62
+ChipStain + TTA,0,3,2.25,63
+ChipStain + TTA,0,3,12.25,76
+ChipStain + TTA,0,3,24.75,122
+ChipStain + TTA,0,3,37.25,183
+ChipStain + TTA,0,4,0.0,62
+ChipStain + TTA,0,4,2.25,68
+ChipStain + TTA,0,4,12.25,103
+ChipStain + TTA,0,4,24.75,148
+ChipStain + TTA,0,4,37.25,187
+ChipStain + TTA,0,5,0.0,46
+ChipStain + TTA,0,5,2.25,58
+ChipStain + TTA,0,5,12.25,65
+ChipStain + TTA,0,5,24.75,118
+ChipStain + TTA,0,5,37.25,159
+ChipStain + TTA,0,6,0.0,47
+ChipStain + TTA,0,6,2.25,52
+ChipStain + TTA,0,6,12.25,66
+ChipStain + TTA,0,6,24.75,101
+ChipStain + TTA,0,6,37.25,131
+ChipStain + TTA,0,7,0.0,24
+ChipStain + TTA,0,7,2.25,31
+ChipStain + TTA,0,7,12.25,37
+ChipStain + TTA,0,7,24.75,61
+ChipStain + TTA,0,7,37.25,84
+ChipStain + TTA,0,8,0.0,68
+ChipStain + TTA,0,8,2.25,71
+ChipStain + TTA,0,8,12.25,87
+ChipStain + TTA,0,8,24.75,124
+ChipStain + TTA,0,8,37.25,165
+ChipStain + TTA,0,9,0.0,103
+ChipStain + TTA,0,9,2.25,117
+ChipStain + TTA,0,9,12.25,157
+ChipStain + TTA,0,9,24.75,241
+ChipStain + TTA,0,9,37.25,314
+ChipStain + TTA,1,0,0.0,70
+ChipStain + TTA,1,0,2.25,73
+ChipStain + TTA,1,0,12.25,91
+ChipStain + TTA,1,0,24.75,145
+ChipStain + TTA,1,0,37.25,210
+ChipStain + TTA,1,1,0.0,129
+ChipStain + TTA,1,1,2.25,123
+ChipStain + TTA,1,1,12.25,146
+ChipStain + TTA,1,1,24.75,267
+ChipStain + TTA,1,1,37.25,45
+ChipStain + TTA,1,10,0.0,186
+ChipStain + TTA,1,10,2.25,203
+ChipStain + TTA,1,10,12.25,250
+ChipStain + TTA,1,10,24.75,313
+ChipStain + TTA,1,10,37.25,280
+ChipStain + TTA,1,11,0.0,145
+ChipStain + TTA,1,11,2.25,158
+ChipStain + TTA,1,11,12.25,230
+ChipStain + TTA,1,11,24.75,308
+ChipStain + TTA,1,11,37.25,299
+ChipStain + TTA,1,12,0.0,102
+ChipStain + TTA,1,12,2.25,120
+ChipStain + TTA,1,12,12.25,145
+ChipStain + TTA,1,12,24.75,228
+ChipStain + TTA,1,12,37.25,311
+ChipStain + TTA,1,13,0.0,35
+ChipStain + TTA,1,13,2.25,39
+ChipStain + TTA,1,13,12.25,54
+ChipStain + TTA,1,13,24.75,83
+ChipStain + TTA,1,13,37.25,116
+ChipStain + TTA,1,14,0.0,35
+ChipStain + TTA,1,14,2.25,36
+ChipStain + TTA,1,14,12.25,48
+ChipStain + TTA,1,14,24.75,67
+ChipStain + TTA,1,14,37.25,89
+ChipStain + TTA,1,15,0.0,42
+ChipStain + TTA,1,15,2.25,42
+ChipStain + TTA,1,15,12.25,54
+ChipStain + TTA,1,15,24.75,76
+ChipStain + TTA,1,15,37.25,99
+ChipStain + TTA,1,16,0.0,41
+ChipStain + TTA,1,16,2.25,47
+ChipStain + TTA,1,16,12.25,66
+ChipStain + TTA,1,16,24.75,89
+ChipStain + TTA,1,16,37.25,124
+ChipStain + TTA,1,17,0.0,28
+ChipStain + TTA,1,17,2.25,32
+ChipStain + TTA,1,17,12.25,31
+ChipStain + TTA,1,17,24.75,49
+ChipStain + TTA,1,17,37.25,82
+ChipStain + TTA,1,18,0.0,81
+ChipStain + TTA,1,18,2.25,88
+ChipStain + TTA,1,18,12.25,102
+ChipStain + TTA,1,18,24.75,154
+ChipStain + TTA,1,18,37.25,188
+ChipStain + TTA,1,19,0.0,100
+ChipStain + TTA,1,19,2.25,110
+ChipStain + TTA,1,19,12.25,153
+ChipStain + TTA,1,19,24.75,193
+ChipStain + TTA,1,19,37.25,268
+ChipStain + TTA,1,2,0.0,84
+ChipStain + TTA,1,2,2.25,83
+ChipStain + TTA,1,2,12.25,109
+ChipStain + TTA,1,2,24.75,150
+ChipStain + TTA,1,2,37.25,229
+ChipStain + TTA,1,20,0.0,97
+ChipStain + TTA,1,20,2.25,117
+ChipStain + TTA,1,20,12.25,162
+ChipStain + TTA,1,20,24.75,224
+ChipStain + TTA,1,20,37.25,307
+ChipStain + TTA,1,21,0.0,35
+ChipStain + TTA,1,21,2.25,43
+ChipStain + TTA,1,21,12.25,55
+ChipStain + TTA,1,21,24.75,85
+ChipStain + TTA,1,21,37.25,116
+ChipStain + TTA,1,22,0.0,29
+ChipStain + TTA,1,22,2.25,28
+ChipStain + TTA,1,22,12.25,43
+ChipStain + TTA,1,22,24.75,76
+ChipStain + TTA,1,22,37.25,111
+ChipStain + TTA,1,23,0.0,28
+ChipStain + TTA,1,23,2.25,30
+ChipStain + TTA,1,23,12.25,40
+ChipStain + TTA,1,23,24.75,59
+ChipStain + TTA,1,23,37.25,73
+ChipStain + TTA,1,24,0.0,50
+ChipStain + TTA,1,24,2.25,60
+ChipStain + TTA,1,24,12.25,84
+ChipStain + TTA,1,24,24.75,112
+ChipStain + TTA,1,24,37.25,159
+ChipStain + TTA,1,3,0.0,61
+ChipStain + TTA,1,3,2.25,60
+ChipStain + TTA,1,3,12.25,79
+ChipStain + TTA,1,3,24.75,120
+ChipStain + TTA,1,3,37.25,173
+ChipStain + TTA,1,4,0.0,62
+ChipStain + TTA,1,4,2.25,68
+ChipStain + TTA,1,4,12.25,95
+ChipStain + TTA,1,4,24.75,131
+ChipStain + TTA,1,4,37.25,150
+ChipStain + TTA,1,5,0.0,46
+ChipStain + TTA,1,5,2.25,60
+ChipStain + TTA,1,5,12.25,68
+ChipStain + TTA,1,5,24.75,113
+ChipStain + TTA,1,5,37.25,154
+ChipStain + TTA,1,6,0.0,46
+ChipStain + TTA,1,6,2.25,54
+ChipStain + TTA,1,6,12.25,68
+ChipStain + TTA,1,6,24.75,99
+ChipStain + TTA,1,6,37.25,100
+ChipStain + TTA,1,7,0.0,24
+ChipStain + TTA,1,7,2.25,36
+ChipStain + TTA,1,7,12.25,39
+ChipStain + TTA,1,7,24.75,63
+ChipStain + TTA,1,7,37.25,83
+ChipStain + TTA,1,8,0.0,66
+ChipStain + TTA,1,8,2.25,69
+ChipStain + TTA,1,8,12.25,86
+ChipStain + TTA,1,8,24.75,125
+ChipStain + TTA,1,8,37.25,167
+ChipStain + TTA,1,9,0.0,94
+ChipStain + TTA,1,9,2.25,95
+ChipStain + TTA,1,9,12.25,124
+ChipStain + TTA,1,9,24.75,137
+ChipStain + TTA,1,9,37.25,17
+ChipStain + TTA,2,0,0.0,68
+ChipStain + TTA,2,0,2.25,74
+ChipStain + TTA,2,0,12.25,89
+ChipStain + TTA,2,0,24.75,141
+ChipStain + TTA,2,0,37.25,204
+ChipStain + TTA,2,1,0.0,127
+ChipStain + TTA,2,1,2.25,145
+ChipStain + TTA,2,1,12.25,194
+ChipStain + TTA,2,1,24.75,293
+ChipStain + TTA,2,1,37.25,365
+ChipStain + TTA,2,10,0.0,184
+ChipStain + TTA,2,10,2.25,198
+ChipStain + TTA,2,10,12.25,259
+ChipStain + TTA,2,10,24.75,361
+ChipStain + TTA,2,10,37.25,456
+ChipStain + TTA,2,11,0.0,146
+ChipStain + TTA,2,11,2.25,173
+ChipStain + TTA,2,11,12.25,232
+ChipStain + TTA,2,11,24.75,311
+ChipStain + TTA,2,11,37.25,382
+ChipStain + TTA,2,12,0.0,104
+ChipStain + TTA,2,12,2.25,121
+ChipStain + TTA,2,12,12.25,149
+ChipStain + TTA,2,12,24.75,225
+ChipStain + TTA,2,12,37.25,327
+ChipStain + TTA,2,13,0.0,37
+ChipStain + TTA,2,13,2.25,44
+ChipStain + TTA,2,13,12.25,58
+ChipStain + TTA,2,13,24.75,88
+ChipStain + TTA,2,13,37.25,113
+ChipStain + TTA,2,14,0.0,34
+ChipStain + TTA,2,14,2.25,37
+ChipStain + TTA,2,14,12.25,49
+ChipStain + TTA,2,14,24.75,69
+ChipStain + TTA,2,14,37.25,90
+ChipStain + TTA,2,15,0.0,41
+ChipStain + TTA,2,15,2.25,41
+ChipStain + TTA,2,15,12.25,53
+ChipStain + TTA,2,15,24.75,76
+ChipStain + TTA,2,15,37.25,101
+ChipStain + TTA,2,16,0.0,40
+ChipStain + TTA,2,16,2.25,46
+ChipStain + TTA,2,16,12.25,68
+ChipStain + TTA,2,16,24.75,87
+ChipStain + TTA,2,16,37.25,118
+ChipStain + TTA,2,17,0.0,28
+ChipStain + TTA,2,17,2.25,30
+ChipStain + TTA,2,17,12.25,31
+ChipStain + TTA,2,17,24.75,50
+ChipStain + TTA,2,17,37.25,80
+ChipStain + TTA,2,18,0.0,80
+ChipStain + TTA,2,18,2.25,88
+ChipStain + TTA,2,18,12.25,103
+ChipStain + TTA,2,18,24.75,162
+ChipStain + TTA,2,18,37.25,198
+ChipStain + TTA,2,19,0.0,99
+ChipStain + TTA,2,19,2.25,106
+ChipStain + TTA,2,19,12.25,154
+ChipStain + TTA,2,19,24.75,214
+ChipStain + TTA,2,19,37.25,297
+ChipStain + TTA,2,2,0.0,129
+ChipStain + TTA,2,2,2.25,92
+ChipStain + TTA,2,2,12.25,107
+ChipStain + TTA,2,2,24.75,159
+ChipStain + TTA,2,2,37.25,223
+ChipStain + TTA,2,20,0.0,109
+ChipStain + TTA,2,20,2.25,113
+ChipStain + TTA,2,20,12.25,165
+ChipStain + TTA,2,20,24.75,224
+ChipStain + TTA,2,20,37.25,304
+ChipStain + TTA,2,21,0.0,38
+ChipStain + TTA,2,21,2.25,44
+ChipStain + TTA,2,21,12.25,57
+ChipStain + TTA,2,21,24.75,85
+ChipStain + TTA,2,21,37.25,115
+ChipStain + TTA,2,22,0.0,28
+ChipStain + TTA,2,22,2.25,28
+ChipStain + TTA,2,22,12.25,41
+ChipStain + TTA,2,22,24.75,76
+ChipStain + TTA,2,22,37.25,121
+ChipStain + TTA,2,23,0.0,29
+ChipStain + TTA,2,23,2.25,29
+ChipStain + TTA,2,23,12.25,41
+ChipStain + TTA,2,23,24.75,55
+ChipStain + TTA,2,23,37.25,75
+ChipStain + TTA,2,24,0.0,50
+ChipStain + TTA,2,24,2.25,60
+ChipStain + TTA,2,24,12.25,83
+ChipStain + TTA,2,24,24.75,115
+ChipStain + TTA,2,24,37.25,156
+ChipStain + TTA,2,3,0.0,82
+ChipStain + TTA,2,3,2.25,59
+ChipStain + TTA,2,3,12.25,114
+ChipStain + TTA,2,3,24.75,123
+ChipStain + TTA,2,3,37.25,174
+ChipStain + TTA,2,4,0.0,65
+ChipStain + TTA,2,4,2.25,69
+ChipStain + TTA,2,4,12.25,103
+ChipStain + TTA,2,4,24.75,148
+ChipStain + TTA,2,4,37.25,188
+ChipStain + TTA,2,5,0.0,46
+ChipStain + TTA,2,5,2.25,55
+ChipStain + TTA,2,5,12.25,67
+ChipStain + TTA,2,5,24.75,112
+ChipStain + TTA,2,5,37.25,159
+ChipStain + TTA,2,6,0.0,48
+ChipStain + TTA,2,6,2.25,52
+ChipStain + TTA,2,6,12.25,66
+ChipStain + TTA,2,6,24.75,98
+ChipStain + TTA,2,6,37.25,125
+ChipStain + TTA,2,7,0.0,23
+ChipStain + TTA,2,7,2.25,34
+ChipStain + TTA,2,7,12.25,38
+ChipStain + TTA,2,7,24.75,60
+ChipStain + TTA,2,7,37.25,80
+ChipStain + TTA,2,8,0.0,65
+ChipStain + TTA,2,8,2.25,70
+ChipStain + TTA,2,8,12.25,90
+ChipStain + TTA,2,8,24.75,125
+ChipStain + TTA,2,8,37.25,161
+ChipStain + TTA,2,9,0.0,117
+ChipStain + TTA,2,9,2.25,115
+ChipStain + TTA,2,9,12.25,153
+ChipStain + TTA,2,9,24.75,238
+ChipStain + TTA,2,9,37.25,309

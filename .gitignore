@@ -25,3 +25,14 @@ runs/
 *.pth
 *.egg-info/
 weights/
+
+# internal notes / scraped competition pages (kept locally, not published)
+docs/plan.html
+docs/plan.pdf
+data/competition_pages_raw.md
+data/data_guidelines.md
+
+# generated media (rebuilt by scripts/build_all.sh)
+writeup/slides/
+writeup/video/
+writeup/ChipStain_slides.html

@@ -1,196 +1,163 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <title>ChipStain — Technical Report</title>
+<meta name="author" content="Team Hack2Publish — Md. Hamid Hosen, Esfer Sami, Foysal">
+<meta name="description" content="Uncertainty-aware label-free nuclear staining from bright-field microscopy">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
 <style>
-@page{size:A4;margin:22mm 20mm 22mm 20mm}
-body{font-family:"Source Serif 4",Georgia,serif;font-size:11pt;line-height:1.5;color:#111;max-width:170mm;margin:0 auto;padding:0 6mm}
-h1{font-family:"IBM Plex Sans",sans-serif;font-size:24pt;line-height:1.15;margin:0 0 4pt}
-h2{font-family:"IBM Plex Sans",sans-serif;font-size:15pt;margin:26pt 0 8pt;padding-bottom:3pt;border-bottom:1.5px solid #111;break-after:avoid}
-h3{font-family:"IBM Plex Sans",sans-serif;font-size:12pt;margin:16pt 0 5pt;break-after:avoid}
-p{margin:0 0 8pt;text-align:justify}
-.meta{font-family:"IBM Plex Sans",sans-serif;font-size:10pt;color:#444;margin-bottom:18pt}
-.abstract{border-left:3px solid #12A36F;padding:6pt 12pt;margin:14pt 0 8pt;background:#F4F8F5}
+@page{size:A4;margin:20mm 19mm 20mm 19mm}
+body{font-family:"Source Serif 4",Georgia,serif;font-size:10.8pt;line-height:1.48;color:#111;max-width:172mm;margin:0 auto;padding:0 5mm}
+h1{font-family:"IBM Plex Sans",sans-serif;font-size:22pt;line-height:1.15;margin:0 0 4pt}
+h2{font-family:"IBM Plex Sans",sans-serif;font-size:14.5pt;margin:24pt 0 8pt;padding-bottom:3pt;border-bottom:1.5px solid #111;break-after:avoid}
+h3{font-family:"IBM Plex Sans",sans-serif;font-size:11.8pt;margin:15pt 0 5pt;break-after:avoid}
+p{margin:0 0 7.5pt;text-align:justify}
+.meta{font-family:"IBM Plex Sans",sans-serif;font-size:9.6pt;color:#333;margin-bottom:14pt;line-height:1.45}
+.abstract{border-left:3px solid #2a78d6;padding:6pt 12pt;margin:12pt 0 8pt;background:#f3f7fc}
 .abstract p{margin:0}
-table{border-collapse:collapse;width:100%;font-size:8.8pt;font-family:"IBM Plex Sans",sans-serif;margin:8pt 0 12pt;break-inside:avoid}
-th{text-align:left;border-bottom:1.2px solid #111;padding:4pt 4pt;font-weight:600}
-td{border-bottom:.5px solid #ccc;padding:4pt 4pt;vertical-align:top}
-td.n{font-family:"IBM Plex Mono",monospace;font-size:8pt}
-tr.hl td{background:#E3F5EC}
-figure{margin:12pt 0 14pt;break-inside:avoid}
+.box{border:1px solid #c9d6e6;background:#f7f9fc;padding:8pt 11pt;margin:10pt 0 12pt;break-inside:avoid}
+.box h4{font-family:"IBM Plex Sans",sans-serif;font-size:10.5pt;margin:0 0 4pt}
+.box p:last-child{margin-bottom:0}
+table{border-collapse:collapse;width:100%;font-size:8.4pt;font-family:"IBM Plex Sans",sans-serif;margin:7pt 0 11pt;break-inside:avoid}
+th{text-align:left;border-bottom:1.2px solid #111;padding:3.5pt 4pt;font-weight:600;vertical-align:bottom}
+td{border-bottom:.5px solid #ccc;padding:3.5pt 4pt;vertical-align:top}
+td.n{font-family:"IBM Plex Mono",monospace;font-size:7.8pt}
+tr.hl td{background:#eaf2fc}
+figure{margin:10pt 0 13pt;break-inside:avoid}
 figure img{width:100%;display:block}
-figcaption{font-family:"IBM Plex Sans",sans-serif;font-size:9.5pt;color:#333;margin-top:5pt}
-code,pre{font-family:"IBM Plex Mono",monospace;font-size:9.3pt}
-pre{background:#F3F4F2;padding:8pt 10pt;border:.5px solid #ddd;white-space:pre-wrap;break-inside:avoid}
-ul,ol{margin:0 0 8pt;padding-left:18pt}
-li{margin-bottom:3pt}
-.eq{text-align:center;margin:8pt 0;font-family:"Source Serif 4",serif;font-style:italic}
-.small{font-size:9.5pt;color:#333}
+figcaption{font-family:"IBM Plex Sans",sans-serif;font-size:9pt;color:#333;margin-top:4pt;line-height:1.4}
+code,pre{font-family:"IBM Plex Mono",monospace;font-size:8.8pt}
+pre{background:#f3f4f2;padding:7pt 9pt;border:.5px solid #ddd;white-space:pre-wrap;break-inside:avoid}
+ul,ol{margin:0 0 7pt;padding-left:17pt}
+li{margin-bottom:2.5pt}
+.eq{text-align:center;margin:7pt 0;font-style:italic}
+.small{font-size:9pt;color:#333}
 .pb{break-before:page}
-.refs p{font-size:9.5pt;text-align:left;padding-left:18pt;text-indent:-18pt;margin-bottom:5pt}
+.refs p{font-size:9pt;text-align:left;padding-left:17pt;text-indent:-17pt;margin-bottom:4pt}
 </style></head><body>
 
-<h1>ChipStain: uncertainty-aware label-free nuclear staining for organ-on-a-chip imaging</h1>
+<h1>ChipStain: uncertainty-aware label-free nuclear staining, towards organ-on-a-chip imaging</h1>
 <div class="meta">
 <b>Submission category:</b> Model &amp; Algorithm &nbsp;·&nbsp; <b>Challenge:</b> AI4S Open Innovation — AI + Organ-on-a-Chip (5th Pazhou Algorithm Competition, Kaggle)<br>
-<b>Team Hack2Publish:</b> Md. Hamid Hosen (team leader; computer science &amp; engineering, AI/ML) and Esfer Sami (computer science &amp; engineering) — both members are AI/CS; no biology/bioengineering member, so no cross-disciplinary bonus is claimed<br>
-<b>Code:</b> https://github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Science &nbsp;·&nbsp; <b>Report version:</b> {{date}}
+<b>Team Hack2Publish:</b> Md. Hamid Hosen (team leader; computer science &amp; engineering, AI/ML; Kaggle @hosen42), Esfer Sami (computer science &amp; engineering; Kaggle @esfersami50) and Foysal (Kaggle @foysalemonshanto) — no member has a biology/bioengineering/clinical background, so no cross-disciplinary bonus is claimed<br>
+<b>Code:</b> https://github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Science &nbsp;·&nbsp; <b>Report version:</b> {{date}} &nbsp;·&nbsp; <b>AI assistance:</b> disclosed in §10
 </div>
 
-<div class="abstract"><p><b>Abstract.</b> Fluorescent nuclear stains are the workhorse read-out of organ-on-a-chip (OoC) experiments — cell counts, viability, proliferation and morphology all start from a nuclear channel — yet staining is phototoxic, terminates live time-lapse imaging and adds reagent and handling steps on small microfluidic devices. In-silico labeling (ISL) models predict the stain from label-free bright-field images, but existing ISL networks return a single image with no indication of where the prediction can be trusted, which is the main obstacle to using them for quantitative decisions. We present ChipStain, a bright-field-to-H2B translation model that predicts, for every pixel, both the fluorescence intensity and its uncertainty. The model is a U-Net with an ImageNet-pretrained ResNet-34 encoder and a heteroscedastic Gaussian head trained with the β-NLL loss; at inference, eight-fold dihedral test-time augmentation supplies an additional epistemic term. On a held-out well of the public HeLa "Kyoto" dataset (125 images, CC BY 4.0), ChipStain reaches Pearson r = {{o_pearson}} and SSIM = {{o_ssim}} against the real stain (plain U-Net: r = {{b_pearson}}, SSIM = {{b_ssim}}); nuclei segmented from the prediction match reference objects with F1 = {{o_segf1}}, versus {{real_segf1}} when the real fluorescence is segmented with the same pipeline. The uncertainty is informative: per-pixel σ correlates with the absolute error (Spearman ρ = {{o_rho}}), discarding the 20 % most-uncertain pixels lowers the remaining error by {{sparse_gain}} %, and per-image mean σ ranks images by accuracy with ρ = {{rho_img}}. Code, weights, a CPU inference script and a Gradio demo are released under MIT; all data are public and openly licensed.</p></div>
+<div class="abstract"><p><b>Abstract.</b> {{abstract}}</p></div>
 
 <h2>1. Problem definition and application scenario</h2>
-<p>Organ-on-a-chip systems reconstruct tissue-level structure and function in microfluidic devices and are imaged repeatedly, often for days, by transmitted-light (bright-field or phase-contrast) microscopy. Nearly every quantitative read-out downstream of those images — cell number, confluence, proliferation rate, apoptosis, nuclear morphology, compound dose–response — starts by locating nuclei, and that step is normally done on a fluorescent DNA stain (Hoechst, DAPI) or a fluorescent histone fusion (H2B). Staining, however, has real costs in the OoC setting:</p>
+<h3>1.1 Why a label-free nuclear channel matters on a chip</h3>
+<p>Organ-on-a-chip (OoC) systems rebuild tissue-level structure and function in microfluidic devices and are imaged repeatedly — often for days or weeks — by transmitted-light microscopy. Nearly every quantitative read-out derived from those images starts by locating nuclei: cell number, confluence, proliferation, apoptosis and pyknosis, nuclear morphology, compound dose–response. That step is usually done on a fluorescent DNA stain or a fluorescent histone reporter, each with a cost in the OoC setting:</p>
 <ul>
-<li><b>Phototoxicity and photobleaching.</b> Repeated excitation of DNA dyes damages cells and perturbs the biology being measured [1].</li>
-<li><b>End-point only.</b> Fixation-based stains terminate the experiment; live dyes accumulate and limit the number of time-points.</li>
-<li><b>Cost and handling on chip.</b> Reagents must be perfused through small channels; every additional step risks bubbles, flow disruption and contamination, and increases per-chip cost.</li>
-<li><b>Channel budget.</b> Fluorescence channels are scarce; freeing one from the nuclear counterstain leaves it for a biologically informative marker.</li>
+<li><b>Fixed stains end the experiment.</b> DAPI after fixation gives one time-point per chip; a time course needs one chip per time-point.</li>
+<li><b>Live DNA dyes perturb the cells they measure.</b> Repeated excitation is phototoxic [1]; Hoechst 33342 is phototoxic in time-lapse imaging [11], and the live-cell dye SiR-Hoechst induces DNA-damage responses and impairs cell-cycle progression [12].</li>
+<li><b>Reporter lines must be engineered</b> — routine for a cell line such as the HeLa H2B line used here, but often impractical for primary or iPSC-derived tissue, e.g. the neural cultures that are the focus of the challenge's supporting organisation.</li>
+<li><b>Each fluorescence channel spent on nuclei</b> is unavailable for a functional reporter (e.g. a Ca²⁺ indicator), and every perfused reagent adds handling steps and bubble/contamination risk in small channels.</li>
 </ul>
-<p>In-silico labeling — predicting fluorescence from label-free images with a convolutional network [2, 3] — removes these costs, and is one of the three impact areas explicitly named by the challenge organisers. The obstacle to adoption is trust: a network produces an image for every input, including ones far from its training distribution, and a biologist has no way of telling a faithful prediction from a hallucinated one [4]. <b>ChipStain therefore addresses a narrower and more useful question than "can we predict the stain?": can we predict the stain <i>and</i> say, per pixel and per image, how much to trust it?</b></p>
-<p><b>Target users</b> are OoC and cell-culture laboratories and CROs running live time-lapse or high-content assays who want label-free nuclear read-outs, and platform developers who need a quality gate before automated downstream analysis. <b>Scope.</b> We restrict the deliverable to one target channel (nuclei) on one public dataset with a strict well-level hold-out, so that every claim can be verified from the released code within minutes.</p>
+<p>In-silico labeling (ISL) — predicting the fluorescence image from the label-free image with a neural network [2, 3] — can reduce routine staining once a paired training set exists for the system (§8), and is one of the three impact areas named by the organisers. What keeps ISL out of quantitative decisions is <b>trust</b>: a network returns an image for every input, including inputs unlike its training data, and nothing in a point prediction tells the biologist which pixels, nuclei or frames are wrong. ChipStain therefore asks a narrower and more useful question than "can we predict the stain?": <b>can we predict it and say — per pixel, per nucleus and per frame — how much to trust it, and does that trust signal hold up against simple alternatives?</b></p>
+<p><b>Target users</b> are OoC and cell-culture laboratories and CROs running live or high-content assays, and platform developers who need a quality gate before automated analysis. <b>Scope and honesty statement.</b> All quantitative validation uses public data: 2-D HeLa monolayers in a 96-well imaging plate (main results, 60 h time-lapse) and human iPSC-derived motor-neuron cultures in a dish (transfer test). <b>No organ-on-a-chip device data were available to us</b>; OoC is the target deployment, and §6.7 tests how the model behaves under the imaging shifts a chip introduces.</p>
 
-<h2>2. Data</h2>
-<h3>2.1 Source and licence</h3>
-<p>We use the public dataset <i>Automatic labelling of HeLa "Kyoto" cells using Deep Learning tools</i> by Romain Guiet (EPFL BioImaging &amp; Optics Platform), Zenodo 10.5281/zenodo.6140064, released under <b>CC BY 4.0</b> [5]. It is derived from the time-lapse dataset <i>HeLa "Kyoto" cells under the scope</i> (10.5281/zenodo.6139958) [6]. HeLa "Kyoto" cells stably express EGFP-α-tubulin and mCherry-H2B, and were imaged on a PerkinElmer Operetta (20×/NA 0.8, Andor Zyla 5.5) for 60 h at 15-min intervals. The archive contains, for each field of view and for five time-points (1, 10, 50, 100, 150), a 540 × 540 px 16-bit bright-field image, two digital-phase-contrast renderings, a two-channel fluorescence image (tubulin, H2B), and StarDist nuclei labels computed from the H2B channel. The data are a cell-line imaging dataset; they contain no human-subject, clinical or personal information.</p>
-<h3>2.2 What we use</h3>
-<p>Input is the bright-field channel; target is the mCherry-H2B channel (channel index 1, verified by its correlation of 0.79 with the nuclei labels versus 0.40 for tubulin). The StarDist labels are used <b>only</b> as reference objects for the downstream segmentation metric — never for training or model selection.</p>
-<h3>2.3 Splits without leakage</h3>
+<div class="box"><h4>Value case (illustrative arithmetic, stated assumptions)</h4>
+<p>A neural OoC culture imaged every 30 min for 14 days at 4 fields per chip needs 14 × 48 × 4 = <b>2,688 nuclear-channel exposures per chip</b>; a label-free nuclear channel removes all of them and frees that channel for a functional reporter. Fixed DAPI would instead need one chip per time-point. Neurons are post-mitotic, so label-free nuclear counts and nuclear condensation over weeks serve as a viability/neurotoxicity end-point without repeated dye exposure. The cost of being wrong is mitigated by a frame-level σ gate (§6.10), which routes frames with unusually high mean σ to a person instead of a growth curve.</p></div>
+
+<h2>2. Related work and contribution</h2>
+<p><b>In-silico labeling.</b> Christiansen et al. [2] predicted multiple fluorescent labels from transmitted-light z-stacks, outputting for every pixel a <i>discrete probability distribution over 256 intensity values</i>. Ounkomol et al. [3] (“fnet”) trained a deterministic 3-D U-Net with a mean-squared-error loss; adversarial virtual staining followed for histology [13]. <b>Uncertainty in bioimage restoration.</b> CARE [14] predicted per-pixel Laplace parameters and used the disagreement of an ensemble to flag unreliable regions; a recent diffusion-based ISL method derives hallucination maps from the variance across denoising steps [15]. <b>Uncertainty estimation.</b> Heteroscedastic regression models aleatoric noise [4]; its maximum-likelihood training is unstable and β-NLL [8] fixes this; deep ensembles [16] and test-time augmentation [17] add model-related uncertainty; sparsification curves and AUSE [18] score how well an uncertainty ranks errors.</p>
+<p><b>Contribution.</b> ChipStain introduces no new uncertainty mechanism. Its contributions are: (i) a β-NLL-stabilised heteroscedastic ISL model with test-time augmentation for bright-field → nuclei, released as an open, CPU-capable tool; and (ii) a validation of its uncertainty that the ISL literature rarely reports — against an equally strong TTA baseline, against uncertainty-free proxies (predicted intensity, edge strength, cell density), at pixel, nucleus and frame level, under imaging shift, on a biological read-out (doubling time) with a gate fixed on validation data, and on neural cultures. We report where σ helps and, equally, where it does not.</p>
+
+<h2>3. Data</h2>
+<h3>3.1 Main dataset: source, licence, usage note</h3>
+<p><i>Automatic labelling of HeLa "Kyoto" cells using Deep Learning tools</i> by Romain Guiet (EPFL BioImaging &amp; Optics Platform), Zenodo 10.5281/zenodo.6140064, <b>CC BY 4.0</b> (https://creativecommons.org/licenses/by/4.0/) [5], derived from the time-lapse <i>HeLa "Kyoto" cells under the scope</i> (10.5281/zenodo.6139958, CC BY 4.0) [6]. HeLa "Kyoto" cells stably expressing EGFP-α-tubulin and mCherry-H2B were grown as a 2-D monolayer in a CellCarrier Ultra 96-well plate (PerkinElmer) and imaged on a PerkinElmer Operetta (20×/NA 0.8) every 15 min for 60 h. The archive provides, for 5 time-points (frames 1, 10, 50, 100, 150 ≈ 0–37 h) of every field, a 540 × 540 px 16-bit bright-field image, two digital-phase-contrast renderings, a two-channel fluorescence image and StarDist nuclei labels computed automatically on the H2B channel [10]. Input is bright-field; target is mCherry-H2B (channel 1: correlation with the binarised nuclei labels {{chan_h2b}} vs {{chan_tub}} for tubulin over the 200 training images; <code>scripts/check_channels.py</code>). <b>Usage note.</b> The provider asks that the fluorescence not be reused <i>with the derived labels</i> for training and notes that the automatic labels are imperfect. We comply: we train only bright-field → fluorescence, never on the labels, and use the StarDist labels solely as reference objects for evaluation. Segmentation F1 and count errors therefore measure agreement with StarDist run on the real stain, not with manual ground truth.</p>
+<h3>3.2 Splits without leakage</h3>
 <table>
 <tr><th>Split</th><th>Wells</th><th>Fields</th><th>Images</th><th>Use</th></tr>
 <tr><td>Train</td><td>R05-C05, R05-C07</td><td>0–19 (×5 time-points)</td><td class="n">200</td><td>optimisation</td></tr>
-<tr><td>Validation</td><td>R05-C05, R05-C07</td><td>20–24 (×5 time-points)</td><td class="n">50</td><td>checkpoint selection</td></tr>
-<tr><td>Test</td><td>R05-C03 (separate well)</td><td>all 25 (×5 time-points)</td><td class="n">125</td><td>all reported numbers</td></tr>
+<tr><td>Validation</td><td>R05-C05, R05-C07</td><td>20–24 (×5 time-points)</td><td class="n">50</td><td>checkpoint selection; gate and recalibration thresholds</td></tr>
+<tr><td>Test</td><td>R05-C03 (held-out well, same plate and imaging session)</td><td>all 25 (×5 time-points)</td><td class="n">125</td><td>all reported numbers</td></tr>
 </table>
-<p>The test well is the one shipped as <code>test/</code> in the archive, so our results are directly comparable with the dataset's own baselines. All five time-points of a field are kept on the same side of every split, so near-duplicate frames cannot leak.</p>
-<h3>2.4 Pre-processing</h3>
-<p>Bright-field images are normalised per image with their 1st/99th percentiles (mapped to about [−2, 2]), making the model insensitive to camera offset and gain. The target is scaled with fixed constants from the training H2B distribution, (I − 600)/(20 000 − 600), and clipped to [0, 1]; all image metrics are computed in this space. Training uses random 256 × 256 crops with random 90° rotations and flips; evaluation uses the full 540 × 540 image, reflect-padded to 544.</p>
+<p>All time-points of a field stay on the same side of every split. All three wells come from one plate and one imaging session (file prefix 20210904_TL2), so the hold-out measures well-to-well generalisation, not generalisation across experiments, days or microscopes. Because the 125 test images are 25 fields × 5 time-points of one time-lapse, the field (n = 25) — not the image — is the unit of statistical testing (§6.2).</p>
+<h3>3.3 Additional evaluation data</h3>
+<p><b>60 h time-lapse.</b> The full 240-frame recording of test field R05-C03-F0 (10.5281/zenodo.6139958, CC BY 4.0) is used only for evaluation (§6.10); five of its frames are also test images. <b>Neural cultures.</b> Condition A of the in-silico-labeling data [2] (human iPSC-derived motor neurons; bright-field z-stacks and widefield DAPI; 22 training and 3 test wells; CC BY 4.0) is used for the transfer test (§6.11). <b>Direct-segmentation competitor.</b> The Cellpose models published by the dataset author (10.5281/zenodo.6140111, CC BY 4.0), trained to segment nuclei directly from bright-field (§6.8).</p>
+<h3>3.4 Pre-processing, compliance and ethics</h3>
+<p>Bright-field images are normalised per image with their 1st/99th percentiles (≈ [−2, 2]), making the model insensitive to camera offset and gain; the target is scaled with fixed constants from the training H2B distribution, (I − 600)/(20 000 − 600), clipped to [0, 1], and all image metrics are computed in this space. Training uses random 256 × 256 crops with 90° rotations and flips; evaluation uses full 540 × 540 images. Figures show percentile-normalised, colour-mapped renderings; every image is listed with its source and modifications in Appendix E. All data are public and CC BY 4.0. HeLa is an established human-derived cell line (taken from Henrietta Lacks in 1951 without her consent); the images contain no genetic, clinical or personal information. No clinical, personal or restricted data are used.</p>
 
-<h2>3. Method</h2>
-<h3>3.1 Backbone</h3>
-<p>ChipStain is a U-Net [7] built with <code>segmentation_models_pytorch</code>; the encoder is a ResNet-34 initialised from ImageNet weights, the decoder is the library's standard five-stage decoder with skip connections, and the input layer is adapted to one channel. The network has ≈24.4 M parameters and runs at ≈0.6 s per 540 × 540 image on CPU (≈5 s with test-time augmentation).</p>
-<h3>3.2 Heteroscedastic output and β-NLL loss</h3>
-<p>Instead of a single intensity, the last layer outputs two maps: the predicted mean μ(x) and the log-variance s(x) = log σ²(x) of a per-pixel Gaussian over the target y. The natural training objective is the negative log-likelihood</p>
-<p class="eq">L<sub>NLL</sub> = ½ Σ<sub>p</sub> [ s<sub>p</sub> + (y<sub>p</sub> − μ<sub>p</sub>)² · e<sup>−s<sub>p</sub></sup> ].</p>
-<p>Plain NLL is known to be unstable: pixels that are hard early in training receive a large σ, their gradient on μ is down-weighted by e<sup>−s</sup>, and they never get learned. We use the β-NLL reformulation of Seitzer et al. [8], which multiplies the per-pixel loss by the <i>detached</i> factor (σ²)<sup>β</sup> with β = 0.5, interpolating between NLL (β = 0) and a plain MSE on μ (β = 1). The log-variance is clamped to [−10, 4] for numerical safety. The resulting σ(x) is the model's <b>aleatoric</b> uncertainty: the intrinsic ambiguity of inferring fluorescence from the bright-field appearance at that location (e.g. cells out of focus, overlapping nuclei, mitotic rounding).</p>
-<h3>3.3 Test-time augmentation and epistemic term</h3>
-<p>At inference we evaluate the network on the eight dihedral transforms of the input (4 rotations × optional flip), undo the transform on the outputs, and report μ̄ (mean of the eight μ) as the prediction. Two variance terms are combined: the mean of the eight predicted σ² (aleatoric) and the variance of the eight μ across views (a cheap proxy for <b>epistemic</b> uncertainty — disagreement of the model with itself). The uncertainty map is σ<sub>tot</sub> = √(σ̄²<sub>ale</sub> + σ²<sub>epi</sub>).</p>
-<h3>3.4 Baselines and ablation</h3>
-<ul>
-<li><b>baseline_unet</b> — same U-Net architecture with a randomly initialised encoder, one output, L1 loss (the standard ISL recipe of [2, 3]).</li>
-<li><b>pretrained_l1</b> — ImageNet-initialised encoder, one output, L1 loss (isolates the effect of pre-training).</li>
-<li><b>chipstain_nll</b> — ImageNet encoder, two outputs, β-NLL (isolates the effect of the uncertainty head).</li>
-<li><b>chipstain_nll + TTA</b> — the full method.</li>
-</ul>
-<h3>3.5 Evaluation protocol</h3>
-<p><b>Image fidelity</b>: MAE, PSNR, SSIM and Pearson r between prediction and real H2B, per image, averaged over the 125 test images. <b>Downstream utility</b>: we segment nuclei from the predicted image with a fixed, stain-agnostic pipeline (Gaussian blur σ = 1, Otsu threshold, small-object removal, distance-transform watershed) and match objects to the StarDist reference labels at IoU ≥ 0.5, reporting precision, recall and F1. Running the same pipeline on the <i>real</i> fluorescence gives the ceiling that a perfect prediction could reach. <b>Uncertainty quality</b>: (i) Spearman rank correlation between per-pixel σ and |error| on 200 000 random pixels per image; (ii) sparsification curves — remove pixels in decreasing order of σ and track the MAE of the remainder, compared with the oracle ordering by true error; we report the area between the two curves (AUSE, lower is better) and the error reduction after removing 20 % of pixels; (iii) image-level: Spearman correlation between mean σ and MAE across the 125 test images, which is the quantity a quality gate would use.</p>
+<h2>4. Method</h2>
+<h3>4.1 Backbone</h3>
+<p>A U-Net [7] built with segmentation_models_pytorch [9]; ResNet-34 encoder [19] initialised from ImageNet [20]; five-stage decoder with skip connections; one input channel; ≈24.4 M parameters.</p>
+<h3>4.2 Heteroscedastic output and β-NLL</h3>
+<p>The last layer outputs two maps: the predicted mean μ(x) and log-variance s(x) = log σ²(x) of a per-pixel Gaussian over the target y. The Gaussian negative log-likelihood</p>
+<p class="eq">L<sub>NLL</sub> = ½ Σ<sub>p</sub> [ s<sub>p</sub> + (y<sub>p</sub> − μ<sub>p</sub>)² · e<sup>−s<sub>p</sub></sup> ]</p>
+<p>is known to be unstable: pixels that are hard early in training receive a large σ, the gradient on their mean is down-weighted by e<sup>−s</sup>, and they are under-fitted [8]. β-NLL [8] multiplies each pixel's loss by the <i>detached</i> factor (σ²)<sup>β</sup>; we use β = 0.5 (β = 0 recovers the NLL; at β = 1 the gradient with respect to μ equals the MSE gradient while σ² is still fitted). Because the loss is Gaussian, the mean head is trained with a σ-weighted squared error rather than the L1 loss of our baseline — a confound we test explicitly (§6.3). s is clamped to [−10, 4]. σ is the model's <b>learned (aleatoric) uncertainty</b>.</p>
+<h3>4.3 Test-time augmentation, ensembles and the reported σ</h3>
+<p>At inference the network is applied to the eight dihedral transforms of the input (4 rotations × optional flip); outputs are mapped back and μ̄ is their mean. The reported uncertainty is σ<sub>tot</sub> = √(mean of the eight σ² + variance of the eight μ). We call the second term <b>TTA disagreement</b>: it measures how much the prediction changes under symmetries the model should respect, a partial proxy for model uncertainty, not a Bayesian epistemic estimate [17]. For the plain U-Net baseline, the TTA disagreement alone is its uncertainty. We also evaluate <b>3-seed deep ensembles</b> [16] built from the cached predictions of the three training seeds (σ² = variance of member means + mean member σ²).</p>
+<h3>4.4 From pixels to decisions</h3>
+<p><b>Per nucleus:</b> nuclei are segmented on the prediction (Gaussian blur, Otsu threshold, distance-transform watershed); each nucleus receives the mean σ inside it. <b>Per frame:</b> the mean σ of the image, divided by the median over frames of the same time-point (cell density grows with time, and σ with density); a frame is flagged when this ratio exceeds its 95th percentile <b>on the validation split</b> — a 5 % false-alarm budget fixed without test labels.</p>
+<h3>4.5 Evaluation protocol</h3>
+<p><b>Fidelity:</b> MAE, PSNR, SSIM, Pearson r against the real H2B. <b>Downstream:</b> object-level F1 at IoU ≥ 0.5 against the StarDist reference nuclei; the same pipeline run on the real H2B gives the reference level a perfect prediction would reach. <b>Uncertainty ranking:</b> Spearman ρ(σ, |error|) on a fixed 200 000-pixel sample per image; AUSE [18] (area between the sparsification curve and the oracle curve, normalised; lower is better); and the MAE drop after removing the 20 % highest-σ pixels — each also computed for two uncertainty-free proxies taken from the prediction itself: predicted intensity μ and its edge strength |∇μ|. <b>Calibration:</b> empirical coverage of μ ± zσ. <b>Statistics:</b> 3 training seeds per configuration. Inference rests on 95 % confidence intervals from a hierarchical bootstrap that resamples seeds and fields, and on per-seed field-level Wilcoxon tests; a difference is called robust only if its CI excludes zero, no seed goes the other way and at least two seeds are significant on their own. A pooled field-level Wilcoxon (Holm-corrected) is reported for the uncertainty metrics only.</p>
 
-<h2>4. Implementation</h2>
+<h2>5. Implementation</h2>
 <table>
 <tr><th>Item</th><th>Value</th></tr>
-<tr><td>Framework</td><td>PyTorch 2.x, segmentation_models_pytorch 0.5, scikit-image 0.26, SciPy, NumPy</td></tr>
-<tr><td>Optimiser</td><td>AdamW, weight decay 1e-4, one-cycle LR schedule (peak 1e-3 for the scratch baseline, 5e-4 with the pre-trained encoder), gradient clipping at 1.0</td></tr>
-<tr><td>Batch / crops</td><td>8 crops of 256 × 256; 2 random-crop passes over the 200 training images per epoch; 40 epochs</td></tr>
-<tr><td>Model selection</td><td>best validation (Pearson + SSIM) checkpoint</td></tr>
-<tr><td>Hardware</td><td>Apple M5 laptop (Metal / MPS), ≈1 min per epoch incl. validation; ≈40 min per run. The same scripts run unchanged on a Kaggle T4 (notebook provided).</td></tr>
-<tr><td>Inference</td><td>CPU only is sufficient; no external API, no cloud service, no paid dependency</td></tr>
-<tr><td>Entry points</td><td><code>scripts/train.py</code>, <code>scripts/evaluate.py</code>, <code>scripts/inference.py</code>, <code>demo/app.py</code></td></tr>
+<tr><td>Software</td><td>Python 3.12.11, PyTorch 2.14.0, segmentation_models_pytorch 0.5.0, scikit-image 0.26.0, SciPy 1.18.1, NumPy 2.5.2 (exact pins: <code>requirements-lock.txt</code>)</td></tr>
+<tr><td>Optimiser</td><td>AdamW (weight decay 1e-4), one-cycle LR (peak 1e-3 from scratch, 5e-4 with the pretrained encoder; 10 % warm-up), gradient clipping 1.0</td></tr>
+<tr><td>Training</td><td>40 epochs × 2 random-crop passes over the 200 training images; batches of 8 × 256² crops; checkpoint = best validation Pearson + SSIM</td></tr>
+<tr><td>Seeds</td><td>0, 1, 2 for every configuration (main and ablation arms)</td></tr>
+<tr><td>Hardware / time</td><td>Apple M5 laptop (Metal/MPS): {{train_minutes}} min per 40-epoch run (measured from the run logs)</td></tr>
+<tr><td>Inference</td><td>runs on a CPU (CUDA/MPS used if present): {{cpu_single}} s per 540 × 540 image single pass, {{cpu_tta}} s with 8× TTA (measured on CPU)</td></tr>
+<tr><td>External downloads</td><td>datasets from Zenodo / Google Cloud (public); ResNet-34 ImageNet weights from the Hugging Face Hub (training only); released checkpoint from the GitHub release. No paid service, API or proprietary hardware.</td></tr>
+<tr><td>Entry points</td><td><code>scripts/train.py</code>, <code>scripts/evaluate.py</code>, <code>scripts/inference.py</code>, <code>demo/app.py</code>; analyses in <code>scripts/</code> (§9)</td></tr>
 </table>
 
-<h2>5. Experiments and results</h2>
-<h3>5.1 Main results (test well R05-C03, n = 125)</h3>
-{{main_table}}
-<p class="small">Mean ± standard deviation over test images. seg-F1 (real): the same segmentation pipeline applied to the real fluorescence, i.e. the ceiling for a perfect prediction. ρ<sub>σ,err</sub>: per-pixel Spearman correlation between predicted σ and |error|. AUSE: area under the sparsification error curve (lower is better).</p>
-<figure><img src="{{fig_ablation}}"><figcaption><b>Figure 1.</b> Ablation on the test well: Pearson r, SSIM and downstream nuclei-segmentation F1 for the plain U-Net, the pre-trained encoder, ChipStain, and ChipStain with TTA. Dashed line: F1 obtained from the real fluorescence.</figcaption></figure>
-<h3>5.2 Qualitative results</h3>
-<figure><img src="{{fig_qual}}"><figcaption><b>Figure 2.</b> Test images (rows: different fields / time-points). Columns: bright-field input, real H2B, ChipStain prediction, absolute error, predicted σ. The uncertainty map concentrates on the same regions as the error — crowded or out-of-focus cells, mitotic figures and debris — while the confident background and well-focused nuclei have low σ.</figcaption></figure>
-<h3>5.3 Is the uncertainty informative?</h3>
-<figure><img src="{{fig_sparse}}"><figcaption><b>Figure 3.</b> Sparsification curves on six test images: MAE of the remaining pixels as the most-uncertain pixels are removed, ordered by predicted σ (blue) or by the true error (green, oracle). A flat line at 1 would be an uninformative uncertainty.</figcaption></figure>
-<figure><img src="{{fig_calib}}"><figcaption><b>Figure 4.</b> Image-level calibration: mean predicted σ versus MAE for each of the 125 test images. This is the signal a laboratory would use to flag images for manual review.</figcaption></figure>
-<figure><img src="{{fig_uncq}}"><figcaption><b>Figure 5.</b> Uncertainty quality on the 125 test images: rank correlation between predicted σ and absolute error (left) and area under the sparsification error curve (right), for TTA disagreement of the plain U-Net versus ChipStain's learned uncertainty with and without TTA.</figcaption></figure>
-{{unc_text}}
-<h3>5.4 Downstream nuclei counting</h3>
-{{count_text}}
+<h2>6. Experiments and results</h2>
+{{sec_results}}
 
-<h2>6. Reliability analysis and limitations</h2>
-<ul>
-<li><b>Single cell line, single microscope.</b> All data come from HeLa "Kyoto" cells on one Operetta system. We hold out an entire well, which tests robustness to well-to-well variation but not to a different cell type, magnification or an actual OoC device. The per-image input normalisation and the uncertainty head are designed to make transfer safer, not to guarantee it; applying the released weights to a new OoC system requires fine-tuning on a small paired set (we recommend ≥ 50 fields) and re-checking the calibration numbers of §5.3.</li>
-<li><b>Fluorescent reporter, not a dye.</b> The target is mCherry-H2B, which labels chromatin like Hoechst/DAPI but with a different intensity distribution; the model predicts a normalised intensity, not absolute photon counts.</li>
-<li><b>Uncertainty is not a guarantee.</b> σ is well-correlated with error on in-distribution data ({{unc_summary}}), but a heteroscedastic head can be confidently wrong on inputs unlike anything in training; the TTA-based epistemic term mitigates but does not solve this. We therefore present σ as a triage signal, not as a calibrated confidence interval.</li>
-<li><b>Segmentation ceiling.</b> The downstream F1 is limited by our deliberately simple watershed pipeline (F1 = {{real_segf1}} even on real fluorescence); a stronger segmenter would raise both numbers. The comparison between predicted and real fluorescence under the same pipeline is the fair quantity.</li>
-<li><b>Pre-training effect.</b> On this dataset the ImageNet-initialised encoder did not outperform training from scratch under our schedule ({{pretrain_note}}); we report this honestly and keep it in the ablation.</li>
-<li><b>Single seed.</b> Numbers are from seed 0; per-image standard deviations are reported. Multi-seed runs are launched by <code>scripts/run_all.sh 0 1 2</code>.</li>
-<li><b>Ethics.</b> No human, clinical or personal data; the model cannot be misused for identification. Its main risk is over-trust in a hallucinated prediction — which is exactly what the uncertainty output is designed to counter.</li>
-</ul>
+<h2>7. Reliability analysis and limitations</h2>
+{{sec_limitations}}
 
-<h2>7. Scientific and practical impact</h2>
-<p>For an OoC laboratory, ChipStain turns every bright-field frame of a time-lapse into a nuclear read-out, without the stain: cell counts and proliferation curves over days from the same chip, an extra free fluorescence channel, and lower reagent and handling cost. The uncertainty map is the component that makes this <i>usable</i> rather than merely impressive: a per-image mean σ threshold flags frames for human review; per-pixel σ can be propagated to per-nucleus confidence so that uncertain objects are excluded from a count or a dose–response curve; and σ maps highlight regions where the imaging itself (focus, density, debris) should be fixed. Because inference is CPU-only and the code depends on nothing proprietary, the model can sit inside an acquisition pipeline or a LIMS. In the organiser's road-map towards AI-driven OoC digital twins, a trustworthy label-free nuclear channel is a prerequisite: a twin fed with hallucinated observations is worse than no twin. The same formulation extends directly to further channels (tubulin is already in the dataset), to 3-D stacks, and to neural OoC cultures, which we list as next steps.</p>
+<h2>8. Impact and the path to organ-on-a-chip deployment</h2>
+{{sec_impact}}
 
-<h2>8. Reproduction instructions</h2>
+<h2>9. Reproduction</h2>
 <pre>git clone https://github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Science.git
 cd AI4S-Open-Innovation-AI-for-Life-Science
 python -m venv .venv &amp;&amp; source .venv/bin/activate
-pip install -r requirements.txt &amp;&amp; pip install -e .
+pip install -r requirements.txt &amp;&amp; pip install -e .        # exact versions: requirements-lock.txt
+python scripts/download_data.py                              # Zenodo, ~757 MB, CC BY 4.0
+python scripts/download_weights.py                           # released checkpoint -> weights/chipstain.pt
 
-python scripts/download_data.py                 # Zenodo, ~757 MB, CC BY 4.0
-python scripts/download_weights.py              # released checkpoint -> weights/chipstain.pt
+# single image (CPU is enough)
+python scripts/inference.py --image demo/examples/example_bf_dense_t150.tif --weights weights/chipstain.pt --out outputs/pred --device cpu
 
-# single-image inference (CPU, ~5 s with TTA)
-python scripts/inference.py --image demo/examples/example_bf_dense_t150.tif \
-       --weights weights/chipstain.pt --out outputs/pred
+# full reproduction: 3 seeds x (baseline, pretrained, ChipStain) + ablation arms
+bash scripts/run_all.sh 0 1 2 &amp;&amp; bash scripts/run_ablations.sh 0 1 2
+python scripts/evaluate.py --runs runs/{baseline_unet,pretrained_l1,chipstain_nll}_s{0,1,2} --cache outputs/cache --out outputs/multiseed
+python scripts/evaluate.py --runs runs/{baseline_unet,chipstain_nll}_s{0,1,2} --tta --cache outputs/cache --out outputs/multiseed_tta
+python scripts/evaluate.py --runs runs/{baseline_unet,chipstain_nll}_s{0,1,2} --split val --tta --cache outputs/cache_val --out outputs/multiseed_val
+python scripts/evaluate.py --runs runs/ablate_*_s{0,1,2} --cache outputs/cache --out outputs/ablate
+python scripts/multiseed_summary.py &amp;&amp; python scripts/ensemble_eval.py &amp;&amp; python scripts/proliferation.py
+python scripts/nucleus_uncertainty.py &amp;&amp; python scripts/calibration.py &amp;&amp; python scripts/shift_test.py
+python scripts/timelapse.py &amp;&amp; python scripts/download_isl_neurons.py &amp;&amp; python scripts/neural_transfer.py
+python scripts/make_figures.py &amp;&amp; python scripts/make_figures_extra.py &amp;&amp; python scripts/image_register.py
+python scripts/build_report.py                               # HTML always; PDF if Chrome/Chromium is found (CHROME=/path)
+python demo/app.py --weights weights/chipstain.pt            # http://localhost:7860</pre>
+<p>The released checkpoint reproduces its seed-0 numbers exactly on the same hardware. Retraining behaves like a new seed: expect results within the seed spread of Table 1, not identical numbers. All result files used in this report are in <code>report/results/</code>.</p>
 
-# full reproduction of Table 1 (≈40 min per run on a laptop GPU / Kaggle T4)
-bash scripts/run_all.sh 0
-python scripts/evaluate.py --runs runs/baseline_unet_s0 runs/pretrained_l1_s0 runs/chipstain_nll_s0 --out outputs/eval
-python scripts/evaluate.py --runs runs/chipstain_nll_s0 --tta --out outputs/eval_tta
-python scripts/make_figures.py --eval outputs/eval --out report/figures
-
-# interactive demo
-python demo/app.py --weights weights/chipstain.pt        # http://localhost:7860</pre>
-<p>Expected outputs: <code>outputs/eval/summary_test.md</code> reproduces Table 1 (±0.01 from hardware nondeterminism); <code>outputs/pred/panel.png</code> reproduces the demo panels. A Kaggle notebook (<code>notebooks/kaggle_train.ipynb</code>) runs the same commands end-to-end on a free T4.</p>
-
-<h2>9. Sources, licences and AI-tool disclosure</h2>
+<h2>10. Sources, licences and AI-tool disclosure</h2>
 <table>
 <tr><th>Component</th><th>Source</th><th>Licence</th><th>Role</th></tr>
-<tr><td>HeLa "Kyoto" paired dataset</td><td>R. Guiet, EPFL PTBIOP — Zenodo 10.5281/zenodo.6140064 (from 10.5281/zenodo.6139958)</td><td>CC BY 4.0</td><td>training / evaluation data; StarDist labels as segmentation reference</td></tr>
-<tr><td>ResNet-34 ImageNet weights</td><td>segmentation_models_pytorch / torchvision</td><td>MIT (code); ImageNet weights, research use</td><td>encoder initialisation</td></tr>
-<tr><td>segmentation_models_pytorch</td><td>github.com/qubvel-org</td><td>MIT</td><td>U-Net implementation</td></tr>
-<tr><td>PyTorch, NumPy, SciPy, scikit-image, tifffile, pandas, Matplotlib, PyYAML, Gradio</td><td>PyPI</td><td>BSD-3 / MIT / Apache-2.0 / PSF</td><td>framework and tooling</td></tr>
-<tr><td>β-NLL loss</td><td>Seitzer et al., ICLR 2022 [8]</td><td>method (re-implemented)</td><td>training objective</td></tr>
-<tr><td>Claude (Anthropic) via Claude Code</td><td>AI assistant</td><td>—</td><td>development assistance: code scaffolding, documentation drafting, rule analysis. All code was executed and verified by the team; every number in this report comes from runs executed by the team.</td></tr>
+<tr><td>HeLa "Kyoto" labelled set</td><td>R. Guiet, EPFL BIOP — Zenodo 10.5281/zenodo.6140064</td><td>CC BY 4.0</td><td>train / validation / test; StarDist labels as evaluation reference only</td></tr>
+<tr><td>HeLa "Kyoto" time-lapse</td><td>R. Guiet, EPFL BIOP — Zenodo 10.5281/zenodo.6139958</td><td>CC BY 4.0</td><td>60 h read-out of one test field</td></tr>
+<tr><td>In-silico-labeling neurons (Cond. A)</td><td>Christiansen et al. [2], gs://in-silico-labeling</td><td>CC BY 4.0</td><td>neural transfer test</td></tr>
+<tr><td>Cellpose bright-field nuclei models</td><td>R. Guiet — Zenodo 10.5281/zenodo.6140111; Cellpose [21]</td><td>CC BY 4.0 / BSD-3</td><td>direct-segmentation competitor</td></tr>
+<tr><td>ResNet-34 ImageNet-1k weights</td><td>torchvision, re-hosted as smp-hub/resnet34.imagenet on the Hugging Face Hub</td><td>code BSD-3-Clause; weights pretrained on ImageNet, whose terms may restrict commercial use</td><td>encoder initialisation</td></tr>
+<tr><td>Libraries</td><td>PyTorch, segmentation_models_pytorch, timm, NumPy, SciPy, scikit-image, pandas, tifffile, Matplotlib, PyYAML, tqdm, Pillow, Gradio</td><td>BSD-3 / MIT / Apache-2.0 / PSF / MPL-2.0 / HPND</td><td>framework, analysis, demo</td></tr>
+<tr><td>β-NLL, TTA, AUSE</td><td>Seitzer et al. [8]; [17]; Ilg et al. [18]</td><td>methods (re-implemented)</td><td>training objective, uncertainty, evaluation</td></tr>
+<tr><td><b>Claude Opus 5 and Claude Opus 5.5 (Anthropic), via Claude Code</b></td><td>AI assistant</td><td>—</td><td><b>Primary implementation assistant:</b> analysed the rules, proposed the direction and dataset, wrote most of the code (package, scripts, demo, notebook), ran training and evaluation on the team's laptop under the team's direction, produced the figures, drafted this report, the Writeup and the video script, and ran an automated audit of the submission. The team chose the problem, category and method, directed the work, reviewed code and outputs and takes full responsibility for the content. Commits carry a Co-Authored-By trailer.</td></tr>
 </table>
-<p>No large language model, foundation model, external API or paid service is used at inference time. This project is new work created for the competition; it is not based on prior work by the team.</p>
-
-<h2 class="pb">Appendix A — Results by time-point (cell density)</h2>
-<p>The five time-points of the time-lapse span 60 h of growth, so cell density rises from sparse, well-separated cells (time-point 1) to dense, overlapping colonies (time-point 150). The table breaks the full model's test results down by time-point. Fidelity and downstream F1 decline with density, as expected for any label-free method, and the mean predicted σ rises with it — the uncertainty tracks the difficulty of the images without being told the time-point.</p>
-{{tp_table}}
-{{pr_text}}
-
-<h2>Appendix B — Training curves</h2>
-<figure><img src="{{fig_curves}}"><figcaption><b>Figure B1.</b> Validation Pearson r and SSIM per epoch for the three training configurations (seed 0). The β-NLL model converges more slowly in SSIM because part of its capacity is spent on the variance head, but reaches the same correlation with the target.</figcaption></figure>
-
-<h2>Appendix C — Additional qualitative comparisons</h2>
-<figure><img src="{{fig_qual_base}}"><figcaption><b>Figure C1.</b> The same test images as Figure 2, predicted by the plain U-Net with TTA. The right-most column is the TTA view-variance used as its uncertainty; it is much weaker and noisier than ChipStain's learned σ (compare Figure 2, and Figure 5 for the quantitative comparison).</figcaption></figure>
-<figure><img src="{{fig_qual_nll}}"><figcaption><b>Figure C2.</b> ChipStain without test-time augmentation (single forward pass, ≈0.6 s on CPU). The learned aleatoric σ alone already localises the error; TTA sharpens the prediction and adds the epistemic term.</figcaption></figure>
-
-<h2>Appendix D — Writeup checklist mapping</h2>
-<table>
-<tr><th>Challenge requirement</th><th>Where</th></tr>
-<tr><td>Category declaration</td><td>First line of the Kaggle Writeup and of this report</td></tr>
-<tr><td>Demo video (≤ 5 min, public)</td><td>Link in the Writeup</td></tr>
-<tr><td>Public code repository with README, environment, weights, entry scripts, I/O description, reproduction steps</td><td>github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Science — README.md, requirements.txt, pyproject.toml, scripts/download_weights.py, scripts/inference.py, §8</td></tr>
-<tr><td>Data sources, licences, processing, compliance</td><td>§2, DATA.md</td></tr>
-<tr><td>Methods, implementation, experiments, results</td><td>§3–§5</td></tr>
-<tr><td>Reliability analysis and limitations</td><td>§6</td></tr>
-<tr><td>Impact</td><td>§7</td></tr>
-<tr><td>External models, libraries, datasets, AI tools</td><td>§9, AI_ASSISTANCE.md</td></tr>
-<tr><td>Team composition</td><td>Header of this report (team Hack2Publish, two CSE members)</td></tr>
-</table>
+<p>No language model, foundation model, external API or paid service is used <i>by the method</i>. Released code and checkpoint: MIT; the checkpoint was trained on CC BY 4.0 data, so reuse must attribute Guiet (2022), and its encoder was initialised from ImageNet-pretrained weights, so commercial users should check the ImageNet terms. This is new work created for the competition, not based on prior work by the team; it builds on the published methods cited.</p>
 
 <h2>References</h2>
 <div class="refs">
-<p>[1] Laissue, P. P. et al. Assessing phototoxicity in live fluorescence imaging. <i>Nature Methods</i> 14, 657–661 (2017).</p>
+<p>[1] Laissue, P. P., Alghamdi, R. A., Tomancak, P., Reynaud, E. G. &amp; Shroff, H. Assessing phototoxicity in live fluorescence imaging. <i>Nature Methods</i> 14, 657–661 (2017).</p>
 <p>[2] Christiansen, E. M. et al. In silico labeling: predicting fluorescent labels in unlabeled images. <i>Cell</i> 173, 792–803 (2018).</p>
-<p>[3] Ounkomol, C. et al. Label-free prediction of three-dimensional fluorescence images from transmitted-light microscopy. <i>Nature Methods</i> 15, 917–920 (2018).</p>
+<p>[3] Ounkomol, C., Seshamani, S., Maleckar, M. M., Collman, F. &amp; Johnson, G. R. Label-free prediction of three-dimensional fluorescence images from transmitted-light microscopy. <i>Nature Methods</i> 15, 917–920 (2018).</p>
 <p>[4] Kendall, A. &amp; Gal, Y. What uncertainties do we need in Bayesian deep learning for computer vision? <i>NeurIPS</i> (2017).</p>
 <p>[5] Guiet, R. Automatic labelling of HeLa "Kyoto" cells using Deep Learning tools. Zenodo, doi:10.5281/zenodo.6140064 (2022).</p>
 <p>[6] Guiet, R. HeLa "Kyoto" cells under the scope. Zenodo, doi:10.5281/zenodo.6139958 (2022).</p>
@@ -198,5 +165,39 @@ python demo/app.py --weights weights/chipstain.pt        # http://localhost:7860
 <p>[8] Seitzer, M., Tavakoli, A., Antic, D. &amp; Martius, G. On the pitfalls of heteroscedastic uncertainty estimation with probabilistic neural networks. <i>ICLR</i> (2022).</p>
 <p>[9] Iakubovskii, P. Segmentation Models PyTorch. github.com/qubvel-org/segmentation_models.pytorch (2019).</p>
 <p>[10] Schmidt, U., Weigert, M., Broaddus, C. &amp; Myers, G. Cell detection with star-convex polygons. <i>MICCAI</i> (2018).</p>
+<p>[11] Purschke, M., Rubio, N., Held, K. D. &amp; Redmond, R. W. Phototoxicity of Hoechst 33342 in time-lapse fluorescence microscopy. <i>Photochemical &amp; Photobiological Sciences</i> 9, 1634–1639 (2010).</p>
+<p>[12] Sen, O., Saurin, A. T. &amp; Higgins, J. M. G. The live cell DNA stain SiR-Hoechst induces DNA damage responses and impairs cell cycle progression. <i>Scientific Reports</i> 8, 7898 (2018).</p>
+<p>[13] Rivenson, Y. et al. Virtual histological staining of unlabelled tissue-autofluorescence images via deep learning. <i>Nature Biomedical Engineering</i> 3, 466–477 (2019).</p>
+<p>[14] Weigert, M. et al. Content-aware image restoration: pushing the limits of fluorescence microscopy. <i>Nature Methods</i> 15, 1090–1097 (2018).</p>
+<p>[15] Rotem, O., Kliper-Gross, O. &amp; Zaritsky, A. DM4ISL: converting brightfield images into fluorescence images of organelles using DDPM with averaging mechanism and hallucination detection. github.com/zaritskylab/DM4ISL (code and models on Zenodo).</p>
+<p>[16] Lakshminarayanan, B., Pritzel, A. &amp; Blundell, C. Simple and scalable predictive uncertainty estimation using deep ensembles. <i>NeurIPS</i> (2017).</p>
+<p>[17] Wang, G. et al. Aleatoric uncertainty estimation with test-time augmentation for medical image segmentation with convolutional neural networks. <i>Neurocomputing</i> 338, 34–45 (2019).</p>
+<p>[18] Ilg, E. et al. Uncertainty estimates and multi-hypotheses networks for optical flow. <i>ECCV</i> (2018).</p>
+<p>[19] He, K., Zhang, X., Ren, S. &amp; Sun, J. Deep residual learning for image recognition. <i>CVPR</i> (2016).</p>
+<p>[20] Deng, J. et al. ImageNet: a large-scale hierarchical image database. <i>CVPR</i> (2009).</p>
+<p>[21] Stringer, C., Wang, T., Michaelos, M. &amp; Pachitariu, M. Cellpose: a generalist algorithm for cellular segmentation. <i>Nature Methods</i> 18, 100–106 (2021).</p>
 </div>
+
+<h2 class="pb">Appendix A — Results by time-point (cell density)</h2>
+{{app_timepoint}}
+<h2>Appendix B — Training curves</h2>
+<figure><img src="{{fig_curves}}"><figcaption><b>Figure B1.</b> Validation Pearson r and SSIM per epoch for the three main configurations (seed 0). The validation curves oscillate (e.g. the pretrained-L1 run drops sharply at some epochs); the best-validation checkpoint hides part of this instability, which shows instead as seed-to-seed spread in §6.1.</figcaption></figure>
+<h2>Appendix C — Additional qualitative comparisons</h2>
+<figure><img src="{{fig_qual_base}}"><figcaption><b>Figure C1.</b> The test images of Figure 3 predicted by the plain U-Net with TTA; the last column is its TTA disagreement, used as its uncertainty.</figcaption></figure>
+<figure><img src="{{fig_qual_nll}}"><figcaption><b>Figure C2.</b> ChipStain without TTA (single forward pass): the learned σ alone.</figcaption></figure>
+<h2>Appendix D — Requirement checklist</h2>
+<table>
+<tr><th>Challenge requirement</th><th>Where</th></tr>
+<tr><td>Category declaration</td><td>First line of the Kaggle Writeup and of this report</td></tr>
+<tr><td>Demo video (≤ 5 min, public)</td><td>Kaggle Writeup</td></tr>
+<tr><td>Public repository: code, README, environment, weights, entry scripts, I/O description, reproduction</td><td>GitHub repository; README; requirements.txt / requirements-lock.txt / pyproject.toml; scripts/download_weights.py; scripts/inference.py; §9</td></tr>
+<tr><td>Data sources, licences, processing, compliance</td><td>§3, DATA.md, Appendix E</td></tr>
+<tr><td>Methods, implementation, experiments, results</td><td>§4–§6</td></tr>
+<tr><td>Reliability and limitations; impact</td><td>§7; §8</td></tr>
+<tr><td>External models, libraries, datasets, AI tools</td><td>§10, AI_ASSISTANCE.md</td></tr>
+<tr><td>Team composition</td><td>Header of this report (team Hack2Publish, three members)</td></tr>
+</table>
+<h2>Appendix E — Image register</h2>
+<p class="small">Every image used in this report, in the Kaggle Writeup (cover, thumbnail, gallery) and in the repository, with its pixel source and the changes made. All microscopy pixels come from CC BY 4.0 datasets; figures containing them are CC BY 4.0 derivatives with the attribution given. Charts contain no dataset pixels. (Also in <code>report/IMAGES.md</code>.)</p>
+{{app_images}}
 </body></html>

@@ -1,0 +1,1 @@
+{"cpu_single": 0.47, "cpu_tta": 2.4, "threads": 8, "note": "measured while training jobs were running (upper bound)"}

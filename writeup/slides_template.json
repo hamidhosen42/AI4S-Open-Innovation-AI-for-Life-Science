@@ -1,0 +1,148 @@
+{
+ "footer": "Team Hack2Publish · ChipStain · AI4S Open Innovation (Model & Algorithm) · Data: R. Guiet, EPFL BIOP, Zenodo 10.5281/zenodo.6140064 / 6139958, CC BY 4.0",
+ "voice": "Samantha",
+ "rate": 172,
+ "slides": [
+  {
+   "id": "title",
+   "kicker": "AI4S Open Innovation · Model & Algorithm",
+   "title": "ChipStain",
+   "subtitle": "Label-free nuclear staining that tells you where not to trust it",
+   "bullets": [
+    "Team Hack2Publish — Md. Hamid Hosen, Esfer Sami, Foysal"
+   ],
+   "figure": "qualitative_chipstain_nll_s0_tta.png",
+   "narration": "We are team Hack2Publish — Hamid, Esfer and Foysal — and this is ChipStain, in the Model and Algorithm category."
+  },
+  {
+   "id": "problem",
+   "kicker": "The problem",
+   "title": "Nuclear read-outs need a stain — and a stain has a cost",
+   "bullets": [
+    "Cell number, growth and viability on an organ-on-a-chip all start from a nuclear stain",
+    "Fixation ends the experiment; live DNA dyes are phototoxic",
+    "Reporter lines are rarely available for iPSC-derived tissue such as neurons",
+    "In-silico labeling predicts the stain — but a point prediction gives no warning when it is wrong"
+   ],
+   "narration": "Almost every read-out on an organ-on-a-chip — cell number, growth, viability — starts from a nuclear stain. But fixation ends the experiment, live DNA dyes are phototoxic, and reporter lines are rarely available for iPSC-derived tissue such as neurons. In-silico labeling can predict the stain from a bright-field image, but a plain prediction gives no warning when it is wrong."
+  },
+  {
+   "id": "method",
+   "kicker": "Method",
+   "title": "Predict the stain and its uncertainty",
+   "diagram": true,
+   "bullets": [
+    "U-Net, ImageNet ResNet-34 encoder; head predicts mean μ and variance σ² per pixel",
+    "β-NLL loss keeps the variance from swallowing hard pixels",
+    "8× test-time augmentation: σ² = learned variance + TTA disagreement",
+    "No new mechanism — the contribution is testing whether σ actually helps"
+   ],
+   "narration": "ChipStain is a U-Net whose head predicts, for every pixel, a mean and a variance, trained with the beta N L L loss. At test time we average eight flipped and rotated views; their disagreement is added to the learned variance. Nothing here is a new mechanism. What we contribute is testing whether this uncertainty actually helps, against honest baselines."
+  },
+  {
+   "id": "demo",
+   "kicker": "Demo · held-out well",
+   "title": "{{n_demo_count}} nuclei found — the reference has {{n_demo_ref}}",
+   "figure": "demo_panel_dense_t150.png",
+   "bullets": [
+    "Bright-field in → predicted H2B and σ out, on a laptop CPU",
+    "σ is higher on nuclei and near zero on background",
+    "Mean σ = {{n_demo_sigma_clean}}"
+   ],
+   "narration": "Here is a bright-field image from a well the model never saw. On a laptop CPU we get the predicted nuclear stain and the uncertainty map. Sigma is higher on nuclei — brighter means noisier — and near zero on background. The app counts {{n_demo_count}} nuclei; the dataset's reference annotation has {{n_demo_ref}}."
+  },
+  {
+   "id": "demo_blur",
+   "kicker": "Demo · same image, blurred by 1 px",
+   "title": "The prediction fails — and σ says so",
+   "figure": "demo_panel_dense_t150_blur1px.png",
+   "bullets": [
+    "Mean σ jumps from {{n_demo_sigma_clean}} to {{n_demo_sigma_blur}}",
+    "The app warns: input looks unlike the training data",
+    "A plain U-Net becomes less uncertain here — it fails silently"
+   ],
+   "narration": "Now the same image, slightly blurred — a crude stand-in for defocus. The prediction falls apart, and the uncertainty jumps from {{n_demo_sigma_clean}} to {{n_demo_sigma_blur}}; the app warns that the input looks unlike its training data. A plain U-Net in this situation becomes less uncertain — it fails silently."
+  },
+  {
+   "id": "results",
+   "kicker": "Results · 125 test images, 3 training seeds",
+   "title": "Same fidelity, much better uncertainty",
+   "figure": "multiseed.png",
+   "stats": [
+    [
+     "Pearson r",
+     "{{n_full_pearson}} vs {{n_bt_pearson}}"
+    ],
+    [
+     "ρ(σ, error)",
+     "{{n_full_rho}} vs {{n_bt_rho}}"
+    ],
+    [
+     "95 % interval coverage",
+     "{{n_cal_95}} %"
+    ],
+    [
+     "MAE cost",
+     "+{{n_mae_rel}} %"
+    ]
+   ],
+   "narration": "Over three training runs on 125 test images, ChipStain matches a U-Net with the same augmentation in correlation with the real stain — {{n_full_pearson}} versus {{n_bt_pearson}} — at a {{n_mae_rel}} percent higher pixel error. Its uncertainty ranks errors clearly better — Spearman {{n_full_rho}} versus {{n_bt_rho}}, in every test field and every seed — and it is close to calibrated: the 95 percent interval covers {{n_cal_95}} percent of pixels."
+  },
+  {
+   "id": "shift",
+   "kicker": "Imaging shift",
+   "title": "When the input drifts, σ rises — the baseline's falls",
+   "figure": "shift_test.png",
+   "bullets": [
+    "Blur and phase-contrast input break both models' predictions",
+    "ChipStain's mean σ rises several-fold and flags the failed images",
+    "The U-Net's TTA spread falls under blur"
+   ],
+   "narration": "We stressed both models with blur, noise and a different imaging modality. Both predictions break, ChipStain's more. But its uncertainty rises several-fold and flags the failed images, while the baseline's uncertainty falls — it fails silently."
+  },
+  {
+   "id": "biology",
+   "kicker": "Biology",
+   "title": "60 hours of growth from bright-field alone",
+   "figure": "timelapse.png",
+   "stats": [
+    [
+     "doubling time, label-free",
+     "{{n_tl_dt_pred}} h"
+    ],
+    [
+     "from the real stain",
+     "{{n_tl_dt_real}} h"
+    ],
+    [
+     "error without → with σ gate",
+     "{{n_pl_cs_bias_all}} → {{n_pl_cs_bias_gate}} %"
+    ]
+   ],
+   "narration": "On a 60-hour time-lapse, counting nuclei on the prediction gives a doubling time of {{n_tl_dt_pred}} hours, against {{n_tl_dt_real}} from the real stain. And an uncertainty gate fixed on validation data cuts the doubling-time error across training runs from {{n_pl_cs_bias_all}} to {{n_pl_cs_bias_gate}} percent."
+  },
+  {
+   "id": "limits",
+   "kicker": "Honest limits",
+   "title": "What σ does not do",
+   "bullets": [
+    "For counting alone, direct segmentation wins: Cellpose F1 {{n_cp_f1}} vs ours {{n_full_segf1}}",
+    "Per-nucleus σ is no better than a simple brightness rule",
+    "No organ-on-chip images were available — validation is in a plate and a dish",
+    "{{neural_slide}}"
+   ],
+   "narration": "To be clear about the limits: if you only need a nuclear count, a segmentation model trained on matching labels does better — Cellpose reaches F1 {{n_cp_f1}} versus our {{n_full_segf1}}. Per-nucleus sigma is no better than a simple brightness rule. And we had no organ-on-chip images. {{neural_video}}"
+  },
+  {
+   "id": "close",
+   "kicker": "Open and reproducible",
+   "title": "github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Science",
+   "bullets": [
+    "Code, seed-0 weights, data links, CPU inference script",
+    "One script regenerates every number, figure, this deck and the report",
+    "Team Hack2Publish — Md. Hamid Hosen · Esfer Sami · Foysal"
+   ],
+   "narration": "Everything is open: code, weights, data links, a CPU inference script — and one script regenerates every number, figure, this deck and the report. Thank you."
+  }
+ ]
+}

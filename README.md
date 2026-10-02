@@ -1,33 +1,32 @@
-# ChipStain — uncertainty-aware label-free nuclear staining
+# ChipStain — label-free nuclear staining with an uncertainty you can check
 
-**Category: Model & Algorithm** · Entry for [AI4S Open Innovation: AI for Life Science](https://www.kaggle.com/competitions/ai-4-s-open-innovation-artificial-intelligence-for-life-scien) (AI + Organ-on-a-Chip, 5th Pazhou Algorithm Competition)
+**Category: Model & Algorithm** · Team **Hack2Publish** · Entry for [AI4S Open Innovation: AI for Life Science](https://www.kaggle.com/competitions/ai-4-s-open-innovation-artificial-intelligence-for-life-scien) (AI + Organ-on-a-Chip, 5th Pazhou Algorithm Competition)
 
-ChipStain predicts the **nuclear fluorescence channel (H2B / DNA) from a plain bright-field image**, and — unlike a standard in-silico-labeling U-Net — also outputs a **per-pixel uncertainty map** that tells the biologist *where not to trust the prediction*. Label-free nuclear readouts matter for organ-on-a-chip (OoC) work because fluorescent staining is phototoxic, ends a live time-lapse, and adds reagent and handling cost on small microfluidic devices.
+ChipStain predicts the **nuclear fluorescence channel (H2B) from a plain bright-field image** and, with it, a **per-pixel uncertainty σ** that marks where the prediction should not be trusted. On an organ-on-a-chip, a label-free nuclear channel avoids fixation (one chip per time-point), phototoxic live DNA dyes and engineered reporter lines — but only if the user can tell when the prediction is wrong. This repository contains the model, every experiment behind the [technical report](report/ChipStain_Technical_Report.pdf), and an honest account of what the uncertainty does and does not achieve.
 
-<p align="center"><img src="report/figures/qualitative_chipstain_nll_s0_tta.png" width="900" alt="Bright-field → predicted nuclei with uncertainty"></p>
+<p align="center"><img src="report/figures/qualitative_chipstain_nll_s0_tta.png" width="900" alt="Bright-field input, real H2B, prediction, error and uncertainty on held-out test images"></p>
 
-## What is new
+## Results at a glance
 
-| Component | Standard ISL U-Net | ChipStain |
-|---|---|---|
-| Output | fluorescence intensity | fluorescence **mean μ + log-variance** (heteroscedastic Gaussian) |
-| Loss | L1 / L2 | **β-NLL** (Seitzer et al. 2022) — stable variance learning |
-| Encoder | from scratch | ImageNet-pretrained ResNet-34 (`segmentation_models_pytorch`) |
-| Test time | single pass | 8-fold dihedral TTA → aleatoric (mean σ²) **+ epistemic** (variance across views) |
-| Validation | image metrics only | image metrics **+ downstream nuclei-segmentation F1 + uncertainty calibration** (Spearman ρ, sparsification / AUSE) |
+Held-out well R05-C03 (125 images), **mean ± s.d. over 3 training seeds**:
 
-## Results (held-out well R05-C03, 125 images, mean ± std over images)
+| Model | Pearson r ↑ | SSIM ↑ | MAE ↓ | PSNR ↑ | seg-F1 ↑ | ρ(σ, err) ↑ | AUSE ↓ | MAE drop, top-20 % σ removed ↑ |
+|---|---|---|---|---|---|---|---|---|
+| U-Net baseline (scratch, L1, lr 1e-3) | 0.749 ± 0.027 | 0.826 ± 0.003 | 0.0299 ± 0.0006 | 24.15 ± 0.24 | 0.648 ± 0.089 | — | — | — |
+| + ImageNet encoder (L1, lr 5e-4) | 0.755 ± 0.005 | 0.823 ± 0.005 | 0.0296 ± 0.0003 | 24.25 ± 0.07 | 0.669 ± 0.021 | — | — | — |
+| U-Net baseline + TTA (σ = view s.d.) | 0.764 ± 0.024 | 0.831 ± 0.003 | 0.0294 ± 0.0006 | 24.36 ± 0.25 | 0.665 ± 0.083 | 0.283 ± 0.071 | 0.258 ± 0.025 | 40.5 ± 3.2 % |
+| ChipStain (β-NLL, β = 0.5) | 0.757 ± 0.015 | 0.810 ± 0.018 | 0.0324 ± 0.0013 | 23.92 ± 0.36 | 0.697 ± 0.012 | 0.430 ± 0.006 | 0.303 ± 0.072 | 45.6 ± 1.6 % |
+| ChipStain + TTA (full) | 0.768 ± 0.012 | 0.814 ± 0.022 | 0.0323 ± 0.0007 | 24.11 ± 0.32 | 0.708 ± 0.011 | 0.469 ± 0.027 | 0.177 ± 0.021 | 49.7 ± 4.2 % |
+| Real fluorescence, same segmentation pipeline (ceiling) | — | — | — | — | 0.765 | — | — | — |
 
-| Model | Pearson r ↑ | SSIM ↑ | seg-F1 ↑ | ρ(σ, error) ↑ | AUSE ↓ | image-level ρ(mean σ, MAE) |
-|---|---|---|---|---|---|---|
-| U-Net baseline (L1) | 0.766 | 0.830 | 0.693 | — | — | — |
-| + ImageNet encoder (L1) | 0.756 | 0.825 | 0.667 | — | — | — |
-| U-Net baseline + TTA (σ = view variance) | 0.780 | 0.834 | 0.710 | 0.315 | 0.244 | 0.90 |
-| ChipStain (β-NLL head) | 0.774 | 0.814 | 0.711 | 0.426 | 0.242 | **0.95** |
-| **ChipStain + TTA (full)** | 0.779 | 0.808 | **0.718** | **0.441** | **0.201** | 0.88 |
-| Real fluorescence, same segmentation pipeline (ceiling) | — | — | 0.765 | — | — | — |
+* **Like-for-like (vs the same U-Net with test-time augmentation):** equal correlation with the real stain (Pearson r +0.004 (95 % CI -0.021 to +0.030)), 10 % higher MAE and lower SSIM.
+* **Uncertainty:** σ ranks pixel errors far better (ρ +0.186 (95 % CI +0.120 to +0.264); AUSE -0.081 (95 % CI -0.114 to -0.049)) — in all 25 test fields and all 3 seeds — and beats uncertainty-free proxies over the whole sparsification curve (AUSE 0.177 vs 0.271 for edge strength).
+* **Imaging shift:** under defocus or a switch to phase contrast both models fail — ChipStain more — but its mean σ rises 9.5–10.8× and separates every shifted image from clean ones (AUROC 1.00), while the U-Net's uncertainty falls (AUROC 0.13): it fails silently. Most of the signal comes from ChipStain's TTA term; its learned head alone gives AUROC 0.76–0.90.
+* **Biology:** label-free counts give population doubling times within 9.1 % (mean over seeds) of the real-stain reference; a σ gate fixed on validation data cuts this to 4.1 % (U-Net + TTA: 13.7 → 8.8 %). On a 60 h, 240-frame recording: 24.9 h vs 23.9 h from the real stain.
+* **Counting:** counting on the prediction reaches nuclei F1 0.708; the dataset author's Cellpose model, which segments nuclei directly from bright-field, reaches 0.831. For counting alone, direct segmentation is better; ISL adds an intensity image and a calibrated σ.
+* **Neural cultures:** pending (experiment running).
 
-Removing the 20 % most-uncertain pixels cuts the remaining MAE by 55 %. Full tables with standard deviations, per-time-point breakdown and figures: [report/ChipStain_Technical_Report.pdf](report/ChipStain_Technical_Report.pdf).
+Statistics, ablations, calibration, per-nucleus and time-lapse analyses, limitations: [report/ChipStain_Technical_Report.pdf](report/ChipStain_Technical_Report.pdf). All result files: [`report/results/`](report/results/).
 
 ## Quick start
 
@@ -35,58 +34,79 @@ Removing the 20 % most-uncertain pixels cuts the remaining MAE by 55 %. Full tab
 git clone https://github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Science.git
 cd AI4S-Open-Innovation-AI-for-Life-Science
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt && pip install -e .
+pip install -r requirements.txt && pip install -e .     # exact versions used: requirements-lock.txt
 
-# 1. data (Zenodo, CC BY 4.0, ~757 MB)
-python scripts/download_data.py
+python scripts/download_data.py        # HeLa "Kyoto" data, Zenodo, ~757 MB, CC BY 4.0
+python scripts/download_weights.py     # released checkpoint -> weights/chipstain.pt
 
-# 2. pretrained weights (or train your own, step 4)
-python scripts/download_weights.py          # -> weights/chipstain.pt
-
-# 3. predict on one bright-field image (CPU is fine, ~5 s with TTA)
+# predict one bright-field image (CPU: ≤ 0.5 s single pass, ≤ 2.4 s with 8x TTA)
 python scripts/inference.py --image demo/examples/example_bf_dense_t150.tif --weights weights/chipstain.pt --out outputs/pred --device cpu
 #    -> outputs/pred/prediction.tif, uncertainty.tif, panel.png
 
-# 4. reproduce training + evaluation (≈30 min per run on an Apple M-series / any GPU)
-bash scripts/run_all.sh 0            # baseline, pretrained, ours (seed 0)
-python scripts/evaluate.py --runs runs/baseline_unet_s0 runs/pretrained_l1_s0 runs/chipstain_nll_s0 --out outputs/eval
-python scripts/evaluate.py --runs runs/baseline_unet_s0 runs/chipstain_nll_s0 --tta --out outputs/eval_tta
-python scripts/make_figures.py && python scripts/build_report.py
-
-# 5. interactive demo
-python demo/app.py --weights weights/chipstain.pt     # http://localhost:7860
+python demo/app.py --weights weights/chipstain.pt     # interactive demo, http://localhost:7860
 ```
+
+Tested with Python 3.12.11, PyTorch 2.14.0, segmentation-models-pytorch 0.5.0, NumPy 2.5.2, scikit-image 0.26.0 (macOS arm64). Training the pretrained configurations downloads the ResNet-34 ImageNet weights once from the Hugging Face Hub (`smp-hub/resnet34.imagenet`, free, no login); inference needs no download. The PDF build needs Chrome/Chromium (`CHROME=/path`); the HTML is always written. On Kaggle: *Settings → Internet: On*.
+
+## Reproduce everything
+
+```bash
+bash scripts/run_all.sh 0 1 2            # baseline, pretrained, ChipStain x 3 seeds   (≈9–19 min per run, Apple M5)
+bash scripts/run_ablations.sh 0 1 2      # LR / loss / beta ablation arms x 3 seeds
+python scripts/evaluate.py --runs runs/{baseline_unet,pretrained_l1,chipstain_nll}_s{0,1,2} --cache outputs/cache --out outputs/multiseed
+python scripts/evaluate.py --runs runs/{baseline_unet,chipstain_nll}_s{0,1,2} --tta --cache outputs/cache --out outputs/multiseed_tta
+python scripts/evaluate.py --runs runs/{baseline_unet,chipstain_nll}_s{0,1,2} --split val --tta --cache outputs/cache_val --out outputs/multiseed_val
+python scripts/evaluate.py --runs runs/ablate_*_s{0,1,2} --out outputs/ablate
+python scripts/evaluate.py --runs runs/ablate_nll_beta*_s{0,1,2} --tta --out outputs/ablate_tta
+python scripts/multiseed_summary.py      # tables + paired tests  -> report/results/multiseed_*
+python scripts/ensemble_eval.py          # 3-seed deep ensembles
+python scripts/nucleus_uncertainty.py    # per-nucleus uncertainty
+python scripts/calibration.py            # coverage of mu +/- z*sigma
+python scripts/proliferation.py          # doubling times + validation-calibrated sigma gate
+python scripts/shift_test.py             # defocus / noise / contrast / modality shift
+python scripts/timelapse.py              # 240-frame, 60 h read-out (needs the time-lapse file, see DATA.md)
+python scripts/download_isl_neurons.py && python scripts/neural_transfer.py   # neural transfer
+outputs/venv_cellpose/bin/python scripts/cellpose_baseline.py --model <nuclei_from_bf model>   # direct segmentation (see script)
+python scripts/check_channels.py && python scripts/make_figures.py && python scripts/make_figures_extra.py
+python scripts/image_register.py && python scripts/build_report.py && python scripts/build_writeup.py
+```
+
+The released checkpoint reproduces its seed-0 numbers exactly on the same hardware; retraining behaves like a new seed (expect results within the seed spread of the table above).
+
+## Inputs and outputs
+
+* **Input:** one widefield bright-field plane of 2-D adherent cells (TIFF/PNG/JPG; RGB is averaged to grey; ≥ 64 px). Trained only on HeLa "Kyoto" images from a PerkinElmer Operetta, 20×/NA 0.8 ([DATA.md](DATA.md)); resample other magnifications to that pixel scale. Normalised per image, so camera offset and gain do not matter.
+* **Outputs:** `prediction.tif` — nuclear fluorescence in normalised units [0, 1] (`(I − 600)/(20000 − 600)` of the 16-bit training data); `uncertainty.tif` — σ in the same units; `panel.png` — side-by-side view.
+* **Out of domain:** no accuracy guarantee for other cell types, optics, chips or z-planes. Check the mean of `uncertainty.tif`: on the test well it lies around 0.020–0.101 (5th–95th percentile, with TTA); under defocus or another modality it rises several-fold ([report/results/shift_test.md](report/results/shift_test.md)). A low σ is necessary, not sufficient. Fine-tune on a few paired images before using the model on a new system.
 
 ## Repository layout
 
 ```
 chipstain/            package: data.py, model.py, losses.py, metrics.py
-scripts/              download_data.py, download_weights.py, train.py, evaluate.py, inference.py, make_figures.py, run_all.sh
-configs/              baseline.yaml, pretrained.yaml, ours.yaml
-demo/                 Gradio app + example image
-notebooks/            Kaggle notebook version of train + evaluate
-report/               technical report (PDF) and figures
-docs/                 competition plan
-DATA.md               data sources, licenses, splits, pre-processing
-AI_ASSISTANCE.md      pre-trained models and AI tools disclosure
+scripts/              train / evaluate / inference / analyses / figures / report
+configs/              baseline, pretrained, ours (ChipStain) and ablation arms
+demo/                 Gradio app + example images (see demo/examples/README.md)
+notebooks/            Kaggle notebook: train + evaluate
+report/               technical report (PDF + HTML), figures, result files, IMAGES.md (image register)
+writeup/              Kaggle Writeup, video script, gallery assets
+DATA.md               data sources, licences, splits, usage note, ethics
+AI_ASSISTANCE.md      AI-tool, pre-trained weights and third-party disclosure
 ```
 
-## Inputs / outputs
+## Data, licences, disclosure
 
-* **Input**: single-channel bright-field image (TIFF/PNG, any size ≥ 64 px; normalised per image, so camera offset/gain do not matter).
-* **Output**: `prediction.tif` — nuclear fluorescence in normalised units [0, 1] (`(I − 600)/(20000 − 600)` of the 16-bit training data); `uncertainty.tif` — predicted σ in the same units; `panel.png` — side-by-side view.
-
-## Data, licenses, disclosure
-
-* Data: HeLa "Kyoto" paired bright-field / H2B dataset, Zenodo [10.5281/zenodo.6140064](https://doi.org/10.5281/zenodo.6140064), CC BY 4.0 — details in [DATA.md](DATA.md).
-* Pre-trained encoder and AI-tool use: [AI_ASSISTANCE.md](AI_ASSISTANCE.md).
-* Code: MIT ([LICENSE](LICENSE)).
+* Data: HeLa "Kyoto" (R. Guiet, EPFL BIOP; Zenodo [10.5281/zenodo.6140064](https://doi.org/10.5281/zenodo.6140064), [10.5281/zenodo.6139958](https://doi.org/10.5281/zenodo.6139958)) and in-silico-labeling neurons (Christiansen et al., Cell 2018) — all [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Details: [DATA.md](DATA.md). Every image in the report, Writeup and repo: [report/IMAGES.md](report/IMAGES.md).
+* AI assistance and third-party components: [AI_ASSISTANCE.md](AI_ASSISTANCE.md).
+* Code and released checkpoint: MIT ([LICENSE](LICENSE)); the checkpoint was trained on CC BY 4.0 data, so reuse must attribute Guiet (2022).
 
 ## Team — Hack2Publish
 
-* Md. Hamid Hosen (team leader) — CSE, AI/ML ([@hamidhosen42](https://github.com/hamidhosen42))
-* Esfer Sami — CSE
+| Member | Role | Kaggle | GitHub |
+|---|---|---|---|
+| Md. Hamid Hosen | team leader · CSE, AI/ML | [@hosen42](https://www.kaggle.com/hosen42) | [@hamidhosen42](https://github.com/hamidhosen42) |
+| Esfer Sami | CSE | [@esfersami50](https://www.kaggle.com/esfersami50) | — |
+| Foysal | team member | [@foysalemonshanto](https://www.kaggle.com/foysalemonshanto) | — |
 
 ## Citation of the data
 
-Romain Guiet (EPFL BioImaging & Optics Platform), *HeLa "Kyoto" cells under the scope* (2022), Zenodo, doi:10.5281/zenodo.6139958; and *Automatic labelling of HeLa "Kyoto" cells using Deep Learning tools* (2022), Zenodo, doi:10.5281/zenodo.6140064. Both CC BY 4.0.
+Romain Guiet (EPFL BioImaging & Optics Platform), *HeLa "Kyoto" cells under the scope* (2022), Zenodo, doi:10.5281/zenodo.6139958; *Automatic labelling of HeLa "Kyoto" cells using Deep Learning tools* (2022), Zenodo, doi:10.5281/zenodo.6140064. Christiansen, E. M. et al. *In silico labeling: predicting fluorescent labels in unlabeled images.* Cell 173, 792–803 (2018). All CC BY 4.0.

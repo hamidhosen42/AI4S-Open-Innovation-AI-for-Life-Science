@@ -1,0 +1,13 @@
+{
+ "clean": {
+  "file": "demo/examples/example_bf_dense_t150.tif",
+  "count": 183,
+  "mean_sigma": 0.08321219682693481
+ },
+ "blur": {
+  "file": "demo/examples/example_bf_dense_t150_blur1px.tif",
+  "count": 100,
+  "mean_sigma": 0.3282627761363983
+ },
+ "reference_count": 180
+}

@@ -1,3 +1,14 @@
+## Does each uncertainty term separate shifted from clean images? (AUROC of per-image mean σ; 0.5 = no signal)
+
+| model | σ term | defocus σ=1 | defocus σ=2 | defocus σ=4 | noise 5 % | noise 10 % | noise 20 % | contrast ×0.5 | contrast ×0.25 | modality: DPC |
+|---|---|---|---|---|---|---|---|---|---|---|
+| U-Net + TTA (seed 0) | total (TTA) | 0.30 | 0.08 | 0.00 | 0.77 | 1.00 | 1.00 | 0.51 | 0.58 | 0.62 |
+| U-Net + TTA (seed 0) | TTA view s.d. | 0.30 | 0.08 | 0.00 | 0.77 | 1.00 | 1.00 | 0.51 | 0.58 | 0.62 |
+| ChipStain + TTA (seed 0) | total (TTA) | 1.00 | 1.00 | 1.00 | 0.46 | 1.00 | 1.00 | 0.39 | 0.39 | 1.00 |
+| ChipStain + TTA (seed 0) | learned head (TTA mean) | 0.83 | 0.93 | 0.92 | 0.58 | 1.00 | 1.00 | 0.46 | 0.48 | 0.97 |
+| ChipStain + TTA (seed 0) | TTA view s.d. | 1.00 | 1.00 | 1.00 | 0.31 | 0.89 | 0.93 | 0.33 | 0.26 | 1.00 |
+| ChipStain + TTA (seed 0) | learned head, single pass | 0.66 | 0.83 | 0.79 | 0.63 | 1.00 | 1.00 | 0.51 | 0.56 | 0.90 |
+
 ### baseline_unet_s0
 Spearman ρ(mean σ, MAE) over all 500 (image, condition) pairs: 0.725
 

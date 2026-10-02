@@ -18,12 +18,24 @@ from chipstain.model import ChipStainNet, predict_tta
 
 
 def read_grey(path):
-    if path.lower().endswith((".tif", ".tiff")):
+    """Read a bright-field image as a 2-D float32 array. Accepts grey, grey+alpha, RGB/RGBA
+    (averaged to grey) and channel-first stacks (first channel)."""
+    if str(path).lower().endswith((".tif", ".tiff")):
         a = tifffile.imread(path)
     else:
         a = io.imread(path)
+    a = np.squeeze(a)
     if a.ndim == 3:
-        a = a[..., :3].mean(-1) if a.shape[-1] in (3, 4) else a[0]
+        if a.shape[-1] in (3, 4):          # RGB / RGBA, channel-last
+            a = a[..., :3].mean(-1)
+        elif a.shape[-1] == 2:             # grey + alpha
+            a = a[..., 0]
+        elif a.shape[0] <= 4:              # channel-first stack
+            a = a[0]
+        else:
+            raise ValueError(f"cannot interpret image of shape {a.shape} as a single bright-field plane")
+    if a.ndim != 2 or min(a.shape) < 32:
+        raise ValueError(f"expected a 2-D bright-field image of at least 32x32 px, got shape {a.shape}")
     return a.astype(np.float32)
 
 

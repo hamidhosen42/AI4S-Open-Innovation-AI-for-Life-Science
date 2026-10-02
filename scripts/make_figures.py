@@ -110,7 +110,7 @@ def uncertainty_bars(df, path):
 
 def training_curves(path):
     import json
-    runs = sorted(glob.glob("runs/*/log.json"))
+    runs = [f"runs/{r}/log.json" for r in ("baseline_unet_s0", "pretrained_l1_s0", "chipstain_nll_s0") if os.path.exists(f"runs/{r}/log.json")]
     if not runs:
         return
     fig, ax = plt.subplots(1, 2, figsize=(8.5, 3.2))
@@ -137,16 +137,12 @@ def main():
     df = pd.concat([pd.read_csv(f) for f in sorted(glob.glob("outputs/eval*/per_image_test.csv"))])
     order = ["baseline_unet_s0", "pretrained_l1_s0", "baseline_unet_s0_tta", "chipstain_nll_s0", "chipstain_nll_s0_tta"]
     df["run"] = pd.Categorical(df["run"], [r for r in order if r in set(df["run"])], ordered=True)
-    ablation_bars(df, os.path.join(a.out, "ablation.png"))
-    uncertainty_bars(df, os.path.join(a.out, "uncertainty_quality.png"))
     training_curves(os.path.join(a.out, "training_curves.png"))
-    calib_scatter(df, os.path.join(a.out, "calibration_image_level.png"))
-    for p in sorted(glob.glob("outputs/eval*/preds_*.npz")):
-        tag = os.path.basename(p)[6:-4]
-        preds = load_preds(p)
-        qualitative(preds, os.path.join(a.out, f"qualitative_{tag}.png"))
-        if preds[0].get("unc") is not None:
-            sparsification_plot(preds, os.path.join(a.out, f"sparsification_{tag}.png"))
+    # qualitative grids used in the report (seed-0 checkpoint): full method, its single pass, and the TTA U-Net
+    for tag in ["chipstain_nll_s0_tta", "chipstain_nll_s0", "baseline_unet_s0_tta"]:
+        p = next((q for q in sorted(glob.glob(f"outputs/*/preds_{tag}.npz"))), None)
+        if p:
+            qualitative(load_preds(p), os.path.join(a.out, f"qualitative_{tag}.png"))
     print("figures ->", a.out)
 
 
