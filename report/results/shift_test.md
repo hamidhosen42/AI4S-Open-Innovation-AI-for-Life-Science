@@ -1,43 +1,59 @@
-## Does each uncertainty term separate shifted from clean images? (AUROC of per-image mean σ; 0.5 = no signal)
+## Failure detection (AUROC of per-image mean σ: failed images r < 0.5 vs successful r > 0.7, all shifted conditions; mean ± s.d. over seeds)
 
-| model | σ term | defocus σ=1 | defocus σ=2 | defocus σ=4 | noise 5 % | noise 10 % | noise 20 % | contrast ×0.5 | contrast ×0.25 | modality: DPC |
-|---|---|---|---|---|---|---|---|---|---|---|
-| U-Net + TTA (seed 0) | total (TTA) | 0.30 | 0.08 | 0.00 | 0.77 | 1.00 | 1.00 | 0.51 | 0.58 | 0.62 |
-| U-Net + TTA (seed 0) | TTA view s.d. | 0.30 | 0.08 | 0.00 | 0.77 | 1.00 | 1.00 | 0.51 | 0.58 | 0.62 |
-| ChipStain + TTA (seed 0) | total (TTA) | 1.00 | 1.00 | 1.00 | 0.46 | 1.00 | 1.00 | 0.39 | 0.39 | 1.00 |
-| ChipStain + TTA (seed 0) | learned head (TTA mean) | 0.83 | 0.93 | 0.92 | 0.58 | 1.00 | 1.00 | 0.46 | 0.48 | 0.97 |
-| ChipStain + TTA (seed 0) | TTA view s.d. | 1.00 | 1.00 | 1.00 | 0.31 | 0.89 | 0.93 | 0.33 | 0.26 | 1.00 |
-| ChipStain + TTA (seed 0) | learned head, single pass | 0.66 | 0.83 | 0.79 | 0.63 | 1.00 | 1.00 | 0.51 | 0.56 | 0.90 |
-
-### baseline_unet_s0
-Spearman ρ(mean σ, MAE) over all 500 (image, condition) pairs: 0.725
-
-| condition | mean σ | σ / clean | MAE | Pearson r |
+| model | σ term | failure AUROC | failed images | within-condition ρ(σ, MAE) |
 |---|---|---|---|---|
-| clean | 0.0059 | 1.00× | 0.0283 | 0.784 |
-| defocus σ=1 | 0.0045 | 0.76× | 0.0317 | 0.449 |
-| defocus σ=2 | 0.0020 | 0.33× | 0.0322 | 0.318 |
-| defocus σ=4 | 0.0006 | 0.11× | 0.0332 | 0.189 |
-| noise 5 % | 0.0098 | 1.67× | 0.0327 | 0.750 |
-| noise 10 % | 0.0348 | 5.91× | 0.0715 | 0.496 |
-| noise 20 % | 0.0468 | 7.96× | 0.1046 | 0.321 |
-| contrast ×0.5 | 0.0060 | 1.02× | 0.0291 | 0.783 |
-| contrast ×0.25 | 0.0067 | 1.15× | 0.0306 | 0.778 |
-| modality: DPC | 0.0065 | 1.11× | 0.0303 | 0.644 |
+| U-Net + TTA | total σ | 0.48 ± 0.10 | 640 | 0.42 ± 0.27 |
+| U-Net + TTA | TTA disagreement | 0.48 ± 0.10 | 640 | 0.42 ± 0.27 |
+| ChipStain + TTA | total σ | nan | 768 | 0.69 ± 0.03 |
+| ChipStain + TTA | learned head (TTA mean) | nan | 768 | 0.43 ± 0.28 |
+| ChipStain + TTA | TTA disagreement | nan | 768 | 0.51 ± 0.17 |
+| ChipStain + TTA | learned head, single pass | nan | 768 | 0.42 ± 0.30 |
+| + ImageNet encoder + TTA | total σ | 0.58 ± 0.51 | 695 | 0.51 ± 0.33 |
+| + ImageNet encoder + TTA | TTA disagreement | 0.58 ± 0.51 | 695 | 0.51 ± 0.33 |
 
-### chipstain_nll_s0
-Spearman ρ(mean σ, MAE) over all 500 (image, condition) pairs: 0.957
+## Shift detection (AUROC of per-image mean σ, shifted vs clean; 0.5 = no signal, < 0.5 = σ falls under shift)
 
-| condition | mean σ | σ / clean | MAE | Pearson r |
+| model | σ term | blur | noise | modality (DPC) |
 |---|---|---|---|---|
-| clean | 0.0476 | 1.00× | 0.0300 | 0.782 |
-| defocus σ=1 | 0.2572 | 5.40× | 0.1108 | 0.123 |
-| defocus σ=2 | 0.4048 | 8.50× | 0.2297 | 0.078 |
-| defocus σ=4 | 0.4510 | 9.46× | 0.2795 | 0.094 |
-| noise 5 % | 0.0443 | 0.93× | 0.0329 | 0.778 |
-| noise 10 % | 0.1477 | 3.10× | 0.1179 | 0.496 |
-| noise 20 % | 0.1977 | 4.15× | 0.1893 | 0.321 |
-| contrast ×0.5 | 0.0413 | 0.87× | 0.0295 | 0.787 |
-| contrast ×0.25 | 0.0403 | 0.85× | 0.0309 | 0.784 |
-| modality: DPC | 0.5131 | 10.77× | 0.2683 | 0.081 |
+| U-Net + TTA | total σ | 0.43 ± 0.41 | 1.00 ± 0.00 | 0.85 ± 0.20 |
+| U-Net + TTA | TTA disagreement | 0.43 ± 0.41 | 1.00 ± 0.00 | 0.85 ± 0.20 |
+| ChipStain + TTA | total σ | 0.34 ± 0.57 | 1.00 ± 0.00 | 0.33 ± 0.58 |
+| ChipStain + TTA | learned head (TTA mean) | 0.30 ± 0.51 | 1.00 ± 0.00 | 0.32 ± 0.56 |
+| ChipStain + TTA | TTA disagreement | 0.35 ± 0.57 | 0.93 ± 0.04 | 0.39 ± 0.53 |
+| ChipStain + TTA | learned head, single pass | 0.26 ± 0.43 | 1.00 ± 0.00 | 0.30 ± 0.52 |
+| + ImageNet encoder + TTA | total σ | 0.71 ± 0.49 | 0.98 ± 0.01 | 0.42 ± 0.47 |
+| + ImageNet encoder + TTA | TTA disagreement | 0.71 ± 0.49 | 0.98 ± 0.01 | 0.42 ± 0.47 |
 
+## Accuracy and σ per condition (mean over seeds)
+
+| model | condition | Pearson r | MAE | mean σ / clean |
+|---|---|---|---|---|
+| U-Net + TTA | clean | 0.769 | 0.0282 | 1.00× |
+| U-Net + TTA | blur σ=1 px | 0.441 | 0.0318 | 1.35× |
+| U-Net + TTA | blur σ=2 px | 0.268 | 0.0338 | 1.16× |
+| U-Net + TTA | blur σ=4 px | 0.135 | 0.0352 | 1.03× |
+| U-Net + TTA | noise 10 % | 0.540 | 0.0612 | 5.00× |
+| U-Net + TTA | noise 20 % | 0.376 | 0.0850 | 6.70× |
+| U-Net + TTA | modality: DPC | 0.560 | 0.0411 | 6.23× |
+| ChipStain + TTA | clean | 0.772 | 0.0305 | 1.00× |
+| ChipStain + TTA | blur σ=1 px | 0.321 | 0.0584 | 2.04× |
+| ChipStain + TTA | blur σ=2 px | 0.179 | 0.0996 | 3.00× |
+| ChipStain + TTA | blur σ=4 px | 0.095 | 0.1168 | 3.30× |
+| ChipStain + TTA | noise 10 % | 0.478 | 0.1188 | 3.39× |
+| ChipStain + TTA | noise 20 % | 0.309 | 0.1785 | 4.27× |
+| ChipStain + TTA | modality: DPC | 0.368 | 0.1124 | 3.84× |
+| + ImageNet encoder + TTA | clean | 0.771 | 0.0277 | 1.00× |
+| + ImageNet encoder + TTA | blur σ=1 px | 0.235 | 0.0566 | 373.30× |
+| + ImageNet encoder + TTA | blur σ=2 px | 0.093 | 0.0768 | 1553.06× |
+| + ImageNet encoder + TTA | blur σ=4 px | 0.027 | 0.0753 | 2280.20× |
+| + ImageNet encoder + TTA | noise 10 % | 0.620 | 0.0507 | 2.78× |
+| + ImageNet encoder + TTA | noise 20 % | 0.349 | 0.0955 | 5.51× |
+| + ImageNet encoder + TTA | modality: DPC | 0.443 | 0.0353 | 1.36× |
+
+## Validation-calibrated gate (threshold = 95th percentile of mean σ on clean validation images): fraction of images flagged
+
+| model | clean | blur σ=1 px | blur σ=2 px | blur σ=4 px | noise 10 % | noise 20 % | modality: DPC |
+|---|---|---|---|---|---|---|---|
+| U-Net + TTA | 1 % | 17 % | 20 % | 23 % | 100 % | 100 % | 43 % |
+| ChipStain + TTA | 1 % | 32 % | 33 % | 33 % | 97 % | 100 % | 33 % |
+| + ImageNet encoder + TTA | 4 % | 62 % | 66 % | 67 % | 59 % | 67 % | 31 % |

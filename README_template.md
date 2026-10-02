@@ -97,9 +97,9 @@ AI_ASSISTANCE.md      AI-tool, pre-trained weights and third-party disclosure
 
 | Member | Role | Kaggle | GitHub |
 |---|---|---|---|
-| Md. Hamid Hosen | team leader · CSE, AI/ML | [@hosen42](https://www.kaggle.com/hosen42) | [@hamidhosen42](https://github.com/hamidhosen42) |
-| Esfer Sami | CSE | [@esfersami50](https://www.kaggle.com/esfersami50) | — |
-| Foysal | team member | [@foysalemonshanto](https://www.kaggle.com/foysalemonshanto) | — |
+| Md. Hamid Hosen | team leader · CSE student, AI/ML | [@hosen42](https://www.kaggle.com/hosen42) | [@hamidhosen42](https://github.com/hamidhosen42) |
+| Esfer Sami | CSE student | [@esfersami50](https://www.kaggle.com/esfersami50) | — |
+| Foysal | CSE student | [@foysalemonshanto](https://www.kaggle.com/foysalemonshanto) | — |
 
 ## Citation of the data
 

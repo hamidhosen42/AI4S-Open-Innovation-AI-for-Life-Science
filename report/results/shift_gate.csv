@@ -1,0 +1,64 @@
+cfg,seed,condition,flagged
+baseline_unet,0,clean,0.0
+baseline_unet,0,blur σ=1 px,0.04
+baseline_unet,0,blur σ=2 px,0.0
+baseline_unet,0,blur σ=4 px,0.0
+baseline_unet,0,noise 10 %,1.0
+baseline_unet,0,noise 20 %,1.0
+baseline_unet,0,modality: DPC,0.0
+baseline_unet,1,clean,0.02
+baseline_unet,1,blur σ=1 px,0.24
+baseline_unet,1,blur σ=2 px,0.02
+baseline_unet,1,blur σ=4 px,0.0
+baseline_unet,1,noise 10 %,1.0
+baseline_unet,1,noise 20 %,1.0
+baseline_unet,1,modality: DPC,0.28
+baseline_unet,2,clean,0.0
+baseline_unet,2,blur σ=1 px,0.24
+baseline_unet,2,blur σ=2 px,0.58
+baseline_unet,2,blur σ=4 px,0.7
+baseline_unet,2,noise 10 %,1.0
+baseline_unet,2,noise 20 %,1.0
+baseline_unet,2,modality: DPC,1.0
+chipstain_nll,0,clean,0.0
+chipstain_nll,0,blur σ=1 px,0.96
+chipstain_nll,0,blur σ=2 px,1.0
+chipstain_nll,0,blur σ=4 px,1.0
+chipstain_nll,0,noise 10 %,0.92
+chipstain_nll,0,noise 20 %,1.0
+chipstain_nll,0,modality: DPC,1.0
+chipstain_nll,1,clean,0.04
+chipstain_nll,1,blur σ=1 px,0.0
+chipstain_nll,1,blur σ=2 px,0.0
+chipstain_nll,1,blur σ=4 px,0.0
+chipstain_nll,1,noise 10 %,1.0
+chipstain_nll,1,noise 20 %,1.0
+chipstain_nll,1,modality: DPC,0.0
+chipstain_nll,2,clean,0.0
+chipstain_nll,2,blur σ=1 px,0.0
+chipstain_nll,2,blur σ=2 px,0.0
+chipstain_nll,2,blur σ=4 px,0.0
+chipstain_nll,2,noise 10 %,1.0
+chipstain_nll,2,noise 20 %,1.0
+chipstain_nll,2,modality: DPC,0.0
+pretrained_l1,0,clean,0.0
+pretrained_l1,0,blur σ=1 px,0.9
+pretrained_l1,0,blur σ=2 px,1.0
+pretrained_l1,0,blur σ=4 px,1.0
+pretrained_l1,0,noise 10 %,0.0
+pretrained_l1,0,noise 20 %,0.0
+pretrained_l1,0,modality: DPC,0.0
+pretrained_l1,1,clean,0.12
+pretrained_l1,1,blur σ=1 px,0.96
+pretrained_l1,1,blur σ=2 px,0.98
+pretrained_l1,1,blur σ=4 px,1.0
+pretrained_l1,1,noise 10 %,1.0
+pretrained_l1,1,noise 20 %,1.0
+pretrained_l1,1,modality: DPC,0.92
+pretrained_l1,2,clean,0.0
+pretrained_l1,2,blur σ=1 px,0.0
+pretrained_l1,2,blur σ=2 px,0.0
+pretrained_l1,2,blur σ=4 px,0.0
+pretrained_l1,2,noise 10 %,0.78
+pretrained_l1,2,noise 20 %,1.0
+pretrained_l1,2,modality: DPC,0.0

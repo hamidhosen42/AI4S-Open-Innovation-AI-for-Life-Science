@@ -35,6 +35,7 @@ def render(tpl_path, out_path, values):
         for k, v in values.items():
             s = s.replace("{{" + k + "}}", str(v))
     left = sorted(set(re.findall(r"\{\{(\w+)\}\}", s)))
+    s = re.sub(r"\{\{\w+\}\}", "(pending)", s)  # results still running: never leave raw placeholders
     open(out_path, "w", encoding="utf-8").write(s)
     print("wrote", out_path, "| unfilled:", left or "none")
     return s

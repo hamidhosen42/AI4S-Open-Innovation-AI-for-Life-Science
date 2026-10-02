@@ -555,6 +555,7 @@ def main():
         for k, v in sub.items():
             tpl = tpl.replace("{{" + k + "}}", str(v))
     left = sorted(set(re.findall(r"\{\{(\w+)\}\}", tpl)))
+    tpl = re.sub(r"\{\{\w+\}\}", "(pending)", tpl)  # results still running: never leave raw placeholders
     if left:
         print("WARNING unfilled placeholders:", left)
     out_html = a.out + ".html"

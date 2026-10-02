@@ -15,16 +15,18 @@ Held-out well R05-C03 (125 images), **mean ± s.d. over 3 training seeds**:
 | U-Net baseline (scratch, L1, lr 1e-3) | 0.749 ± 0.027 | 0.826 ± 0.003 | 0.0299 ± 0.0006 | 24.15 ± 0.24 | 0.648 ± 0.089 | — | — | — |
 | + ImageNet encoder (L1, lr 5e-4) | 0.755 ± 0.005 | 0.823 ± 0.005 | 0.0296 ± 0.0003 | 24.25 ± 0.07 | 0.669 ± 0.021 | — | — | — |
 | U-Net baseline + TTA (σ = view s.d.) | 0.764 ± 0.024 | 0.831 ± 0.003 | 0.0294 ± 0.0006 | 24.36 ± 0.25 | 0.665 ± 0.083 | 0.283 ± 0.071 | 0.258 ± 0.025 | 40.5 ± 3.2 % |
+| + ImageNet encoder + TTA (σ = view s.d.) | 0.768 ± 0.006 | 0.827 ± 0.005 | 0.0291 ± 0.0003 | 24.47 ± 0.10 | 0.690 ± 0.019 | 0.317 ± 0.037 | 0.248 ± 0.011 | 42.9 ± 1.8 % |
 | ChipStain (β-NLL, β = 0.5) | 0.757 ± 0.015 | 0.810 ± 0.018 | 0.0324 ± 0.0013 | 23.92 ± 0.36 | 0.697 ± 0.012 | 0.430 ± 0.006 | 0.303 ± 0.072 | 45.6 ± 1.6 % |
 | ChipStain + TTA (full) | 0.768 ± 0.012 | 0.814 ± 0.022 | 0.0323 ± 0.0007 | 24.11 ± 0.32 | 0.708 ± 0.011 | 0.469 ± 0.027 | 0.177 ± 0.021 | 49.7 ± 4.2 % |
-| Real fluorescence, same segmentation pipeline (ceiling) | — | — | — | — | 0.765 | — | — | — |
+| Real fluorescence, same segmentation pipeline (reference level, not a bound) | — | — | — | — | 0.765 | — | — | — |
 
 * **Like-for-like (vs the same U-Net with test-time augmentation):** equal correlation with the real stain (Pearson r +0.004 (95 % CI -0.021 to +0.030)), 10 % higher MAE and lower SSIM.
-* **Uncertainty:** σ ranks pixel errors far better (ρ +0.186 (95 % CI +0.120 to +0.264); AUSE -0.081 (95 % CI -0.114 to -0.049)) — in all 25 test fields and all 3 seeds — and beats uncertainty-free proxies over the whole sparsification curve (AUSE 0.177 vs 0.271 for edge strength).
-* **Imaging shift:** under defocus or a switch to phase contrast both models fail — ChipStain more — but its mean σ rises 9.5–10.8× and separates every shifted image from clean ones (AUROC 1.00), while the U-Net's uncertainty falls (AUROC 0.13): it fails silently. Most of the signal comes from ChipStain's TTA term; its learned head alone gives AUROC 0.76–0.90.
-* **Biology:** label-free counts give population doubling times within 9.1 % (mean over seeds) of the real-stain reference; a σ gate fixed on validation data cuts this to 4.1 % (U-Net + TTA: 13.7 → 8.8 %). On a 60 h, 240-frame recording: 24.9 h vs 23.9 h from the real stain.
-* **Counting:** counting on the prediction reaches nuclei F1 0.708; the dataset author's Cellpose model, which segments nuclei directly from bright-field, reaches 0.831. For counting alone, direct segmentation is better; ISL adds an intensity image and a calibrated σ.
-* **Neural cultures:** pending (experiment running).
+* **Uncertainty:** σ ranks pixel errors far better (ρ +0.186 (95 % CI +0.120 to +0.264); AUSE -0.081 (95 % CI -0.114 to -0.049)) — better in all 25 test fields and significantly better in each seed — and beats uncertainty-free proxies over the whole sparsification curve (AUSE 0.177 vs 0.271 for edge strength).
+* **Calibration:** ChipStain's σ is approximately calibrated out of the box — the nominal 95 % interval covers 92 % of test pixels (validation-fitted scale ×0.98) — whereas the U-Nets' TTA disagreement needs ×21 rescaling: it can rank, not quantify.
+* **Imaging shift:** under blur or a phase-contrast input all models' predictions fail — ChipStain's at least as badly — but ChipStain's σ rises 3.3–3.8× and identifies the failed images (failure-detection AUROC nan vs 0.48 for the U-Net's TTA disagreement, which falls under blur: it fails silently). Most of the signal comes from ChipStain's TTA term.
+* **Biology:** label-free counts give population doubling times within 9.1 % (mean over seeds) of the real-stain reference; a σ gate fixed on validation data cuts this to 4.1 % (the same gate on the U-Net's TTA disagreement: 13.8 → 8.8 % — the gate helps both). On a 60 h, 240-frame recording: 24.9 h vs 23.9 h from the real stain.
+* **Counting:** counting on the prediction reaches nuclei F1 0.708; the dataset author's Cellpose model, which segments nuclei directly from bright-field, reaches 0.831. For counting alone, direct segmentation is better; ChipStain adds a fluorescence-like image and a calibrated σ.
+* **Neural cultures:** on human iPSC-derived motor neurons (dish, not chip) the HeLa model reaches Pearson r 0.59 zero-shot while its σ signals that it is out of domain; fine-tuning on one well raises r to 0.76 ((pending) with 1 wells; one seed).
 
 Statistics, ablations, calibration, per-nucleus and time-lapse analyses, limitations: [report/ChipStain_Technical_Report.pdf](report/ChipStain_Technical_Report.pdf). All result files: [`report/results/`](report/results/).
 
@@ -51,11 +53,11 @@ Tested with Python 3.12.11, PyTorch 2.14.0, segmentation-models-pytorch 0.5.0, N
 ## Reproduce everything
 
 ```bash
-bash scripts/run_all.sh 0 1 2            # baseline, pretrained, ChipStain x 3 seeds   (≈9–19 min per run, Apple M5)
+bash scripts/run_all.sh 0 1 2            # baseline, pretrained, ChipStain x 3 seeds   (≈9–28 min per run, Apple M5)
 bash scripts/run_ablations.sh 0 1 2      # LR / loss / beta ablation arms x 3 seeds
 python scripts/evaluate.py --runs runs/{baseline_unet,pretrained_l1,chipstain_nll}_s{0,1,2} --cache outputs/cache --out outputs/multiseed
-python scripts/evaluate.py --runs runs/{baseline_unet,chipstain_nll}_s{0,1,2} --tta --cache outputs/cache --out outputs/multiseed_tta
-python scripts/evaluate.py --runs runs/{baseline_unet,chipstain_nll}_s{0,1,2} --split val --tta --cache outputs/cache_val --out outputs/multiseed_val
+python scripts/evaluate.py --runs runs/{baseline_unet,pretrained_l1,chipstain_nll}_s{0,1,2} --tta --cache outputs/cache --out outputs/multiseed_tta
+python scripts/evaluate.py --runs runs/{baseline_unet,pretrained_l1,chipstain_nll}_s{0,1,2} --split val --tta --cache outputs/cache_val --out outputs/multiseed_val
 python scripts/evaluate.py --runs runs/ablate_*_s{0,1,2} --out outputs/ablate
 python scripts/evaluate.py --runs runs/ablate_nll_beta*_s{0,1,2} --tta --out outputs/ablate_tta
 python scripts/multiseed_summary.py      # tables + paired tests  -> report/results/multiseed_*
@@ -71,7 +73,7 @@ python scripts/check_channels.py && python scripts/make_figures.py && python scr
 python scripts/image_register.py && python scripts/build_report.py && python scripts/build_writeup.py
 ```
 
-The released checkpoint reproduces its seed-0 numbers exactly on the same hardware; retraining behaves like a new seed (expect results within the seed spread of the table above).
+`bash scripts/reproduce_all.sh` runs all of the above in order (`--main-only` skips the ablations and side analyses; `--quick` only evaluates the released checkpoint). `weights/chipstain.pt` is the seed-0 ChipStain checkpoint (sha256 `d72951a79279bb7db02cd3941a7e5fa8d13819fe513dc0249620aa3513937bcb`; verified by `download_weights.py`): with TTA it scores Pearson r 0.779 and nuclei F1 0.718 versus the 3-seed means above. It reproduces exactly on the same hardware; retraining behaves like a new seed.
 
 ## Inputs and outputs
 
@@ -97,15 +99,15 @@ AI_ASSISTANCE.md      AI-tool, pre-trained weights and third-party disclosure
 
 * Data: HeLa "Kyoto" (R. Guiet, EPFL BIOP; Zenodo [10.5281/zenodo.6140064](https://doi.org/10.5281/zenodo.6140064), [10.5281/zenodo.6139958](https://doi.org/10.5281/zenodo.6139958)) and in-silico-labeling neurons (Christiansen et al., Cell 2018) — all [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Details: [DATA.md](DATA.md). Every image in the report, Writeup and repo: [report/IMAGES.md](report/IMAGES.md).
 * AI assistance and third-party components: [AI_ASSISTANCE.md](AI_ASSISTANCE.md).
-* Code and released checkpoint: MIT ([LICENSE](LICENSE)); the checkpoint was trained on CC BY 4.0 data, so reuse must attribute Guiet (2022).
+* Code and released checkpoint: MIT ([LICENSE](LICENSE)); the checkpoint was trained on CC BY 4.0 data, so reuse must attribute Guiet (2022), and its encoder was initialised from ImageNet-pretrained weights — commercial users should check the ImageNet terms.
 
 ## Team — Hack2Publish
 
 | Member | Role | Kaggle | GitHub |
 |---|---|---|---|
-| Md. Hamid Hosen | team leader · CSE, AI/ML | [@hosen42](https://www.kaggle.com/hosen42) | [@hamidhosen42](https://github.com/hamidhosen42) |
-| Esfer Sami | CSE | [@esfersami50](https://www.kaggle.com/esfersami50) | — |
-| Foysal | team member | [@foysalemonshanto](https://www.kaggle.com/foysalemonshanto) | — |
+| Md. Hamid Hosen | team leader · CSE student, AI/ML | [@hosen42](https://www.kaggle.com/hosen42) | [@hamidhosen42](https://github.com/hamidhosen42) |
+| Esfer Sami | CSE student | [@esfersami50](https://www.kaggle.com/esfersami50) | — |
+| Foysal | CSE student | [@foysalemonshanto](https://www.kaggle.com/foysalemonshanto) | — |
 
 ## Citation of the data
 

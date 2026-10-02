@@ -115,6 +115,7 @@ def main():
     tpl = json.load(open("writeup/slides_template.json"))
     slides = json.loads(fill(json.dumps(tpl["slides"], ensure_ascii=False), {k: str(v).replace('"', "'") for k, v in vals.items()}))
     left = sorted(set(re.findall(r"\{\{(\w+)\}\}", json.dumps(slides, ensure_ascii=False))))
+    slides = json.loads(re.sub(r"\{\{\w+\}\}", "(pending)", json.dumps(slides, ensure_ascii=False)))
     if left:
         print("WARNING unfilled:", left)
     os.makedirs(OUT, exist_ok=True)

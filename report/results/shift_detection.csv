@@ -1,0 +1,73 @@
+cfg,seed,term,family,auroc
+baseline_unet,0,total σ,blur,0.12666666666666668
+baseline_unet,0,total σ,noise,1.0
+baseline_unet,0,total σ,modality,0.62
+baseline_unet,0,TTA disagreement,blur,0.12666666666666668
+baseline_unet,0,TTA disagreement,noise,1.0
+baseline_unet,0,TTA disagreement,modality,0.62
+baseline_unet,1,total σ,blur,0.2594666666666667
+baseline_unet,1,total σ,noise,1.0
+baseline_unet,1,total σ,modality,0.94
+baseline_unet,1,TTA disagreement,blur,0.2594666666666667
+baseline_unet,1,TTA disagreement,noise,1.0
+baseline_unet,1,TTA disagreement,modality,0.94
+baseline_unet,2,total σ,blur,0.8909333333333334
+baseline_unet,2,total σ,noise,1.0
+baseline_unet,2,total σ,modality,1.0
+baseline_unet,2,TTA disagreement,blur,0.8909333333333334
+baseline_unet,2,TTA disagreement,noise,1.0
+baseline_unet,2,TTA disagreement,modality,1.0
+chipstain_nll,0,total σ,blur,0.9993333333333333
+chipstain_nll,0,total σ,noise,0.9998
+chipstain_nll,0,total σ,modality,1.0
+chipstain_nll,0,learned head (TTA mean),blur,0.8937333333333334
+chipstain_nll,0,learned head (TTA mean),noise,1.0
+chipstain_nll,0,learned head (TTA mean),modality,0.9668
+chipstain_nll,0,TTA disagreement,blur,1.0
+chipstain_nll,0,TTA disagreement,noise,0.9118
+chipstain_nll,0,TTA disagreement,modality,1.0
+chipstain_nll,0,"learned head, single pass",blur,0.7584
+chipstain_nll,0,"learned head, single pass",noise,1.0
+chipstain_nll,0,"learned head, single pass",modality,0.8996
+chipstain_nll,1,total σ,blur,0.016133333333333333
+chipstain_nll,1,total σ,noise,1.0
+chipstain_nll,1,total σ,modality,0.0
+chipstain_nll,1,learned head (TTA mean),blur,0.014666666666666666
+chipstain_nll,1,learned head (TTA mean),noise,1.0
+chipstain_nll,1,learned head (TTA mean),modality,0.0
+chipstain_nll,1,TTA disagreement,blur,0.0428
+chipstain_nll,1,TTA disagreement,noise,0.9116
+chipstain_nll,1,TTA disagreement,modality,0.1672
+chipstain_nll,1,"learned head, single pass",blur,0.014933333333333333
+chipstain_nll,1,"learned head, single pass",noise,1.0
+chipstain_nll,1,"learned head, single pass",modality,0.0
+chipstain_nll,2,total σ,blur,0.0014666666666666667
+chipstain_nll,2,total σ,noise,1.0
+chipstain_nll,2,total σ,modality,0.0004
+chipstain_nll,2,learned head (TTA mean),blur,0.0038666666666666667
+chipstain_nll,2,learned head (TTA mean),noise,1.0
+chipstain_nll,2,learned head (TTA mean),modality,0.0024
+chipstain_nll,2,TTA disagreement,blur,0.0006666666666666666
+chipstain_nll,2,TTA disagreement,noise,0.9802
+chipstain_nll,2,TTA disagreement,modality,0.0172
+chipstain_nll,2,"learned head, single pass",blur,0.008133333333333333
+chipstain_nll,2,"learned head, single pass",noise,1.0
+chipstain_nll,2,"learned head, single pass",modality,0.004
+pretrained_l1,0,total σ,blur,0.9990666666666667
+pretrained_l1,0,total σ,noise,0.981
+pretrained_l1,0,total σ,modality,0.268
+pretrained_l1,0,TTA disagreement,blur,0.9990666666666667
+pretrained_l1,0,TTA disagreement,noise,0.981
+pretrained_l1,0,TTA disagreement,modality,0.268
+pretrained_l1,1,total σ,blur,0.9842666666666666
+pretrained_l1,1,total σ,noise,0.974
+pretrained_l1,1,total σ,modality,0.9376
+pretrained_l1,1,TTA disagreement,blur,0.9842666666666666
+pretrained_l1,1,TTA disagreement,noise,0.974
+pretrained_l1,1,TTA disagreement,modality,0.9376
+pretrained_l1,2,total σ,blur,0.14293333333333333
+pretrained_l1,2,total σ,noise,0.9976
+pretrained_l1,2,total σ,modality,0.042
+pretrained_l1,2,TTA disagreement,blur,0.14293333333333333
+pretrained_l1,2,TTA disagreement,noise,0.9976
+pretrained_l1,2,TTA disagreement,modality,0.042
