@@ -1,9 +1,10 @@
-name: chipstain_nll
+# Ablation: plain Gaussian NLL (beta = 0)
+name: ablate_nll_beta0
 encoder: resnet34
 pretrained: true
 uncertainty: true
 loss: nll
-beta: 0.5
+beta: 0.0
 crop: 256
 batch_size: 8
 iters_per_epoch: 2

@@ -1,9 +1,10 @@
-name: chipstain_nll
+# Ablation: beta-NLL with beta = 1 (mean head trained with MSE-like gradients)
+name: ablate_nll_beta1
 encoder: resnet34
 pretrained: true
 uncertainty: true
 loss: nll
-beta: 0.5
+beta: 1.0
 crop: 256
 batch_size: 8
 iters_per_epoch: 2

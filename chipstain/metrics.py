@@ -41,13 +41,31 @@ def sparsification(err: np.ndarray, unc: np.ndarray, n_bins: int = 20):
     return fr, cu, co, ause
 
 
+def removal_gain(err: np.ndarray, score: np.ndarray, frac: float = 0.2) -> float:
+    """Relative drop in MAE after discarding the `frac` highest-`score` pixels."""
+    err = err.ravel()
+    order = np.argsort(-score.ravel(), kind="stable")
+    keep = order[int(len(err) * frac):]
+    return float(1.0 - err[keep].mean() / max(err.mean(), 1e-12))
+
+
 def calibration_metrics(pred, gt, unc, n_pix: int = 200_000) -> dict:
+    """How well a per-pixel score ranks the absolute error: Spearman rho (on a fixed random
+    pixel sample), AUSE (area between sparsification and oracle curves, lower is better) and
+    the MAE reduction after discarding the 20 % highest-score pixels."""
     err = np.abs(pred - gt).ravel()
     u = unc.ravel()
     idx = np.random.default_rng(0).choice(len(err), size=min(n_pix, len(err)), replace=False)
     rho = spearmanr(u[idx], err[idx]).statistic
     _, _, _, ause = sparsification(err, u)
-    return {"spearman_unc_err": float(rho), "ause": ause}
+    return {"spearman_unc_err": float(rho), "ause": ause, "gain20": removal_gain(err, u)}
+
+
+def proxy_scores(pred: np.ndarray) -> dict:
+    """Uncertainty-free baselines for ranking pixel errors: predicted intensity and its edge
+    strength (errors concentrate on bright nuclei and their boundaries)."""
+    p = np.clip(pred, 0, 1).astype(np.float32)
+    return {"mu": p, "grad": filters.sobel(filters.gaussian(p, sigma=1.0))}
 
 
 # ---------- downstream nuclei segmentation ----------

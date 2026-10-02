@@ -1,0 +1,11 @@
+# Ablation: baseline U-Net from scratch at the pretrained configs' LR (isolates pre-training from LR)
+name: ablate_scratch_l1_lr5e4
+encoder: resnet34
+pretrained: false
+uncertainty: false
+loss: l1
+crop: 256
+batch_size: 8
+iters_per_epoch: 2
+epochs: 40
+lr: 0.0005

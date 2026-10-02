@@ -1,0 +1,11 @@
+# Ablation: pretrained encoder, single output, MSE (fnet-style loss; isolates L1->L2 from the variance head)
+name: ablate_pretrained_mse
+encoder: resnet34
+pretrained: true
+uncertainty: false
+loss: mse
+crop: 256
+batch_size: 8
+iters_per_epoch: 2
+epochs: 40
+lr: 0.0005

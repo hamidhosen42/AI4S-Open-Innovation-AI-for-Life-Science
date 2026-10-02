@@ -6,6 +6,10 @@ def l1_loss(mu, logvar, y):
     return F.l1_loss(mu, y)
 
 
+def mse_loss(mu, logvar, y):
+    return F.mse_loss(mu, y)
+
+
 def gaussian_nll(mu, logvar, y, beta: float = 0.5):
     """beta-NLL (Seitzer et al., 2022): NLL with per-pixel weight sigma^(2*beta)
     detached, which prevents the variance head from swallowing the signal early."""
@@ -15,4 +19,4 @@ def gaussian_nll(mu, logvar, y, beta: float = 0.5):
     return nll.mean()
 
 
-LOSSES = {"l1": l1_loss, "nll": gaussian_nll}
+LOSSES = {"l1": l1_loss, "mse": mse_loss, "nll": gaussian_nll}

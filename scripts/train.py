@@ -3,6 +3,7 @@
     python scripts/train.py --config configs/ours.yaml --seed 0
 """
 import argparse
+import functools
 import json
 import os
 import time
@@ -60,6 +61,8 @@ def main():
 
     model = ChipStainNet(cfg["encoder"], cfg["pretrained"], cfg["uncertainty"]).to(device)
     loss_fn = LOSSES[cfg["loss"]]
+    if cfg["loss"] == "nll":
+        loss_fn = functools.partial(loss_fn, beta=float(cfg.get("beta", 0.5)))
     opt = torch.optim.AdamW(model.parameters(), lr=cfg["lr"], weight_decay=1e-4)
     steps = cfg["epochs"] * len(tl) * cfg["iters_per_epoch"]
     sched = torch.optim.lr_scheduler.OneCycleLR(opt, max_lr=cfg["lr"], total_steps=steps, pct_start=0.1)
