@@ -33,12 +33,14 @@ data/competition_pages_raw.md
 data/data_guidelines.md
 
 # generated media (rebuilt by scripts/build_all.sh)
-writeup/slides/
-writeup/video/
-writeup/ChipStain_slides.html
 tools_local/
 
 # rebuilt by scripts/build_presentation.py / build_video.py
 presentation/frames/
 presentation/video_tmp/
 presentation/ChipStain_video.mp4
+
+# regenerated locally (duplicates / raw per-object data)
+report/ChipStain_Technical_Report.html
+report/results/nucleus_uncertainty.csv
+report/results/image_register.csv
