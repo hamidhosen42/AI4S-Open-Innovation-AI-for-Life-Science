@@ -53,6 +53,7 @@ def main():
     render("README_template.md", "README.md", vals)
     w = render("writeup/kaggle_writeup_template.md", "writeup/kaggle_writeup.md", vals)
     render("writeup/video_script_template.md", "writeup/video_script.md", vals)
+    render("writeup/live_demo_template.md", "writeup/LIVE_DEMO_SCRIPT.md", vals)
     summ = w.split("## Project summary")[1].split("## Technical report")[0]
     print("Project summary words:", len(summ.split()))
 
