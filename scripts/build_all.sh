@@ -19,8 +19,5 @@ python scripts/image_register.py
 python scripts/build_report.py
 python scripts/build_writeup.py
 python scripts/build_presentation.py
-if [ -f tools_local/build_video.py ] && [ "${1:-}" != "--no-video" ]; then python tools_local/build_video.py; fi
 command -v pbcopy >/dev/null && pbcopy < writeup/kaggle_writeup.md
-# optional local helper (not part of the repository): push the text into the Kaggle draft
-if [ -f tools_local/kaggle_sync_writeup.py ]; then { PYTHONPATH=. python tools_local/kaggle_sync_writeup.py || echo "Kaggle sync skipped - the text is on the clipboard"; }; fi
 echo "Rebuilt: report/ChipStain_Technical_Report.pdf, README.md, writeup/kaggle_writeup.md, presentation/ChipStain_presentation.html, presentation/VIDEO_SCRIPT.md"

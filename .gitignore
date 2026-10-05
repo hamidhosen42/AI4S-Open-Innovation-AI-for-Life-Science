@@ -33,9 +33,8 @@ data/competition_pages_raw.md
 data/data_guidelines.md
 
 # generated media (rebuilt by scripts/build_all.sh)
-tools_local/
 
-# rebuilt by scripts/build_presentation.py / build_video.py
+# rebuilt by scripts/build_presentation.py
 presentation/frames/
 presentation/video_tmp/
 presentation/ChipStain_video.mp4
