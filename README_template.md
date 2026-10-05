@@ -71,7 +71,7 @@ python scripts/image_register.py && python scripts/build_report.py && python scr
 
 * **Input:** one widefield bright-field plane of 2-D adherent cells (TIFF/PNG/JPG; RGB is averaged to grey; ≥ 64 px). Trained only on HeLa "Kyoto" images from a PerkinElmer Operetta, 20×/NA 0.8 ([DATA.md](DATA.md)); resample other magnifications to that pixel scale. Normalised per image, so camera offset and gain do not matter.
 * **Outputs:** `prediction.tif` — nuclear fluorescence in normalised units [0, 1] (`(I − 600)/(20000 − 600)` of the 16-bit training data); `uncertainty.tif` — σ in the same units; `panel.png` — side-by-side view.
-* **Out of domain:** no accuracy guarantee for other cell types, optics, chips or z-planes. Check the mean of `uncertainty.tif`: on the test well it lies around {{n_sigma_range}}; under defocus or another modality it rises several-fold ([report/results/shift_test.md](report/results/shift_test.md)). A low σ is necessary, not sufficient. Fine-tune on a few paired images before using the model on a new system.
+* **Out of domain:** no accuracy guarantee for other cell types, optics, chips or z-planes. On the test well the mean of `uncertainty.tif` lies around {{n_sigma_range}}; a much higher value is a warning, but a normal value is **not** evidence that the input is in domain — under blur or another modality σ rises only in some training runs ([report/results/shift_test.md](report/results/shift_test.md)). Fine-tune and re-check on paired images before using the model on a new system.
 
 ## Repository layout
 

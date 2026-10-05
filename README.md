@@ -23,10 +23,10 @@ Held-out well R05-C03 (125 images), **mean ± s.d. over 3 training seeds**:
 * **Like-for-like (vs the same U-Net with test-time augmentation):** equal correlation with the real stain (Pearson r +0.004 (95 % CI -0.021 to +0.030)), 10 % higher MAE and lower SSIM.
 * **Uncertainty:** σ ranks pixel errors far better (ρ +0.186 (95 % CI +0.120 to +0.264); AUSE -0.081 (95 % CI -0.114 to -0.049)) — better in all 25 test fields and significantly better in each seed — and beats uncertainty-free proxies over the whole sparsification curve (AUSE 0.177 vs 0.271 for edge strength).
 * **Calibration:** ChipStain's σ is approximately calibrated out of the box — the nominal 95 % interval covers 92 % of test pixels (validation-fitted scale ×0.98) — whereas the U-Nets' TTA disagreement needs ×21 rescaling: it can rank, not quantify.
-* **Imaging shift:** under blur or a phase-contrast input all models' predictions fail — ChipStain's at least as badly — but ChipStain's σ rises 3.3–3.8× and identifies the failed images (failure-detection AUROC nan vs 0.48 for the U-Net's TTA disagreement, which falls under blur: it fails silently). Most of the signal comes from ChipStain's TTA term.
+* **Imaging shift:** under blur or a phase-contrast input every model's prediction fails, and whether σ warns depends on the training run for all models: ChipStain's σ rises in 1 of 3 seeds (including the released one) but falls in 2 of 3. σ is therefore **not** a reliable drift alarm; added noise, in contrast, is flagged by every model in every seed.
 * **Biology:** label-free counts give population doubling times within 9.1 % (mean over seeds) of the real-stain reference; a σ gate fixed on validation data cuts this to 4.1 % (the same gate on the U-Net's TTA disagreement: 13.8 → 8.8 % — the gate helps both). On a 60 h, 240-frame recording: 24.9 h vs 23.9 h from the real stain.
 * **Counting:** counting on the prediction reaches nuclei F1 0.708; the dataset author's Cellpose model, which segments nuclei directly from bright-field, reaches 0.831. For counting alone, direct segmentation is better; ChipStain adds a fluorescence-like image and a calibrated σ.
-* **Neural cultures:** on human iPSC-derived motor neurons (dish, not chip) the HeLa model reaches Pearson r 0.59 zero-shot while its σ signals that it is out of domain; fine-tuning on one well raises r to 0.76 ((pending) with 1 wells; one seed).
+* **Neural cultures:** on human iPSC-derived motor neurons (dish, not chip) the HeLa model reaches Pearson r 0.59 zero-shot (but undercounts nuclei by about half, and its σ stays in the normal range — it does not warn); fine-tuning on one well raises r to 0.76 (0.77 with 20 wells; one seed).
 
 Statistics, ablations, calibration, per-nucleus and time-lapse analyses, limitations: [report/ChipStain_Technical_Report.pdf](report/ChipStain_Technical_Report.pdf). All result files: [`report/results/`](report/results/).
 
@@ -53,7 +53,7 @@ Tested with Python 3.12.11, PyTorch 2.14.0, segmentation-models-pytorch 0.5.0, N
 ## Reproduce everything
 
 ```bash
-bash scripts/run_all.sh 0 1 2            # baseline, pretrained, ChipStain x 3 seeds   (≈9–28 min per run, Apple M5)
+bash scripts/run_all.sh 0 1 2            # baseline, pretrained, ChipStain x 3 seeds   (≈9–157 min per run, Apple M5)
 bash scripts/run_ablations.sh 0 1 2      # LR / loss / beta ablation arms x 3 seeds
 python scripts/evaluate.py --runs runs/{baseline_unet,pretrained_l1,chipstain_nll}_s{0,1,2} --cache outputs/cache --out outputs/multiseed
 python scripts/evaluate.py --runs runs/{baseline_unet,pretrained_l1,chipstain_nll}_s{0,1,2} --tta --cache outputs/cache --out outputs/multiseed_tta
@@ -79,7 +79,7 @@ python scripts/image_register.py && python scripts/build_report.py && python scr
 
 * **Input:** one widefield bright-field plane of 2-D adherent cells (TIFF/PNG/JPG; RGB is averaged to grey; ≥ 64 px). Trained only on HeLa "Kyoto" images from a PerkinElmer Operetta, 20×/NA 0.8 ([DATA.md](DATA.md)); resample other magnifications to that pixel scale. Normalised per image, so camera offset and gain do not matter.
 * **Outputs:** `prediction.tif` — nuclear fluorescence in normalised units [0, 1] (`(I − 600)/(20000 − 600)` of the 16-bit training data); `uncertainty.tif` — σ in the same units; `panel.png` — side-by-side view.
-* **Out of domain:** no accuracy guarantee for other cell types, optics, chips or z-planes. Check the mean of `uncertainty.tif`: on the test well it lies around 0.020–0.101 (5th–95th percentile, with TTA); under defocus or another modality it rises several-fold ([report/results/shift_test.md](report/results/shift_test.md)). A low σ is necessary, not sufficient. Fine-tune on a few paired images before using the model on a new system.
+* **Out of domain:** no accuracy guarantee for other cell types, optics, chips or z-planes. On the test well the mean of `uncertainty.tif` lies around 0.020–0.101 (5th–95th percentile, with TTA); a much higher value is a warning, but a normal value is **not** evidence that the input is in domain — under blur or another modality σ rises only in some training runs ([report/results/shift_test.md](report/results/shift_test.md)). Fine-tune and re-check on paired images before using the model on a new system.
 
 ## Repository layout
 

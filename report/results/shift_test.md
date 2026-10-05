@@ -1,15 +1,15 @@
-## Failure detection (AUROC of per-image mean σ: failed images r < 0.5 vs successful r > 0.7, all shifted conditions; mean ± s.d. over seeds)
+## Failure detection (AUROC of per-image mean σ: failed images r < 0.5 vs successful r > 0.7, clean and shifted images pooled; mean ± s.d. over seeds)
 
 | model | σ term | failure AUROC | failed images | within-condition ρ(σ, MAE) |
 |---|---|---|---|---|
-| U-Net + TTA | total σ | 0.48 ± 0.10 | 640 | 0.42 ± 0.27 |
-| U-Net + TTA | TTA disagreement | 0.48 ± 0.10 | 640 | 0.42 ± 0.27 |
-| ChipStain + TTA | total σ | nan | 768 | 0.69 ± 0.03 |
-| ChipStain + TTA | learned head (TTA mean) | nan | 768 | 0.43 ± 0.28 |
-| ChipStain + TTA | TTA disagreement | nan | 768 | 0.51 ± 0.17 |
-| ChipStain + TTA | learned head, single pass | nan | 768 | 0.42 ± 0.30 |
-| + ImageNet encoder + TTA | total σ | 0.58 ± 0.51 | 695 | 0.51 ± 0.33 |
-| + ImageNet encoder + TTA | TTA disagreement | 0.58 ± 0.51 | 695 | 0.51 ± 0.33 |
+| U-Net + TTA | total σ | 0.61 ± 0.25 | 640 | 0.42 ± 0.27 |
+| U-Net + TTA | TTA disagreement | 0.61 ± 0.25 | 640 | 0.42 ± 0.27 |
+| ChipStain + TTA | total σ | 0.56 ± 0.38 | 768 | 0.69 ± 0.03 |
+| ChipStain + TTA | learned head (TTA mean) | 0.54 ± 0.35 | 768 | 0.43 ± 0.28 |
+| ChipStain + TTA | TTA disagreement | 0.57 ± 0.36 | 768 | 0.51 ± 0.17 |
+| ChipStain + TTA | learned head, single pass | 0.52 ± 0.30 | 768 | 0.42 ± 0.30 |
+| + ImageNet encoder + TTA | total σ | 0.74 ± 0.38 | 695 | 0.51 ± 0.33 |
+| + ImageNet encoder + TTA | TTA disagreement | 0.74 ± 0.38 | 695 | 0.51 ± 0.33 |
 
 ## Shift detection (AUROC of per-image mean σ, shifted vs clean; 0.5 = no signal, < 0.5 = σ falls under shift)
 

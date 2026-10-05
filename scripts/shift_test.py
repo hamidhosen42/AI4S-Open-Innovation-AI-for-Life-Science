@@ -8,7 +8,8 @@ rendering of the same fields). Affine contrast changes are NOT tested: the per-i
 normalisation cancels them exactly. 50 test images (time-points 10 and 100), 8x TTA.
 Reported per model (mean ± s.d. over seeds):
   * shift detection   AUROC of per-image mean sigma, shifted vs clean images
-  * failure detection AUROC of per-image mean sigma, failed (Pearson r < 0.5) vs successful (r > 0.7) images
+  * failure detection AUROC of per-image mean sigma, failed (Pearson r < 0.5) vs successful (r > 0.7) images,
+                      pooled over clean and shifted conditions
   * validation gate   threshold = 95th percentile of per-image mean sigma on the clean VALIDATION split
                       (from outputs/multiseed_val); fraction of images flagged per condition
 For ChipStain, sigma is also split into its learned (aleatoric) and TTA-disagreement terms.
@@ -70,12 +71,13 @@ def main():
     ap.add_argument("--data", default="data/raw/hela_kyoto")
     ap.add_argument("--val", default="outputs/multiseed_val/per_image_val.csv")
     ap.add_argument("--out", default="report/results")
+    ap.add_argument("--summarise_only", action="store_true", help="recompute tables from the saved shift_test.csv")
     a = ap.parse_args()
     device = get_device()
     _, _, test = make_splits(a.data)
     samples = [s for s in test if s.timepoint in (10, 100)]
     rows = []
-    for run in a.runs:
+    for run in ([] if a.summarise_only else a.runs):
         if not os.path.exists(os.path.join(run, "best.pt")):
             print("skip", run)
             continue
@@ -102,9 +104,12 @@ def main():
                              "mean_sigma": float(s_tot.mean()), "mean_sigma_tta_views": float(s_epi.mean()),
                              "mean_sigma_learned_tta": float(s_ale.mean()) if s_ale is not None else np.nan,
                              "mean_sigma_single_pass": float(np.sqrt(crop(lv1.exp())).mean()) if lv1 is not None else np.nan, **m})
-    df = pd.DataFrame(rows)
     os.makedirs(a.out, exist_ok=True)
-    df.to_csv(os.path.join(a.out, "shift_test.csv"), index=False)
+    if a.summarise_only:
+        df = pd.read_csv(os.path.join(a.out, "shift_test.csv"))
+    else:
+        df = pd.DataFrame(rows)
+        df.to_csv(os.path.join(a.out, "shift_test.csv"), index=False)
 
     # validation thresholds (clean validation images, same model and seed, TTA)
     thr = {}
@@ -122,7 +127,7 @@ def main():
                 continue
             for fam, conds in FAMILIES.items():
                 det.append({"cfg": cfg, "seed": seed, "term": lab, "family": fam, "auroc": auroc(clean[term], g[g.condition.isin(conds)][term])})
-            sh = g[g.condition != "clean"]
+            sh = g  # clean + shifted images: failed (r < 0.5) vs successful (r > 0.7)
             fail.append({"cfg": cfg, "seed": seed, "term": lab, "auroc": auroc(sh[sh.pearson > 0.7][term], sh[sh.pearson < 0.5][term]),
                          "n_failed": int((sh.pearson < 0.5).sum()), "within_rho": np.nanmean([spearmanr(h[term], h["mae"]).statistic for _, h in g.groupby("condition")])})
         t = thr.get(f"{cfg}_s{seed}")
@@ -135,7 +140,7 @@ def main():
     for name, d in [("shift_detection", det), ("shift_failure", fail), ("shift_robustness", rob)]:
         d.to_csv(os.path.join(a.out, f"{name}.csv"), index=False)
     pm = lambda x: f"{np.nanmean(x):.2f} ± {np.nanstd(x, ddof=1):.2f}" if np.sum(~np.isnan(x)) > 1 else f"{np.nanmean(x):.2f}"  # noqa: E731
-    lines = ["## Failure detection (AUROC of per-image mean σ: failed images r < 0.5 vs successful r > 0.7, all shifted conditions; mean ± s.d. over seeds)", "",
+    lines = ["## Failure detection (AUROC of per-image mean σ: failed images r < 0.5 vs successful r > 0.7, clean and shifted images pooled; mean ± s.d. over seeds)", "",
              "| model | σ term | failure AUROC | failed images | within-condition ρ(σ, MAE) |", "|---|---|---|---|---|"]
     for (cfg, term), g in fail.groupby(["cfg", "term"], sort=False):
         lines.append(f"| {NAME.get(cfg, cfg)} | {term} | {pm(g.auroc.values)} | {g.n_failed.sum()} | {pm(g.within_rho.values)} |")

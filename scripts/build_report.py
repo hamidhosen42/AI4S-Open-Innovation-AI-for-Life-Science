@@ -176,7 +176,7 @@ def sec_uncertainty(r):
              f"(oracle {100 * gor:.0f} %), but ranking by edge strength gives {100 * ggr:.0f} % and by intensity {100 * gmu:.0f} %: at that single cut-off σ adds "
              f"{'little' if g - max(gmu, ggr) < 0.05 else 'a clear margin'} over a trivial proxy. "
              f"The full ranking curve tells a different story: AUSE is {a:.3f} for σ versus {agr:.3f} for edge strength and {amu:.3f} for intensity — σ orders the errors "
-             f"much more faithfully over the whole range (Figure 5). An earlier version of this report quoted a 55 % reduction measured on only 8 test images; the full-set numbers above replace it.</p>")
+             f"much more faithfully over the whole range (Figure 5).</p>")
     s.append(figure("uncertainty_baselines.png", "<b>Figure 5.</b> Sparsification curves averaged over all 125 test images (seed 0): MAE of the remaining pixels as pixels are removed in order of each score. "
                     "Lower is better; the oracle removes the true largest errors first."))
     cal = md_tables(f"{RES}/calibration.md")
@@ -361,6 +361,16 @@ def numbers(r):
                     out[f"n_shift_{K[cfg]}_gate_blur2"] = f"{100 * m.get('blur σ=2 px', np.nan):.0f}"
                     out[f"n_shift_{K[cfg]}_gate_dpc"] = f"{100 * m.get('modality: DPC', np.nan):.0f}"
             out["n_shift_seeds"] = str(int(det.seed.nunique()))
+            # per-seed robustness of the shift signal: in how many seeds does total sigma separate shifted from clean (AUROC > 0.8)?
+            tot = det[det.term == "total σ"]
+            for cfg, k in K.items():
+                for fam, f in F.items():
+                    g = tot[(tot.cfg == cfg) & (tot.family == fam)]
+                    out[f"n_shift_{k}_{f}_seeds_ok"] = f"{int((g.auroc > 0.8).sum())} of {len(g)}"
+                    out[f"n_shift_{k}_{f}_seeds_down"] = f"{int((g.auroc < 0.2).sum())} of {len(g)}"
+            r0 = rob[(rob.cfg == "chipstain_nll") & (rob.seed == 0)].set_index("condition")
+            out["n_shift_cs_s0_def4x"] = f"{r0.loc['blur σ=4 px', 'sigma_ratio']:.1f}"
+            out["n_shift_cs_s0_dpcx"] = f"{r0.loc['modality: DPC', 'sigma_ratio']:.1f}"
             return out
         # legacy single-seed file
         from scipy.stats import mannwhitneyu

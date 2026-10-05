@@ -53,15 +53,15 @@
   },
   {
    "id": "demo_blur",
-   "kicker": "Demo · same image, blurred by 1 px",
-   "title": "The prediction fails — and σ says so",
+   "kicker": "Demo · same image, blurred by 1 px (released seed-0 model)",
+   "title": "The prediction fails — this model's σ says so",
    "figure": "demo_panel_dense_t150_blur1px.png",
    "bullets": [
-    "Mean σ jumps from {{n_demo_sigma_clean}} to {{n_demo_sigma_blur}}",
-    "The app warns: input looks unlike the training data",
-    "A plain U-Net becomes less uncertain here — it fails silently"
+    "Mean σ jumps from {{n_demo_sigma_clean}} to {{n_demo_sigma_blur}} and the app warns",
+    "Honest caveat: across 3 training runs, σ rises under blur in only {{n_shift_cs_defocus_seeds_ok}} — the same is true of the baselines",
+    "So σ is not a reliable drift alarm; check new imaging with paired images"
    ],
-   "narration": "Now the same image, slightly blurred — a crude stand-in for defocus. The prediction falls apart, and the uncertainty jumps from {{n_demo_sigma_clean}} to {{n_demo_sigma_blur}}; the app warns that the input looks unlike its training data. A plain U-Net in this situation becomes less uncertain — it fails silently."
+   "narration": "Now the same image, slightly blurred — a crude stand-in for defocus. The prediction falls apart, and with this released model the uncertainty jumps from {{n_demo_sigma_clean}} to {{n_demo_sigma_blur}}, so the app warns. But to be honest: when we retrained three times, sigma rose under blur in only one run — the baselines behave just as erratically. So sigma is not a reliable alarm for new imaging conditions."
   },
   {
    "id": "results",
@@ -91,14 +91,14 @@
   {
    "id": "shift",
    "kicker": "Imaging shift",
-   "title": "When the input drifts, σ rises — the baseline's falls",
+   "title": "Under imaging shift, σ is not a reliable alarm",
    "figure": "shift_test.png",
    "bullets": [
-    "Blur and phase-contrast input break both models' predictions",
-    "ChipStain's mean σ rises several-fold and flags the failed images",
-    "The U-Net's TTA spread falls under blur"
+    "Blur and phase-contrast input break every model's prediction",
+    "Whether σ rises depends on the training run, for every model (ChipStain: {{n_shift_cs_defocus_seeds_ok}} seeds)",
+    "Added noise is flagged by every model in every seed"
    ],
-   "narration": "We stressed both models with blur, noise and a different imaging modality. Both predictions break, ChipStain's more. But its uncertainty rises several-fold and flags the failed images, while the baseline's uncertainty falls — it fails silently."
+   "narration": "We stressed all models with blur, noise and a different imaging modality, three training runs each. Every prediction breaks. Added noise is always flagged, but whether the uncertainty rises under blur or a new modality depends on the individual training run, for ChipStain and the baselines alike. In distribution, sigma is calibrated and ranks errors well; out of distribution, it is not a dependable alarm."
   },
   {
    "id": "biology",

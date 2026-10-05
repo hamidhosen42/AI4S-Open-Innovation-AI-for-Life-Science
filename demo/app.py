@@ -65,7 +65,7 @@ def predict(file, tta):
     lines.append(f"**Detected nuclei:** {n}" + (f" · reference annotation (StarDist on the real H2B stain): {ref}" if ref else "") + "  \n")
     lines.append(f"**Mean σ:** {sigma.mean():.4f} · **99th pct σ:** {hi:.4f}" + ("" if tta else " · (warning check needs TTA)") + "  \n")
     lines.append("σ is the predicted uncertainty per pixel: it is higher on nuclei (brighter = noisier) and highest where the prediction is least reliable. "
-                 "A low mean σ is necessary but not sufficient — mild defocus and 20 % noise are not always flagged.")
+                 "A low mean σ is necessary but not sufficient: it does not prove the input resembles the training data.")
     return to_rgb(bf, "gray", *np.percentile(bf, [1, 99])), to_rgb(pred, "magma", 0, 1), to_rgb(sigma, "viridis", 0, hi), "".join(lines)
 
 
@@ -74,7 +74,7 @@ with gr.Blocks(title="ChipStain") as demo:
         "# ChipStain — label-free nuclear staining with uncertainty\n"
         "Upload a bright-field image (TIFF/PNG). The model predicts the H2B nuclear fluorescence channel and a per-pixel "
         "uncertainty map σ. Trained on HeLa 'Kyoto' cells (R. Guiet, EPFL BIOP; Zenodo 10.5281/zenodo.6140064; CC BY 4.0). "
-        "The third example is the dense example blurred by 1 px, to show the uncertainty response."
+        "The third example is the dense example blurred by 1 px: with this released (seed-0) model σ rises and the app warns, but across three training runs σ rose under blur in only one — a normal σ does not prove the input is in domain."
     )
     with gr.Row():
         inp = gr.File(label="Bright-field image", file_types=[".tif", ".tiff", ".png", ".jpg"], type="filepath")
