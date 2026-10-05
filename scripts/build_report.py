@@ -493,13 +493,16 @@ def numbers(r):
         nm = {"pearson": "Pearson r", "ssim": "SSIM", "mae": "MAE", "seg_f1": "nuclei F1", "spearman_unc_err": "ρ(σ, error)", "ause": "AUSE"}
         eff = []
         for a, b, name in steps:
+            parts = []
             for m in ("pearson", "ssim", "mae", "seg_f1", "spearman_unc_err", "ause"):
                 t = r.t(a, b, m)
                 if t is not None and sig(t):
-                    eff.append(f"{name}: {nm[m]} {t.mean_a - t.mean_b:+.3f}")
+                    parts.append(f"{nm[m]} {t.mean_a - t.mean_b:+.3f}")
+            if parts:
+                eff.append(f"{name} ({', '.join(parts)})")
         if not r.has("ablate_pretrained_mse"):
             raise ValueError("ablation arms not evaluated yet")
-        return {"n_abl_robust": "; ".join(eff) if eff else "none — no single-factor change has a robust effect (CI excluding zero and consistent across seeds)",
+        return {"n_abl_robust": "; ".join(eff) + "; all other single-factor changes are within run-to-run variation" if eff else "none — no single-factor change has a robust effect (CI excluding zero and consistent across seeds)",
                 "n_abl_n": str(len(eff))}
     # Cellpose extras
     def cpx():
