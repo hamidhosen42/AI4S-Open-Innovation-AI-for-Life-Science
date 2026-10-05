@@ -3,7 +3,7 @@
     python scripts/build_presentation.py
       -> presentation/ChipStain_presentation.html  (open in any browser; ← → keys, F fullscreen, N notes)
       -> presentation/VIDEO_SCRIPT.md              (recording guide + narration, from the speaker notes)
-      -> presentation/frames/slide_NN.png/.txt     (for scripts/build_video.py; not tracked)
+      -> presentation/frames/slide_NN.png/.txt     (slide images + narration, not tracked)
 Every number comes from report/results/key_numbers.json; every figure from report/figures/.
 """
 import base64
@@ -69,7 +69,7 @@ def main():
     md = ["# ChipStain — video script", "",
           f"Deck: `presentation/ChipStain_presentation.html` ({len(rows)} slides). Narration: {words} words ≈ {words / 145:.1f} min at a calm pace — "
           "the finished video must stay **under 5:00**.", "",
-          "## Option A — record yourself (recommended)", "",
+          "## How to record", "",
           "1. Start the demo: `python demo/app.py --weights weights/chipstain.pt`, open http://localhost:7860, and run the first example once (warm-up). Keep *Test-time augmentation* ticked.",
           "2. Open the deck in Chrome, press **F** for fullscreen. Press **N** to see these lines as speaker notes (hide them before recording).",
           "3. Record the screen with QuickTime (File → New Screen Recording) or Loom, with your microphone.",
@@ -77,9 +77,6 @@ def main():
           "   - slide 7: click the example `example_bf_dense_t150.tif` → **Predict**; point at the three panels and the nuclei count.",
           "   - slide 8: click `example_bf_dense_t150_blur1px.tif` → **Predict**; point at the ⚠ warning and the higher σ.",
           "5. Trim, export 1080p, upload to YouTube as **Unlisted**, check it plays in a private window, and paste the link into the Kaggle Writeup.", "",
-          "## Option B — narrated video without recording", "",
-          "`python scripts/build_video.py` turns these slides and lines into `presentation/ChipStain_video.mp4` with a synthetic voice. Option A is stronger: "
-          "the rules ask for the actual system running.", "",
           "## Narration", "", "| # | Slide | Say |", "|---|---|---|"]
     md += [f"| {k} | {t} | {n} |" for k, t, n in rows]
     open(os.path.join(OUT, "VIDEO_SCRIPT.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")

@@ -2,7 +2,7 @@
 
 Deck: `presentation/ChipStain_presentation.html` (14 slides). Narration: 505 words ≈ 3.5 min at a calm pace — the finished video must stay **under 5:00**.
 
-## Option A — record yourself (recommended)
+## How to record
 
 1. Start the demo: `python demo/app.py --weights weights/chipstain.pt`, open http://localhost:7860, and run the first example once (warm-up). Keep *Test-time augmentation* ticked.
 2. Open the deck in Chrome, press **F** for fullscreen. Press **N** to see these lines as speaker notes (hide them before recording).
@@ -11,10 +11,6 @@ Deck: `presentation/ChipStain_presentation.html` (14 slides). Narration: 505 wor
    - slide 7: click the example `example_bf_dense_t150.tif` → **Predict**; point at the three panels and the nuclei count.
    - slide 8: click `example_bf_dense_t150_blur1px.tif` → **Predict**; point at the ⚠ warning and the higher σ.
 5. Trim, export 1080p, upload to YouTube as **Unlisted**, check it plays in a private window, and paste the link into the Kaggle Writeup.
-
-## Option B — narrated video without recording
-
-`python scripts/build_video.py` turns these slides and lines into `presentation/ChipStain_video.mp4` with a synthetic voice. Option A is stronger: the rules ask for the actual system running.
 
 ## Narration
 

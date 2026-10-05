@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # Rebuild every deliverable from the current result files, in dependency order:
 # figures -> demo numbers -> image register -> report (HTML+PDF, key numbers) -> README + Writeup
-# -> presentation (single HTML deck) + video script -> narrated video. Run after ANY change to results or texts.
+# -> presentation (single HTML deck) + video script. Run after ANY change to results or texts.
 #   bash scripts/build_all.sh            # everything
-#   bash scripts/build_all.sh --no-video # skip the (slower) video render
 set -euo pipefail
 cd "$(dirname "$0")/.."
 python scripts/make_figures.py
@@ -20,8 +19,8 @@ python scripts/image_register.py
 python scripts/build_report.py
 python scripts/build_writeup.py
 python scripts/build_presentation.py
-[ "${1:-}" = "--no-video" ] || python scripts/build_video.py
+if [ -f tools_local/build_video.py ] && [ "${1:-}" != "--no-video" ]; then python tools_local/build_video.py; fi
 command -v pbcopy >/dev/null && pbcopy < writeup/kaggle_writeup.md
 # optional local helper (not part of the repository): push the text into the Kaggle draft
 if [ -f tools_local/kaggle_sync_writeup.py ]; then { PYTHONPATH=. python tools_local/kaggle_sync_writeup.py || echo "Kaggle sync skipped - the text is on the clipboard"; }; fi
-echo "Rebuilt: report/ChipStain_Technical_Report.pdf, README.md, writeup/kaggle_writeup.md, presentation/ChipStain_presentation.html, presentation/VIDEO_SCRIPT.md, presentation/ChipStain_video.mp4"
+echo "Rebuilt: report/ChipStain_Technical_Report.pdf, README.md, writeup/kaggle_writeup.md, presentation/ChipStain_presentation.html, presentation/VIDEO_SCRIPT.md"
