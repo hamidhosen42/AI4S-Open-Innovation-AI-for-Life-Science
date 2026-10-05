@@ -8,7 +8,7 @@
 
 ## Code repository
 
-**https://github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Science** — MIT licence. `requirements.txt` + exact `requirements-lock.txt`, weights download script, `scripts/inference.py` (runs on a CPU: {{cpu_single}} s per 540×540 image, {{cpu_tta}} s with 8× test-time augmentation), training / evaluation / analysis scripts that regenerate every number below, a Gradio demo and a Kaggle notebook.
+**[github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Science](https://github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Science)** — MIT licence. `requirements.txt` + exact `requirements-lock.txt`, weights download script, `scripts/inference.py` (runs on a CPU: {{cpu_single}} s per 540×540 image, {{cpu_tta}} s with 8× test-time augmentation), training / evaluation / analysis scripts that regenerate every number below, a Gradio demo and a Kaggle notebook.
 
 ## Project summary
 
@@ -16,7 +16,7 @@
 
 ## Technical report
 
-📄 **Full report (PDF, {{report_pages}} pages incl. appendices): {{report_link}}**
+📄 **[Full technical report (PDF, {{report_pages}} pages incl. appendices)]({{report_link}})**
 
 ### 1. Problem
 Nuclear read-outs (counts, proliferation, viability, morphology, dose–response) start from a nuclear stain, but on an organ-on-a-chip fixed DAPI ends the experiment, live DNA dyes are phototoxic and perturb the cell cycle, and reporter lines are impractical for primary or iPSC-derived (e.g. neural) tissue. In-silico labeling (ISL) predicts the stain from bright-field, but a point prediction gives no warning when it is wrong. **ChipStain asks: can we predict the nuclear stain and say — per pixel, per nucleus and per frame — how much to trust it, and does that signal beat simple alternatives?** Target users: OoC / cell-culture labs and CROs running live or high-content assays.
