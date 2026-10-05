@@ -36,7 +36,5 @@ derivative works, shared under CC BY 4.0 with the attribution given in each row.
 | `writeup/assets/gallery_5_demo_panel.png` | 1560×546 | Kaggle media-gallery copies of report figures | HeLa "Kyoto" test well R05-C03 — R. Guiet (EPFL BIOP), Zenodo 10.5281/zenodo.6140064, CC BY 4.0 (photographic panels) / none (charts) | copies of report/figures/* | `cp` |
 | `writeup/assets/gallery_6_proliferation.png` | 1688×565 | Kaggle media-gallery copies of report figures | HeLa "Kyoto" test well R05-C03 — R. Guiet (EPFL BIOP), Zenodo 10.5281/zenodo.6140064, CC BY 4.0 (photographic panels) / none (charts) | copies of report/figures/* | `cp` |
 | `writeup/assets/gallery_7_neural.png` | 1941×418 | Kaggle media-gallery copies of report figures | HeLa "Kyoto" test well R05-C03 — R. Guiet (EPFL BIOP), Zenodo 10.5281/zenodo.6140064, CC BY 4.0 (photographic panels) / none (charts) | copies of report/figures/* | `cp` |
-| `writeup/assets/thumbnail_560x280.png` | 560×280 | Kaggle thumbnail variants | HeLa "Kyoto" test well R05-C03 — R. Guiet (EPFL BIOP), Zenodo 10.5281/zenodo.6140064, CC BY 4.0 | crop of field F3 t150, resized, colour-mapped, text added | `inline script (see git history)` |
-| `writeup/assets/thumbnail_square_280.png` | 280×280 | Kaggle thumbnail variants | HeLa "Kyoto" test well R05-C03 — R. Guiet (EPFL BIOP), Zenodo 10.5281/zenodo.6140064, CC BY 4.0 | crop of field F3 t150, resized, colour-mapped, text added | `inline script (see git history)` |
 
-32 images registered; none unregistered.
+30 images registered; none unregistered.

@@ -1,4 +1,4 @@
-"""Build the technical report (HTML + PDF) from report/report_template.html and the result
+"""Build the technical report (HTML + PDF) from templates/report_template.html and the result
 files in report/results/. Every number in the results sections is read from those files.
 
     python scripts/build_report.py [--out report/ChipStain_Technical_Report]
@@ -538,12 +538,12 @@ def numbers(r):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="report/ChipStain_Technical_Report")
-    ap.add_argument("--texts", default="report/report_texts.json", help="prose blocks that interpret the numbers")
+    ap.add_argument("--texts", default="templates/report_texts.json", help="prose blocks that interpret the numbers")
     a = ap.parse_args()
     r = R()
     texts = json.load(open(a.texts)) if os.path.exists(a.texts) else {}
     results = "\n".join([sec_main(r), sec_ablation(r), sec_qual(), sec_uncertainty(r), sec_image_level(r), sec_shift(), sec_counting(r), sec_nucleus(), sec_prolif(), sec_neural(), sec_ensemble()])
-    tpl = open("report/report_template.html", encoding="utf-8").read()
+    tpl = open("templates/report_template.html", encoding="utf-8").read()
     chan = open(f"{RES}/channel_check.md").read() if os.path.exists(f"{RES}/channel_check.md") else ""
     ch = re.findall(r":\s+([0-9.]+) ±", chan)
     logs = [json.load(open(f))[-1]["time_min"] for f in glob.glob("runs/*/log.json")]
@@ -551,7 +551,8 @@ def main():
         "date": datetime.date.today().isoformat(),
         "sec_results": results,
         "chan_tub": ch[0] if ch else "0.42", "chan_h2b": ch[1] if len(ch) > 1 else "0.79",
-        "train_minutes": f"{min(logs):.0f}–{max(logs):.0f}" if logs else "≈15",
+        # typical wall-clock per 40-epoch run; runs > 3x the median (laptop asleep / machine shared) are excluded
+        "train_minutes": (lambda L: f"{min(L):.0f}–{max(L):.0f}")([x for x in logs if x <= 3 * sorted(logs)[len(logs) // 2]]) if logs else "≈15",
         "fig_curves": figure("training_curves.png", "").split("src='")[1].split("'")[0] if os.path.exists("report/figures/training_curves.png") else "",
         "fig_qual_base": figure("qualitative_baseline_unet_s0_tta.png", "").split("src='")[1].split("'")[0] if os.path.exists("report/figures/qualitative_baseline_unet_s0_tta.png") else "",
         "fig_qual_nll": figure("qualitative_chipstain_nll_s0.png", "").split("src='")[1].split("'")[0] if os.path.exists("report/figures/qualitative_chipstain_nll_s0.png") else "",

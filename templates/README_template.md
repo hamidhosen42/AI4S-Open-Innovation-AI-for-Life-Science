@@ -82,7 +82,9 @@ configs/              baseline, pretrained, ours (ChipStain) and ablation arms
 demo/                 Gradio app + example images (see demo/examples/README.md)
 notebooks/            Kaggle notebook: train + evaluate
 report/               technical report (PDF + HTML), figures, result files, IMAGES.md (image register)
-writeup/              Kaggle Writeup, video script, gallery assets
+writeup/              Kaggle Writeup and gallery assets
+presentation/         slide deck (single HTML) and video script
+templates/            sources of the report, README, Writeup and deck (numbers filled from report/results)
 DATA.md               data sources, licences, splits, usage note, ethics
 AI_ASSISTANCE.md      AI-tool, pre-trained weights and third-party disclosure
 ```

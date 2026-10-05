@@ -1,13 +1,16 @@
-"""Narrated draft video from the slide PNGs and narration (macOS `say` + ffmpeg).
+"""Narrated video from the presentation frames and speaker notes (macOS `say` + ffmpeg).
 
-    python scripts/build_video.py   -> writeup/video/ChipStain_video.mp4 (must stay under 5:00)
+    python scripts/build_presentation.py && python scripts/build_video.py   -> presentation/ChipStain_video.mp4 (must stay under 5:00)
 """
 import glob
 import json
 import os
 import subprocess
 
-OUT = "writeup/video"
+OUT = "presentation/video_tmp"
+FRAMES = "presentation/frames"
+FINAL = "presentation/ChipStain_video.mp4"
+VOICE, RATE = "Samantha", "175"
 
 
 def duration(path):
@@ -16,11 +19,10 @@ def duration(path):
 
 
 def main():
-    tpl = json.load(open("writeup/slides_template.json"))
-    voice, rate = tpl.get("voice", "Samantha"), str(tpl.get("rate", 172))
+    voice, rate = VOICE, RATE
     os.makedirs(OUT, exist_ok=True)
     parts = []
-    for png in sorted(glob.glob("writeup/slides/slide_*.png")):
+    for png in sorted(glob.glob(os.path.join(FRAMES, "slide_*.png"))):
         stem = png[:-4]
         txt = open(stem + ".txt", encoding="utf-8").read()
         aiff, wav, mp4 = f"{OUT}/{os.path.basename(stem)}.aiff", f"{OUT}/{os.path.basename(stem)}.wav", f"{OUT}/{os.path.basename(stem)}.mp4"
@@ -32,11 +34,10 @@ def main():
         parts.append(mp4)
     lst = f"{OUT}/parts.txt"
     open(lst, "w").write("".join(f"file '{os.path.abspath(p)}'\n" for p in parts))
-    final = f"{OUT}/ChipStain_video.mp4"
+    final = FINAL
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", final], check=True)
-    for p in glob.glob(f"{OUT}/slide_*"):
-        os.remove(p)
-    os.remove(lst)
+    import shutil
+    shutil.rmtree(OUT, ignore_errors=True)
     d = duration(final)
     print(f"video: {final}  duration {int(d // 60)}:{int(d % 60):02d}" + ("  (OVER 5:00!)" if d > 300 else "  (under the 5:00 limit)"))
 

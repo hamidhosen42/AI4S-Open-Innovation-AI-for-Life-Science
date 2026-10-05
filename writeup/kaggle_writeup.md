@@ -65,7 +65,7 @@ git clone https://github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Scien
 pip install -r requirements.txt && pip install -e .          # exact versions: requirements-lock.txt
 python scripts/download_data.py && python scripts/download_weights.py
 python scripts/inference.py --image demo/examples/example_bf_dense_t150.tif --weights weights/chipstain.pt --out outputs/pred --device cpu
-bash scripts/run_all.sh 0 1 2 && bash scripts/run_ablations.sh 0 1 2      # ≈9–157 min per run on an Apple M5 (MPS)
+bash scripts/run_all.sh 0 1 2 && bash scripts/run_ablations.sh 0 1 2      # ≈9–28 min per run on an Apple M5 (MPS)
 # evaluation, statistics, analyses, figures and this report: see README "Reproduce everything"
 python demo/app.py --weights weights/chipstain.pt
 ```

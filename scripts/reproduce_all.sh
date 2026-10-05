@@ -50,5 +50,5 @@ if [ "$MODE" != "--main-only" ]; then
 fi
 
 python scripts/make_figures.py && python scripts/make_figures_extra.py && python scripts/image_register.py
-python scripts/build_report.py && python scripts/build_writeup.py
+python scripts/build_report.py && python scripts/build_writeup.py && python scripts/build_presentation.py
 echo "done: report/ChipStain_Technical_Report.pdf, README.md, writeup/kaggle_writeup.md"

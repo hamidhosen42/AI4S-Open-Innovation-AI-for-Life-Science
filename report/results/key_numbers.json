@@ -1,5 +1,5 @@
 {
- "train_minutes": "9\u2013157",
+ "train_minutes": "9\u201328",
  "n_full_pearson": "0.768",
  "n_full_ssim": "0.814",
  "n_full_mae": "0.0323",

@@ -53,7 +53,7 @@ Tested with Python 3.12.11, PyTorch 2.14.0, segmentation-models-pytorch 0.5.0, N
 ## Reproduce everything
 
 ```bash
-bash scripts/run_all.sh 0 1 2            # baseline, pretrained, ChipStain x 3 seeds   (≈9–157 min per run, Apple M5)
+bash scripts/run_all.sh 0 1 2            # baseline, pretrained, ChipStain x 3 seeds   (≈9–28 min per run, Apple M5)
 bash scripts/run_ablations.sh 0 1 2      # LR / loss / beta ablation arms x 3 seeds
 python scripts/evaluate.py --runs runs/{baseline_unet,pretrained_l1,chipstain_nll}_s{0,1,2} --cache outputs/cache --out outputs/multiseed
 python scripts/evaluate.py --runs runs/{baseline_unet,pretrained_l1,chipstain_nll}_s{0,1,2} --tta --cache outputs/cache --out outputs/multiseed_tta
@@ -90,7 +90,9 @@ configs/              baseline, pretrained, ours (ChipStain) and ablation arms
 demo/                 Gradio app + example images (see demo/examples/README.md)
 notebooks/            Kaggle notebook: train + evaluate
 report/               technical report (PDF + HTML), figures, result files, IMAGES.md (image register)
-writeup/              Kaggle Writeup, video script, gallery assets
+writeup/              Kaggle Writeup and gallery assets
+presentation/         slide deck (single HTML) and video script
+templates/            sources of the report, README, Writeup and deck (numbers filled from report/results)
 DATA.md               data sources, licences, splits, usage note, ethics
 AI_ASSISTANCE.md      AI-tool, pre-trained weights and third-party disclosure
 ```

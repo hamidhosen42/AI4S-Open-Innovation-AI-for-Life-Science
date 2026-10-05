@@ -36,3 +36,9 @@ data/data_guidelines.md
 writeup/slides/
 writeup/video/
 writeup/ChipStain_slides.html
+tools_local/
+
+# rebuilt by scripts/build_presentation.py / build_video.py
+presentation/frames/
+presentation/video_tmp/
+presentation/ChipStain_video.mp4

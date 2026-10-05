@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Rebuild every deliverable from the current result files, in dependency order:
 # figures -> demo numbers -> image register -> report (HTML+PDF, key numbers) -> README + Writeup
-# -> slides (PNG+PDF) + video script -> narrated draft video. Run after ANY change to results or texts.
+# -> presentation (single HTML deck) + video script -> narrated video. Run after ANY change to results or texts.
 #   bash scripts/build_all.sh            # everything
 #   bash scripts/build_all.sh --no-video # skip the (slower) video render
 set -euo pipefail
@@ -19,9 +19,9 @@ cp report/figures/proliferation.png writeup/assets/gallery_6_proliferation.png
 python scripts/image_register.py
 python scripts/build_report.py
 python scripts/build_writeup.py
-python scripts/build_slides.py
+python scripts/build_presentation.py
 [ "${1:-}" = "--no-video" ] || python scripts/build_video.py
 command -v pbcopy >/dev/null && pbcopy < writeup/kaggle_writeup.md
-# push the new text into the Kaggle Writeup draft (Save Draft only, never Submit); non-fatal if Chrome is unavailable
-python scripts/kaggle_sync_writeup.py || echo "Kaggle sync skipped - the text is on the clipboard; paste it into the draft"
-echo "Rebuilt: report/ChipStain_Technical_Report.pdf, README.md, writeup/kaggle_writeup.md, writeup/ChipStain_slides.pdf, writeup/video_script.md, writeup/video/ChipStain_video.mp4"
+# optional local helper (not part of the repository): push the text into the Kaggle draft
+if [ -f tools_local/kaggle_sync_writeup.py ]; then { PYTHONPATH=. python tools_local/kaggle_sync_writeup.py || echo "Kaggle sync skipped - the text is on the clipboard"; }; fi
+echo "Rebuilt: report/ChipStain_Technical_Report.pdf, README.md, writeup/kaggle_writeup.md, presentation/ChipStain_presentation.html, presentation/VIDEO_SCRIPT.md, presentation/ChipStain_video.mp4"

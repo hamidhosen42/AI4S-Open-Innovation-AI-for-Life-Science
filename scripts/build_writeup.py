@@ -1,6 +1,6 @@
 """Render README.md and writeup/kaggle_writeup.md from their templates, filling every number
 from report/results/key_numbers.json (written by scripts/build_report.py) and the prose
-bullets from report/report_texts.json, so the README, the Writeup and the report agree.
+bullets from templates/report_texts.json, so the README, the Writeup and the report agree.
 
     python scripts/build_report.py && python scripts/build_writeup.py
 """
@@ -43,17 +43,15 @@ def render(tpl_path, out_path, values):
 
 def main():
     vals = json.load(open(f"{RES}/key_numbers.json"))
-    texts = json.load(open("report/report_texts.json")) if os.path.exists("report/report_texts.json") else {}
+    texts = json.load(open("templates/report_texts.json")) if os.path.exists("templates/report_texts.json") else {}
     vals.update(texts)
     vals["results_table"] = main_table_md()
     vals["report_pages"] = pdf_pages()
     vals.setdefault("report_link", "https://github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Science/blob/main/report/ChipStain_Technical_Report.pdf")
     vals.setdefault("video_link", "[VIDEO LINK — paste the YouTube link here]")
     vals.setdefault("demo_link", "Local demo only (no hosted Space) — see below")
-    render("README_template.md", "README.md", vals)
-    w = render("writeup/kaggle_writeup_template.md", "writeup/kaggle_writeup.md", vals)
-    render("writeup/video_script_template.md", "writeup/video_script.md", vals)
-    render("writeup/live_demo_template.md", "writeup/LIVE_DEMO_SCRIPT.md", vals)
+    render("templates/README_template.md", "README.md", vals)
+    w = render("templates/kaggle_writeup_template.md", "writeup/kaggle_writeup.md", vals)
     summ = w.split("## Project summary")[1].split("## Technical report")[0]
     print("Project summary words:", len(summ.split()))
 
