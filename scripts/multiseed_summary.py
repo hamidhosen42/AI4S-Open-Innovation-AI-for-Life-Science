@@ -24,12 +24,12 @@ from scipy.stats import rankdata, spearmanr, wilcoxon
 METRICS = ["pearson", "ssim", "psnr", "mae", "seg_f1", "spearman_unc_err", "ause", "gain20", "mean_sigma",
            "spearman_mu_err", "ause_mu", "gain20_mu", "spearman_grad_err", "ause_grad", "gain20_grad", "gain20_oracle", "n_pred", "n_ref"]
 LABEL = {
-    "baseline_unet": "U-Net baseline (scratch, L1, lr 1e-3)",
-    "ablate_scratch_l1_lr5e4": "U-Net from scratch (L1, lr 5e-4)",
-    "pretrained_l1": "+ ImageNet encoder (L1, lr 5e-4)",
-    "ablate_pretrained_mse": "+ ImageNet encoder (MSE, lr 5e-4)",
-    "baseline_unet+tta": "U-Net baseline + TTA (σ = view s.d.)",
-    "pretrained_l1+tta": "+ ImageNet encoder + TTA (σ = view s.d.)",
+    "baseline_unet": "Scratch U-Net (L1, lr 1e-3)",
+    "ablate_scratch_l1_lr5e4": "Scratch U-Net (L1, lr 5e-4)",
+    "pretrained_l1": "ImageNet-L1 U-Net (L1, lr 5e-4)",
+    "ablate_pretrained_mse": "ImageNet U-Net (MSE, lr 5e-4)",
+    "baseline_unet+tta": "Scratch U-Net + TTA (σ = view s.d.)",
+    "pretrained_l1+tta": "ImageNet-L1 U-Net + TTA (σ = view s.d.) — matched control",
     "ablate_nll_beta0": "ChipStain head, β = 0 (plain NLL)",
     "ablate_nll_beta0+tta": "ChipStain head, β = 0, + TTA",
     "ablate_nll_beta1": "ChipStain head, β = 1",

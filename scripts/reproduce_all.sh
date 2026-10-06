@@ -19,7 +19,7 @@ bash scripts/run_all.sh 0 1 2                                     # 9 training r
 S="{0,1,2}"
 eval python scripts/evaluate.py --runs runs/{baseline_unet,pretrained_l1,chipstain_nll}_s$S --cache outputs/cache --out outputs/multiseed
 eval python scripts/evaluate.py --runs runs/{baseline_unet,pretrained_l1,chipstain_nll}_s$S --tta --cache outputs/cache --out outputs/multiseed_tta
-eval python scripts/evaluate.py --runs runs/{baseline_unet,chipstain_nll}_s$S --split val --tta --cache outputs/cache_val --out outputs/multiseed_val
+eval python scripts/evaluate.py --runs runs/{baseline_unet,pretrained_l1,chipstain_nll}_s$S --split val --tta --cache outputs/cache_val --out outputs/multiseed_val
 DIRS="outputs/multiseed outputs/multiseed_tta"
 
 if [ "$MODE" != "--main-only" ]; then

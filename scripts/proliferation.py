@@ -8,10 +8,14 @@ Time-points are frames 1, 10, 50, 100, 150 of a 15-min time-lapse (0-37.25 h). P
 log(count) = a + b*t by least squares; doubling time = ln2 / b. Counts from the prediction are
 compared with counts of the StarDist reference annotation (made on the real H2B stain).
 Gate: a frame's relative uncertainty is its mean sigma divided by the median mean sigma of the
-frames with the same time-point (same seed, same split). The threshold is the 95th percentile
+frames at the same time-point in the same run (so the gate needs a batch of frames per time-point;
+it uses no test labels, but it does use the other test frames). The threshold is the 95th percentile
 of that ratio on the validation split, i.e. a 5 % false-alarm budget set without test labels.
 Flagged frames are dropped from the fit; a field with fewer than 3 frames left is reported as
-"needs review" and excluded from the population estimate.
+"needs review" and excluded from the population estimate. A field whose count does not grow at all
+(slope <= 0, a collapsed prediction) has no doubling time and is reported as "collapsed".
+Errors are reported three ways: all frames (all fields with a valid fit), all frames restricted to
+the fields the gate keeps (same fields as the gated estimate), and gated.
 """
 import argparse
 import os
@@ -20,7 +24,7 @@ import numpy as np
 import pandas as pd
 
 HOURS = {1: 0.0, 10: 2.25, 50: 12.25, 100: 24.75, 150: 37.25}
-MODELS = {"chipstain_nll+tta": "ChipStain + TTA", "baseline_unet+tta": "U-Net + TTA"}
+MODELS = {"chipstain_nll+tta": "ChipStain + TTA", "pretrained_l1+tta": "ImageNet-L1 U-Net + TTA", "baseline_unet+tta": "Scratch U-Net + TTA"}
 
 
 def split_cfg(df):
@@ -53,6 +57,8 @@ def main():
         te = split_cfg(te)
     te = te[te["cfg"].isin(MODELS)].copy()
     va = split_cfg(pd.read_csv(a.val)) if os.path.exists(a.val) else None
+    if va is not None:  # per-image validation sigma, shipped so the gate and demo thresholds can be checked
+        va[[c for c in ["run", "well", "field", "timepoint", "mean_sigma", "mae", "pearson", "seg_f1"] if c in va]].to_csv(os.path.join(a.out, "validation_sigma.csv"), index=False)
     te["rel_sigma"] = rel_sigma(te)
     thr = {}
     for cfg in MODELS:
@@ -78,13 +84,16 @@ def main():
             curves.append({"source": name, "seed": seed, "field": r.field, "hours": HOURS[r.timepoint], "count": r.n_pred})
         n_fail, n_flag = int(g.failed_frame.sum()), int(g.flag.sum())
         caught = int((g.failed_frame & g.flag).sum())
-        for label, dt in [("all frames", dt_all), ("σ-gated", dt_gate)]:
+        collapsed = int(dt_all.isna().sum())
+        same = dt_all.where(dt_gate.notna())  # ungated estimate, restricted to the fields the gate keeps
+        for label, dt in [("all frames", dt_all), ("all frames, same fields as gated", same), ("σ-gated", dt_gate)]:
             ok = dt.notna()
-            rows.append({"model": name, "seed": seed, "frames": label,
+            rows.append({"model": name, "seed": seed, "frames": label, "fields_used": int(ok.sum()),
                          "pop_dt_h": float(np.exp(np.log(dt[ok]).mean())) if ok.any() else np.nan,
                          "bias_pct": float(100 * ((dt[ok] - ref[ok]) / ref[ok]).mean()),
                          "mape_pct": float(100 * ((dt[ok] - ref[ok]).abs() / ref[ok]).mean()),
-                         "fields_needing_review": int((~ok).sum()),
+                         "collapsed_fields": collapsed if label == "all frames" else 0,
+                         "fields_needing_review": int(dt_gate.isna().sum()) if label == "σ-gated" else 0,
                          "frames_flagged": n_flag if label == "σ-gated" else 0,
                          "failed_frames": n_fail, "failed_frames_flagged": caught if label == "σ-gated" else 0})
     res = pd.DataFrame(rows)
@@ -94,11 +103,12 @@ def main():
     te[["cfg", "seed", "field", "timepoint", "mean_sigma", "rel_sigma", "flag", "seg_f1", "failed_frame", "n_pred", "n_ref"]].to_csv(os.path.join(a.out, "proliferation_frames.csv"), index=False)
     md = [f"Reference (StarDist on real H2B): population doubling time {np.exp(np.log(ref).mean()):.1f} h (geometric mean of 25 fields).",
           f"Gate thresholds (relative mean σ, {100*(1-a.false_alarm):.0f}th percentile on validation): " + ", ".join(f"{MODELS[k]} {v:.2f}" for k, v in thr.items()), "",
-          "| model | seed | frames used | doubling time (h) | mean bias | mean abs. error | fields to review | frames flagged | failed frames (F1 < 0.5) caught |",
-          "|---|---|---|---|---|---|---|---|---|"]
+          "| model | seed | estimate | fields used | doubling time (h) | mean signed bias | mean abs. error | collapsed fields | fields to review | frames flagged | failed frames (F1 < 0.5) caught |",
+          "|---|---|---|---|---|---|---|---|---|---|---|"]
     for _, r in res.iterrows():
-        caught = f"{r.failed_frames_flagged}/{r.failed_frames}" if r.frames == "σ-gated" else f"—/{r.failed_frames}"
-        md.append(f"| {r.model} | {r.seed} | {r.frames} | {r.pop_dt_h:.1f} | {r.bias_pct:+.1f} % | {r.mape_pct:.1f} % | {r.fields_needing_review} | {r.frames_flagged} | {caught} |")
+        caught = f"{r.failed_frames_flagged}/{r.failed_frames}" if r.frames == "σ-gated" else "—"
+        md.append(f"| {r.model} | {r.seed} | {r.frames} | {r.fields_used} | {r.pop_dt_h:.1f} | {r.bias_pct:+.1f} % | {r.mape_pct:.1f} % | "
+                  f"{r.collapsed_fields if r.frames == 'all frames' else '—'} | {r.fields_needing_review if r.frames == 'σ-gated' else '—'} | {r.frames_flagged if r.frames == 'σ-gated' else '—'} | {caught} |")
     open(os.path.join(a.out, "proliferation.md"), "w").write("\n".join(md) + "\n")
     print("\n".join(md))
 

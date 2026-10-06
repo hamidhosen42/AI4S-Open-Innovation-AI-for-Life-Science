@@ -126,7 +126,7 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
   <div class="content" style="margin-top:56px">
     <div class="grid3" style="width:100%">
       <div class="card"><div class="tag">Model</div><h3>Stain + uncertainty</h3><p>A U-Net that predicts, for every pixel, the nuclear intensity μ and its uncertainty σ — stabilised with β-NLL and test-time augmentation.</p></div>
-      <div class="card"><div class="tag">Validation</div><h3>Tested, not assumed</h3><p>σ is compared with an equally strong baseline and with uncertainty-free proxies, checked for calibration, imaging shift, a biological read-out and neurons.</p></div>
+      <div class="card"><div class="tag">Validation</div><h3>Tested, not assumed</h3><p>σ is compared with a matched control (same network, L1 loss) and with uncertainty-free proxies, checked for calibration, imaging shift, a biological read-out and neurons.</p></div>
       <div class="card"><div class="tag">Tool</div><h3>Open and reproducible</h3><p>CPU inference, public data and weights, three training seeds, and one command that regenerates every result.</p></div>
     </div>
   </div>
@@ -336,16 +336,16 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
   <h1>Same fidelity as an equally strong baseline — a much better uncertainty</h1>
   <div class="content" style="flex-direction:column;gap:26px;margin-top:30px">
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
-      <div class="stat"><div class="k">Pearson r with real stain</div><div class="v">{{n_full_pearson}} <small>vs {{n_bt_pearson}}</small></div><div class="d">equal correlation</div></div>
-      <div class="stat teal"><div class="k">σ ranks errors (ρ)</div><div class="v">{{n_full_rho}} <small>vs {{n_bt_rho}}</small></div><div class="d">every field, every seed</div></div>
-      <div class="stat teal"><div class="k">AUSE (lower is better)</div><div class="v">{{n_full_ause}} <small>vs {{n_bt_ause}}</small></div><div class="d">error ranking over the full curve</div></div>
-      <div class="stat teal"><div class="k">95 % interval covers</div><div class="v">{{n_cal_95}} <small>%</small></div><div class="d">baseline needs σ ×{{n_cal_unet_scale}}</div></div>
+      <div class="stat"><div class="k">Pearson r with real stain</div><div class="v">{{n_full_pearson}} <small>vs {{n_pm_pearson}}</small></div><div class="d">equal correlation</div></div>
+      <div class="stat teal"><div class="k">σ ranks errors (ρ)</div><div class="v">{{n_full_rho}} <small>vs {{n_pm_rho}}</small></div><div class="d">every field, every seed</div></div>
+      <div class="stat teal"><div class="k">AUSE (lower is better)</div><div class="v">{{n_full_ause}} <small>vs {{n_pm_ause}}</small></div><div class="d">error ranking over the full curve</div></div>
+      <div class="stat teal"><div class="k">95 % interval covers</div><div class="v">{{n_cal_95}} <small>%</small></div><div class="d">matched control needs σ ×{{n_cal_pm_scale}}</div></div>
     </div>
     <div class="figure grow"><img src="{{fig:multiseed.png}}" alt="Three-seed comparison of all configurations"></div>
-    <p class="caption" style="margin-top:0">ChipStain vs U-Net with the same 8× augmentation; means over 3 seeds. The cost: {{n_mae_rel}} % higher pixel error (MAE).</p>
+    <p class="caption" style="margin-top:0">ChipStain vs the matched control: the same ImageNet U-Net trained with L1 and the same 8× augmentation; means over 3 seeds. The cost: {{n_pm_mae_rel}} % higher pixel error (MAE).</p>
   </div>
   <div class="footer"><span><b>ChipStain</b> · Hack2Publish</span><span>95 % CIs from a bootstrap over seeds and fields</span></div>
-  <aside class="notes">Over three runs on 125 test images, ChipStain matches a U-Net with the same augmentation in correlation, {{n_full_pearson}} versus {{n_bt_pearson}}, at {{n_mae_rel}} percent higher pixel error. Its uncertainty ranks errors far better — {{n_full_rho}} versus {{n_bt_rho}} — and is calibrated: the 95 percent interval covers {{n_cal_95}} percent of pixels.</aside>
+  <aside class="notes">Over three runs on 125 test images, ChipStain matches the same ImageNet U-Net trained with an L1 loss and the same augmentation in correlation, {{n_full_pearson}} versus {{n_pm_pearson}}, at {{n_pm_mae_rel}} percent higher pixel error. Its uncertainty ranks errors far better — {{n_full_rho}} versus {{n_pm_rho}} — and is close to calibrated: the 95 percent interval covers {{n_cal_95}} percent of pixels, while the control's spread must be scaled {{n_cal_pm_scale}}-fold.</aside>
 </section>
 
 <!-- 10 — SIGMA VS PROXIES -->
@@ -374,12 +374,12 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
     <div class="figure grow"><img src="{{fig:timelapse.png}}" alt="60 hour time-lapse"></div>
     <div class="col" style="width:470px">
       <div class="stat teal"><div class="k">Doubling time, label-free</div><div class="v">{{n_tl_dt_pred}} <small>h</small></div><div class="d">from the real stain: {{n_tl_dt_real}} h</div></div>
-      <div class="stat"><div class="k">Doubling-time error</div><div class="v">{{n_pl_cs_bias_all}} → {{n_pl_cs_bias_gate}} <small>%</small></div><div class="d">without → with the σ frame gate (set on validation)</div></div>
+      <div class="stat"><div class="k">Doubling-time error</div><div class="v">{{n_pl_cs_bias_all}} → {{n_pl_cs_bias_gate}} <small>%</small></div><div class="d">all fields → σ-gated; mostly by sending failing fields to review ({{n_pl_cs_bias_same}} % on the same fields without the gate)</div></div>
       <div class="stat amber"><div class="k">Fluorescence exposures</div><div class="v">0</div><div class="d">for the label-free curve</div></div>
     </div>
   </div>
   <div class="footer"><span><b>ChipStain</b> · Hack2Publish</span><span>Data: R. Guiet, EPFL BIOP, Zenodo 10.5281/zenodo.6139958, CC BY 4.0</span></div>
-  <aside class="notes">The biological payoff: on a 60-hour time-lapse, label-free counts give a doubling time of {{n_tl_dt_pred}} hours against {{n_tl_dt_real}} from the real stain — without a single fluorescence exposure. A frame gate cuts the error from {{n_pl_cs_bias_all}} to {{n_pl_cs_bias_gate}} percent.</aside>
+  <aside class="notes">The biological payoff: on a 60-hour time-lapse, label-free counts give a doubling time of {{n_tl_dt_pred}} hours against {{n_tl_dt_real}} from the real stain — without a single fluorescence exposure. A sigma frame gate cuts the error from {{n_pl_cs_bias_all}} to {{n_pl_cs_bias_gate}} percent — mostly by sending failing fields to human review; on the same fields without the gate it is {{n_pl_cs_bias_same}} percent.</aside>
 </section>
 
 <!-- 12 — ROBUSTNESS & TRANSFER -->
@@ -390,7 +390,7 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
     <div class="grid2" style="width:100%">
       <div class="card"><div class="tag">Imaging shift · 3 seeds per model</div><h3>σ is calibrated in distribution — not a drift alarm</h3>
         <ul class="points" style="margin-top:14px">
-          <li class="ok" style="font-size:25px">Added sensor noise is flagged by every model, in every seed</li>
+          <li class="ok" style="font-size:25px">Added sensor noise raises σ in every model and seed</li>
           <li class="warn" style="font-size:25px">Blur or a new modality breaks every model; σ warns in only {{n_shift_cs_defocus_seeds_ok}} ChipStain seeds</li>
           <li style="font-size:25px">New imaging must be checked with paired images</li>
         </ul></div>
@@ -403,7 +403,7 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
     </div>
   </div>
   <div class="footer"><span><b>ChipStain</b> · Hack2Publish</span><span>Neurons: Christiansen et al., Cell 2018, CC BY 4.0 · dish, not chip</span></div>
-  <aside class="notes">Outside the training data: noise is always flagged, but blur or a new modality breaks every model and sigma warns only sometimes. On stem-cell-derived neurons, fine-tuning on one well raises the correlation from {{n_nz_cs_r}} to {{n_nf_cs_k1_r}}.</aside>
+  <aside class="notes">Outside the training data: added noise always raises sigma, but blur or a new modality breaks every model and sigma warns only sometimes. On stem-cell-derived neurons, fine-tuning on one well raises the correlation from {{n_nz_cs_r}} to {{n_nf_cs_k1_r}}.</aside>
 </section>
 
 <!-- 13 — WHEN TO USE WHAT -->

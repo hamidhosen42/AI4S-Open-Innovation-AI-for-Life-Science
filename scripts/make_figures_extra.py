@@ -21,8 +21,8 @@ plt.rcParams.update({
     "axes.titlesize": 9, "axes.titleweight": "bold", "axes.titlelocation": "left", "savefig.facecolor": "white",
 })
 CFG = ["baseline_unet", "pretrained_l1", "baseline_unet+tta", "pretrained_l1+tta", "chipstain_nll", "chipstain_nll+tta"]
-NAME = {"baseline_unet": "U-Net baseline (L1)", "pretrained_l1": "+ ImageNet encoder (L1)",
-        "baseline_unet+tta": "U-Net baseline + TTA", "pretrained_l1+tta": "+ ImageNet encoder + TTA", "chipstain_nll": "ChipStain (β-NLL)", "chipstain_nll+tta": "ChipStain + TTA (full)"}
+NAME = {"baseline_unet": "Scratch U-Net (L1)", "pretrained_l1": "ImageNet-L1 U-Net",
+        "baseline_unet+tta": "Scratch U-Net + TTA", "pretrained_l1+tta": "ImageNet-L1 U-Net + TTA (matched)", "chipstain_nll": "ChipStain (β-NLL)", "chipstain_nll+tta": "ChipStain + TTA (full)"}
 
 
 def multiseed(res, path):
@@ -43,7 +43,7 @@ def multiseed(res, path):
         if m == "seg_f1":
             real = pd.read_csv(os.path.join(res, "multiseed_per_image.csv"))["seg_f1_realfluo"].mean()
             ax.axvline(real, color=MUTED, lw=1, ls=(0, (3, 2)))
-            ax.text(real, len(CFG) - 0.45, " real-stain ceiling", fontsize=7, color=INK2, va="bottom")
+            ax.text(real, len(CFG) - 0.45, " real-stain reference (not a bound)", fontsize=7, color=INK2, va="bottom")
         ax.set_title(title)
         ax.grid(axis="x", color=GRID, lw=0.8)
         ax.set_axisbelow(True)
@@ -61,7 +61,7 @@ def shift(res, path):
     if "cfg" not in df:  # legacy single-seed format
         df["cfg"] = df["run"].str.replace(r"_s\d+$", "", regex=True)
     order = [c for c in ["clean", "blur σ=1 px", "blur σ=2 px", "blur σ=4 px", "noise 10 %", "noise 20 %", "modality: DPC"] if c in set(df.condition)] or list(dict.fromkeys(df.condition))
-    runs = [("chipstain_nll", "ChipStain + TTA (learned σ + TTA)", BLUE), ("pretrained_l1", "ImageNet-L1 U-Net + TTA (TTA spread)", AQUA), ("baseline_unet", "U-Net + TTA (TTA spread)", ORANGE)]
+    runs = [("chipstain_nll", "ChipStain + TTA (learned σ + TTA)", BLUE), ("pretrained_l1", "ImageNet-L1 U-Net + TTA (TTA spread)", AQUA), ("baseline_unet", "Scratch U-Net + TTA (TTA spread)", ORANGE)]
     runs = [r for r in runs if r[0] in set(df.cfg)]
     per_seed = df.groupby(["cfg", "run", "condition"])[["pearson", "mean_sigma"]].mean().reset_index()
     fig, axes = plt.subplots(1, 2, figsize=(10, 3.6), sharey=True)
@@ -71,24 +71,26 @@ def shift(res, path):
         d = per_seed[per_seed.cfg == cfg]
         clean = d[d.condition == "clean"].set_index("run")["mean_sigma"]
         d = d.assign(rel=d.apply(lambda r: r.mean_sigma / clean[r.run], axis=1))
-        m = d.groupby("condition")[["pearson", "rel"]].mean().reindex(order)
+        m = d.groupby("condition")[["pearson"]].mean().reindex(order)
         axes[0].scatter(m["pearson"], y + off, s=32, color=col, edgecolor="white", lw=1, zorder=3, label=lab)
-        axes[1].scatter(m["rel"], y + off, s=32, color=col, edgecolor="white", lw=1, zorder=3, label=lab)
-        for c_i, c in enumerate(order):  # seed range as a thin bar
+        for c_i, c in enumerate(order):
             v = d[d.condition == c]
             axes[0].plot([v.pearson.min(), v.pearson.max()], [y[c_i] + off] * 2, color=col, lw=1, alpha=.6)
-            axes[1].plot([v.rel.min(), v.rel.max()], [y[c_i] + off] * 2, color=col, lw=1, alpha=.6)
+            # panel B: every seed as its own dot (a mean over seeds would hide seeds in which sigma falls)
+            axes[1].scatter(v.rel, [y[c_i] + off] * len(v), s=22, facecolor=col, edgecolor="white", lw=0.6, zorder=3, alpha=.9)
     axes[0].set_title("A  Accuracy under shift: Pearson r vs real stain"); axes[0].set_xlim(0, 0.85)
     axes[1].set_xscale("log", base=2); axes[1].axvline(1, color=MUTED, lw=1, ls=(0, (3, 2)))
     axes[1].set_title("B  Does the uncertainty notice? mean σ relative to clean")
-    axes[1].set_xticks([0.125, 0.25, 0.5, 1, 2, 4, 8, 16]); axes[1].set_xticklabels(["⅛×", "¼×", "½×", "1×", "2×", "4×", "8×", "16×"])
+    lo_, hi_ = axes[1].get_xlim()
+    ticks = [2.0 ** k for k in range(int(np.floor(np.log2(max(lo_, 1e-3)))), int(np.ceil(np.log2(hi_))) + 1, 2)]
+    axes[1].set_xticks(ticks); axes[1].set_xticklabels([(f"{t:g}×" if t >= 1 else f"1/{1 / t:g}×") for t in ticks])
     for ax in axes:
         ax.grid(axis="x", color=GRID, lw=0.8); ax.set_axisbelow(True)
     axes[0].set_yticks(y); axes[0].set_yticklabels(order)
     h, l = axes[0].get_legend_handles_labels()
     n_seeds = df.groupby("cfg")["run"].nunique().max()
     fig.legend(h, l, loc="lower center", ncol=len(runs), frameon=False, bbox_to_anchor=(0.5, -0.07))
-    fig.text(0.01, -0.12, f"Dots: mean over {n_seeds} seed(s); thin bars: range over seeds. 50 test images per condition, 8× TTA.", fontsize=7.5, color=INK2)
+    fig.text(0.01, -0.12, f"A: dots = mean over {n_seeds} seeds, bars = range over seeds. B: one dot per seed (mean σ of 50 images relative to clean). 8× TTA.", fontsize=7.5, color=INK2)
     plt.tight_layout(rect=(0, 0.05, 1, 1)); plt.savefig(path, dpi=170, bbox_inches="tight"); plt.close(fig)
 
 

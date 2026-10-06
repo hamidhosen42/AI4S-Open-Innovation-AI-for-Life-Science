@@ -49,7 +49,7 @@ def main():
     y_test, y_val = targets(test), targets(val)
     fg = np.stack([load_mask(s) > 0 for s in test])  # pixels inside reference nuclei
     rows = []
-    for tag_base in ["chipstain_nll", "pretrained_l1", "baseline_unet"]:
+    for tag_base in ["chipstain_nll", "pretrained_l1", "baseline_unet"]:  # ChipStain first in the table
         for tta in ["", "_tta"]:
             if tag_base in ("baseline_unet", "pretrained_l1") and tta == "":
                 continue  # a point estimate has no sigma
@@ -72,12 +72,13 @@ def main():
                              **{f"raw_{k}": v for k, v in raw.items()}, **{f"cal_{k}": v for k, v in cal.items()}, **{f"fg_{k}": v for k, v in fgc.items()}})
     df = pd.DataFrame(rows)
     df.to_csv(os.path.join(a.out, "calibration.csv"), index=False)
-    g = df.groupby("model").mean(numeric_only=True)
-    md = ["Empirical coverage of μ ± z·σ on the 125 test images (every 3rd pixel), mean over seeds. "
+    order = ["chipstain_nll_tta", "chipstain_nll", "pretrained_l1_tta", "baseline_unet_tta"]
+    g = df.groupby("model").mean(numeric_only=True).reindex([o for o in order if o in set(df.model)])
+    md = ["Empirical coverage of μ ± z·σ on the 125 test images (every 3rd pixel in each direction, i.e. 1 in 9 pixels), mean over seeds. "
           "'recalibrated' multiplies σ by one scalar fitted on the validation split.", "",
           "| model | σ-scale (val) | " + " | ".join(f"nominal {int(l*100) if l != 0.683 else 68.3} %" for l in LEVELS) + " |",
           "|---|---|" + "---|" * len(LEVELS)]
-    pretty = {"baseline_unet_tta": "U-Net + TTA (view s.d.)", "pretrained_l1_tta": "+ ImageNet encoder + TTA (view s.d.)",
+    pretty = {"baseline_unet_tta": "Scratch U-Net + TTA (view s.d.)", "pretrained_l1_tta": "ImageNet-L1 U-Net + TTA (view s.d.)",
               "chipstain_nll": "ChipStain, single pass", "chipstain_nll_tta": "ChipStain + TTA"}
     for m, r in g.iterrows():
         md.append(f"| {pretty.get(m, m)}, raw | — | " + " | ".join(f"{100*r[f'raw_{l}']:.1f} %" for l in LEVELS) + " |")

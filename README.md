@@ -12,21 +12,21 @@ Held-out well R05-C03 (125 images), **mean ± s.d. over 3 training seeds**:
 
 | Model | Pearson r ↑ | SSIM ↑ | MAE ↓ | PSNR ↑ | seg-F1 ↑ | ρ(σ, err) ↑ | AUSE ↓ | MAE drop, top-20 % σ removed ↑ |
 |---|---|---|---|---|---|---|---|---|
-| U-Net baseline (scratch, L1, lr 1e-3) | 0.749 ± 0.027 | 0.826 ± 0.003 | 0.0299 ± 0.0006 | 24.15 ± 0.24 | 0.648 ± 0.089 | — | — | — |
-| + ImageNet encoder (L1, lr 5e-4) | 0.755 ± 0.005 | 0.823 ± 0.005 | 0.0296 ± 0.0003 | 24.25 ± 0.07 | 0.669 ± 0.021 | — | — | — |
-| U-Net baseline + TTA (σ = view s.d.) | 0.764 ± 0.024 | 0.831 ± 0.003 | 0.0294 ± 0.0006 | 24.36 ± 0.25 | 0.665 ± 0.083 | 0.283 ± 0.071 | 0.258 ± 0.025 | 40.5 ± 3.2 % |
-| + ImageNet encoder + TTA (σ = view s.d.) | 0.768 ± 0.006 | 0.827 ± 0.005 | 0.0291 ± 0.0003 | 24.47 ± 0.10 | 0.690 ± 0.019 | 0.317 ± 0.037 | 0.248 ± 0.011 | 42.9 ± 1.8 % |
+| Scratch U-Net (L1, lr 1e-3) | 0.749 ± 0.027 | 0.826 ± 0.003 | 0.0299 ± 0.0006 | 24.15 ± 0.24 | 0.648 ± 0.089 | — | — | — |
+| ImageNet-L1 U-Net (L1, lr 5e-4) | 0.755 ± 0.005 | 0.823 ± 0.005 | 0.0296 ± 0.0003 | 24.25 ± 0.07 | 0.669 ± 0.021 | — | — | — |
+| Scratch U-Net + TTA (σ = view s.d.) | 0.764 ± 0.024 | 0.831 ± 0.003 | 0.0294 ± 0.0006 | 24.36 ± 0.25 | 0.665 ± 0.083 | 0.283 ± 0.071 | 0.258 ± 0.025 | 40.5 ± 3.2 % |
+| ImageNet-L1 U-Net + TTA (σ = view s.d.) — matched control | 0.768 ± 0.006 | 0.827 ± 0.005 | 0.0291 ± 0.0003 | 24.47 ± 0.10 | 0.690 ± 0.019 | 0.317 ± 0.037 | 0.248 ± 0.011 | 42.9 ± 1.8 % |
 | ChipStain (β-NLL, β = 0.5) | 0.757 ± 0.015 | 0.810 ± 0.018 | 0.0324 ± 0.0013 | 23.92 ± 0.36 | 0.697 ± 0.012 | 0.430 ± 0.006 | 0.303 ± 0.072 | 45.6 ± 1.6 % |
 | ChipStain + TTA (full) | 0.768 ± 0.012 | 0.814 ± 0.022 | 0.0323 ± 0.0007 | 24.11 ± 0.32 | 0.708 ± 0.011 | 0.469 ± 0.027 | 0.177 ± 0.021 | 49.7 ± 4.2 % |
 | Real fluorescence, same segmentation pipeline (reference level, not a bound) | — | — | — | — | 0.765 | — | — | — |
 
-* **Like-for-like (vs the same U-Net with test-time augmentation):** equal correlation with the real stain (Pearson r +0.004 (95 % CI -0.021 to +0.030)), 10 % higher MAE and lower SSIM.
-* **Uncertainty:** σ ranks pixel errors far better (ρ +0.186 (95 % CI +0.120 to +0.264); AUSE -0.081 (95 % CI -0.114 to -0.049)) — better in all 25 test fields and significantly better in each seed — and beats uncertainty-free proxies over the whole sparsification curve (AUSE 0.177 vs 0.271 for edge strength).
-* **Calibration:** ChipStain's σ is approximately calibrated out of the box — the nominal 95 % interval covers 92 % of test pixels (validation-fitted scale ×0.98) — whereas the U-Nets' TTA disagreement needs ×21 rescaling: it can rank, not quantify.
-* **Imaging shift:** under blur or a phase-contrast input every model's prediction fails, and whether σ warns depends on the training run for all models: ChipStain's σ rises in 1 of 3 seeds (including the released one) but falls in 2 of 3. σ is therefore **not** a reliable drift alarm; added noise, in contrast, is flagged by every model in every seed.
-* **Biology:** label-free counts give population doubling times within 9.1 % (mean over seeds) of the real-stain reference; a σ gate fixed on validation data cuts this to 4.1 % (the same gate on the U-Net's TTA disagreement: 13.8 → 8.8 % — the gate helps both). On a 60 h, 240-frame recording: 24.9 h vs 23.9 h from the real stain.
-* **Counting:** counting on the prediction reaches nuclei F1 0.708; the dataset author's Cellpose model, which segments nuclei directly from bright-field, reaches 0.831. For counting alone, direct segmentation is better; ChipStain adds a fluorescence-like image and a calibrated σ.
-* **Neural cultures:** on human iPSC-derived motor neurons (dish, not chip) the HeLa model reaches Pearson r 0.59 zero-shot (but undercounts nuclei by about half, and its σ stays in the normal range — it does not warn); fine-tuning on one well raises r to 0.76 (0.77 with 20 wells; one seed).
+* **Matched control (the same ImageNet U-Net trained with L1, same learning rate and test-time augmentation):** equal correlation with the real stain (Pearson r +0.000 (95 % CI -0.019 to +0.013)), 11 % higher MAE and lower SSIM.
+* **Uncertainty:** σ ranks pixel errors better than the matched control (ρ +0.152 (95 % CI +0.106 to +0.201); AUSE -0.070 (95 % CI -0.095 to -0.045)) — in all 25 test fields and significantly in each seed — and beats uncertainty-free proxies over the whole sparsification curve (AUSE 0.177 vs 0.271 for edge strength).
+* **Calibration:** ChipStain's σ is approximately calibrated without recalibration — the nominal 95 % interval covers 92 % of test pixels (the validation-fitted scale would be ×0.98) — whereas the L1 U-Nets' TTA disagreement needs rescaling by ×18 (ImageNet) or ×21 (scratch): it can rank errors, not quantify them.
+* **Imaging shift:** under blur or a phase-contrast input every model's prediction fails (ChipStain's at least as badly: r under 1 px blur 0.32 vs 0.24 for the matched control). Whether σ warns depends on the training run for every model (ChipStain: rises in 1 of 3 seeds, falls in 2 of 3), and averaged over seeds ChipStain's σ is the weakest shift detector of the three (blur AUROC 0.34 vs 0.71 / 0.43). Where a warning appears — as in the demo — it comes from the TTA disagreement, not the learned head. σ is therefore **not** a reliable drift alarm; added noise, by contrast, raises σ in every model and seed.
+* **Biology:** label-free counts give population doubling times with a mean bias of 9.1 % (absolute per-run bias, mean over seeds; one run also has 2 collapsed fields that count as failures). Gating frames by σ (threshold fixed on validation) lowers this to 4.1 % — mostly by routing failing fields to review: on the same fields without removing any frame the bias is already 5.8 %. The gate helps the L1 baselines too (matched control 10.2 → 7.1 %). On a 60 h, 240-frame recording: 24.9 h vs 23.9 h from the real stain.
+* **Counting:** counting on the prediction reaches nuclei F1 0.708 (matched control 0.690); the dataset author's Cellpose model, which segments nuclei directly from bright-field, reaches 0.831. For counting alone, direct segmentation is better; ChipStain adds a fluorescence-like image and a calibrated σ.
+* **Neural cultures:** on human iPSC-derived motor neurons (dish, not chip; one seed), the HeLa model applied without weight updates — the rescale factor and bright-field plane were chosen on 2 labelled validation wells — reaches Pearson r 0.59 but undercounts nuclei by about half, and its σ stays in the normal range (it does not warn). Fine-tuning on one well raises r to 0.76 (0.77 with 20 wells), though nuclei counting stays weak (F1 0.41–0.44).
 
 Statistics, ablations, calibration, per-nucleus and time-lapse analyses, limitations: [report/ChipStain_Technical_Report.pdf](report/ChipStain_Technical_Report.pdf). All result files: [`report/results/`](report/results/).
 
@@ -41,7 +41,7 @@ pip install -r requirements.txt && pip install -e .     # exact versions used: r
 python scripts/download_data.py        # HeLa "Kyoto" data, Zenodo, ~757 MB, CC BY 4.0
 python scripts/download_weights.py     # released checkpoint -> weights/chipstain.pt
 
-# predict one bright-field image (CPU: ≤ 0.5 s single pass, ≤ 2.4 s with 8x TTA)
+# predict one bright-field image (CPU, Apple M5 CPU, 8 threads: ≤ 0.5 s single pass, ≤ 2.4 s with 8x TTA; slower on a 4-core laptop)
 python scripts/inference.py --image demo/examples/example_bf_dense_t150.tif --weights weights/chipstain.pt --out outputs/pred --device cpu
 #    -> outputs/pred/prediction.tif, uncertainty.tif, panel.png
 
@@ -77,7 +77,7 @@ python scripts/image_register.py && python scripts/build_report.py && python scr
 
 ## Inputs and outputs
 
-* **Input:** one widefield bright-field plane of 2-D adherent cells (TIFF/PNG/JPG; RGB is averaged to grey; ≥ 64 px). Trained only on HeLa "Kyoto" images from a PerkinElmer Operetta, 20×/NA 0.8 ([DATA.md](DATA.md)); resample other magnifications to that pixel scale. Normalised per image, so camera offset and gain do not matter.
+* **Input:** one widefield bright-field plane of 2-D adherent cells (TIFF/PNG/JPG; RGB is averaged to grey; at least 32 × 32 px). Trained only on HeLa "Kyoto" images from a PerkinElmer Operetta, 20×/NA 0.8 ([DATA.md](DATA.md)); resample other magnifications to that pixel scale. Normalised per image, so camera offset and gain do not matter.
 * **Outputs:** `prediction.tif` — nuclear fluorescence in normalised units [0, 1] (`(I − 600)/(20000 − 600)` of the 16-bit training data); `uncertainty.tif` — σ in the same units; `panel.png` — side-by-side view.
 * **Out of domain:** no accuracy guarantee for other cell types, optics, chips or z-planes. On the test well the mean of `uncertainty.tif` lies around 0.020–0.101 (5th–95th percentile, with TTA); a much higher value is a warning, but a normal value is **not** evidence that the input is in domain — under blur or another modality σ rises only in some training runs ([report/results/shift_test.md](report/results/shift_test.md)). Fine-tune and re-check on paired images before using the model on a new system.
 
@@ -89,18 +89,17 @@ scripts/              train / evaluate / inference / analyses / figures / report
 configs/              baseline, pretrained, ours (ChipStain) and ablation arms
 demo/                 Gradio app + example images (see demo/examples/README.md)
 notebooks/            Kaggle notebook: train + evaluate
-report/               technical report (PDF + HTML), figures, result files, IMAGES.md (image register)
+report/               technical report (PDF), figures, result files, IMAGES.md (image register)
 writeup/              Kaggle Writeup and gallery assets
 presentation/         slide deck (single HTML) and video script
 templates/            sources of the report, README, Writeup and deck (numbers filled from report/results)
 DATA.md               data sources, licences, splits, usage note, ethics
-AI_ASSISTANCE.md      AI-tool, pre-trained weights and third-party disclosure
 ```
 
 ## Data, licences, disclosure
 
 * Data: HeLa "Kyoto" (R. Guiet, EPFL BIOP; Zenodo [10.5281/zenodo.6140064](https://doi.org/10.5281/zenodo.6140064), [10.5281/zenodo.6139958](https://doi.org/10.5281/zenodo.6139958)) and in-silico-labeling neurons (Christiansen et al., Cell 2018) — all [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Details: [DATA.md](DATA.md). Every image in the report, Writeup and repo: [report/IMAGES.md](report/IMAGES.md).
-* AI assistance and third-party components: [AI_ASSISTANCE.md](AI_ASSISTANCE.md).
+* AI assistance and third-party components: technical report, section 10.
 * Code and released checkpoint: MIT ([LICENSE](LICENSE)); the checkpoint was trained on CC BY 4.0 data, so reuse must attribute Guiet (2022), and its encoder was initialised from ImageNet-pretrained weights — commercial users should check the ImageNet terms.
 
 ## Team — Hack2Publish

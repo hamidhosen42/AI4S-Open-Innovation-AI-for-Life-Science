@@ -124,381 +124,381 @@ StarDist reference (real H2B),-1,24,2.25,63
 StarDist reference (real H2B),-1,24,12.25,84
 StarDist reference (real H2B),-1,24,24.75,134
 StarDist reference (real H2B),-1,24,37.25,184
-U-Net + TTA,0,0,0.0,72
-U-Net + TTA,0,0,2.25,72
-U-Net + TTA,0,0,12.25,87
-U-Net + TTA,0,0,24.75,138
-U-Net + TTA,0,0,37.25,199
-U-Net + TTA,0,1,0.0,123
-U-Net + TTA,0,1,2.25,139
-U-Net + TTA,0,1,12.25,178
-U-Net + TTA,0,1,24.75,285
-U-Net + TTA,0,1,37.25,312
-U-Net + TTA,0,10,0.0,175
-U-Net + TTA,0,10,2.25,198
-U-Net + TTA,0,10,12.25,255
-U-Net + TTA,0,10,24.75,342
-U-Net + TTA,0,10,37.25,409
-U-Net + TTA,0,11,0.0,142
-U-Net + TTA,0,11,2.25,162
-U-Net + TTA,0,11,12.25,226
-U-Net + TTA,0,11,24.75,315
-U-Net + TTA,0,11,37.25,321
-U-Net + TTA,0,12,0.0,99
-U-Net + TTA,0,12,2.25,115
-U-Net + TTA,0,12,12.25,149
-U-Net + TTA,0,12,24.75,222
-U-Net + TTA,0,12,37.25,316
-U-Net + TTA,0,13,0.0,36
-U-Net + TTA,0,13,2.25,38
-U-Net + TTA,0,13,12.25,53
-U-Net + TTA,0,13,24.75,80
-U-Net + TTA,0,13,37.25,110
-U-Net + TTA,0,14,0.0,33
-U-Net + TTA,0,14,2.25,34
-U-Net + TTA,0,14,12.25,42
-U-Net + TTA,0,14,24.75,66
-U-Net + TTA,0,14,37.25,90
-U-Net + TTA,0,15,0.0,43
-U-Net + TTA,0,15,2.25,41
-U-Net + TTA,0,15,12.25,45
-U-Net + TTA,0,15,24.75,71
-U-Net + TTA,0,15,37.25,96
-U-Net + TTA,0,16,0.0,42
-U-Net + TTA,0,16,2.25,44
-U-Net + TTA,0,16,12.25,62
-U-Net + TTA,0,16,24.75,84
-U-Net + TTA,0,16,37.25,110
-U-Net + TTA,0,17,0.0,27
-U-Net + TTA,0,17,2.25,29
-U-Net + TTA,0,17,12.25,32
-U-Net + TTA,0,17,24.75,49
-U-Net + TTA,0,17,37.25,77
-U-Net + TTA,0,18,0.0,79
-U-Net + TTA,0,18,2.25,87
-U-Net + TTA,0,18,12.25,99
-U-Net + TTA,0,18,24.75,158
-U-Net + TTA,0,18,37.25,202
-U-Net + TTA,0,19,0.0,99
-U-Net + TTA,0,19,2.25,105
-U-Net + TTA,0,19,12.25,155
-U-Net + TTA,0,19,24.75,212
-U-Net + TTA,0,19,37.25,287
-U-Net + TTA,0,2,0.0,76
-U-Net + TTA,0,2,2.25,79
-U-Net + TTA,0,2,12.25,108
-U-Net + TTA,0,2,24.75,156
-U-Net + TTA,0,2,37.25,230
-U-Net + TTA,0,20,0.0,107
-U-Net + TTA,0,20,2.25,110
-U-Net + TTA,0,20,12.25,164
-U-Net + TTA,0,20,24.75,218
-U-Net + TTA,0,20,37.25,278
-U-Net + TTA,0,21,0.0,35
-U-Net + TTA,0,21,2.25,39
-U-Net + TTA,0,21,12.25,56
-U-Net + TTA,0,21,24.75,81
-U-Net + TTA,0,21,37.25,112
-U-Net + TTA,0,22,0.0,29
-U-Net + TTA,0,22,2.25,29
-U-Net + TTA,0,22,12.25,42
-U-Net + TTA,0,22,24.75,73
-U-Net + TTA,0,22,37.25,108
-U-Net + TTA,0,23,0.0,28
-U-Net + TTA,0,23,2.25,27
-U-Net + TTA,0,23,12.25,41
-U-Net + TTA,0,23,24.75,48
-U-Net + TTA,0,23,37.25,66
-U-Net + TTA,0,24,0.0,50
-U-Net + TTA,0,24,2.25,59
-U-Net + TTA,0,24,12.25,84
-U-Net + TTA,0,24,24.75,115
-U-Net + TTA,0,24,37.25,155
-U-Net + TTA,0,3,0.0,58
-U-Net + TTA,0,3,2.25,59
-U-Net + TTA,0,3,12.25,79
-U-Net + TTA,0,3,24.75,118
-U-Net + TTA,0,3,37.25,168
-U-Net + TTA,0,4,0.0,62
-U-Net + TTA,0,4,2.25,67
-U-Net + TTA,0,4,12.25,102
-U-Net + TTA,0,4,24.75,149
-U-Net + TTA,0,4,37.25,183
-U-Net + TTA,0,5,0.0,44
-U-Net + TTA,0,5,2.25,51
-U-Net + TTA,0,5,12.25,64
-U-Net + TTA,0,5,24.75,112
-U-Net + TTA,0,5,37.25,153
-U-Net + TTA,0,6,0.0,48
-U-Net + TTA,0,6,2.25,55
-U-Net + TTA,0,6,12.25,66
-U-Net + TTA,0,6,24.75,93
-U-Net + TTA,0,6,37.25,127
-U-Net + TTA,0,7,0.0,24
-U-Net + TTA,0,7,2.25,30
-U-Net + TTA,0,7,12.25,34
-U-Net + TTA,0,7,24.75,55
-U-Net + TTA,0,7,37.25,80
-U-Net + TTA,0,8,0.0,61
-U-Net + TTA,0,8,2.25,67
-U-Net + TTA,0,8,12.25,84
-U-Net + TTA,0,8,24.75,121
-U-Net + TTA,0,8,37.25,153
-U-Net + TTA,0,9,0.0,102
-U-Net + TTA,0,9,2.25,116
-U-Net + TTA,0,9,12.25,149
-U-Net + TTA,0,9,24.75,223
-U-Net + TTA,0,9,37.25,316
-U-Net + TTA,1,0,0.0,70
-U-Net + TTA,1,0,2.25,73
-U-Net + TTA,1,0,12.25,87
-U-Net + TTA,1,0,24.75,136
-U-Net + TTA,1,0,37.25,194
-U-Net + TTA,1,1,0.0,123
-U-Net + TTA,1,1,2.25,141
-U-Net + TTA,1,1,12.25,178
-U-Net + TTA,1,1,24.75,287
-U-Net + TTA,1,1,37.25,315
-U-Net + TTA,1,10,0.0,176
-U-Net + TTA,1,10,2.25,199
-U-Net + TTA,1,10,12.25,260
-U-Net + TTA,1,10,24.75,351
-U-Net + TTA,1,10,37.25,418
-U-Net + TTA,1,11,0.0,142
-U-Net + TTA,1,11,2.25,164
-U-Net + TTA,1,11,12.25,221
-U-Net + TTA,1,11,24.75,318
-U-Net + TTA,1,11,37.25,339
-U-Net + TTA,1,12,0.0,101
-U-Net + TTA,1,12,2.25,115
-U-Net + TTA,1,12,12.25,155
-U-Net + TTA,1,12,24.75,218
-U-Net + TTA,1,12,37.25,309
-U-Net + TTA,1,13,0.0,36
-U-Net + TTA,1,13,2.25,39
-U-Net + TTA,1,13,12.25,54
-U-Net + TTA,1,13,24.75,78
-U-Net + TTA,1,13,37.25,107
-U-Net + TTA,1,14,0.0,33
-U-Net + TTA,1,14,2.25,33
-U-Net + TTA,1,14,12.25,43
-U-Net + TTA,1,14,24.75,67
-U-Net + TTA,1,14,37.25,89
-U-Net + TTA,1,15,0.0,40
-U-Net + TTA,1,15,2.25,42
-U-Net + TTA,1,15,12.25,48
-U-Net + TTA,1,15,24.75,74
-U-Net + TTA,1,15,37.25,99
-U-Net + TTA,1,16,0.0,40
-U-Net + TTA,1,16,2.25,44
-U-Net + TTA,1,16,12.25,63
-U-Net + TTA,1,16,24.75,79
-U-Net + TTA,1,16,37.25,111
-U-Net + TTA,1,17,0.0,27
-U-Net + TTA,1,17,2.25,28
-U-Net + TTA,1,17,12.25,32
-U-Net + TTA,1,17,24.75,48
-U-Net + TTA,1,17,37.25,78
-U-Net + TTA,1,18,0.0,80
-U-Net + TTA,1,18,2.25,86
-U-Net + TTA,1,18,12.25,99
-U-Net + TTA,1,18,24.75,159
-U-Net + TTA,1,18,37.25,200
-U-Net + TTA,1,19,0.0,99
-U-Net + TTA,1,19,2.25,104
-U-Net + TTA,1,19,12.25,152
-U-Net + TTA,1,19,24.75,220
-U-Net + TTA,1,19,37.25,293
-U-Net + TTA,1,2,0.0,76
-U-Net + TTA,1,2,2.25,79
-U-Net + TTA,1,2,12.25,110
-U-Net + TTA,1,2,24.75,161
-U-Net + TTA,1,2,37.25,224
-U-Net + TTA,1,20,0.0,108
-U-Net + TTA,1,20,2.25,111
-U-Net + TTA,1,20,12.25,166
-U-Net + TTA,1,20,24.75,212
-U-Net + TTA,1,20,37.25,298
-U-Net + TTA,1,21,0.0,34
-U-Net + TTA,1,21,2.25,40
-U-Net + TTA,1,21,12.25,60
-U-Net + TTA,1,21,24.75,81
-U-Net + TTA,1,21,37.25,112
-U-Net + TTA,1,22,0.0,28
-U-Net + TTA,1,22,2.25,30
-U-Net + TTA,1,22,12.25,43
-U-Net + TTA,1,22,24.75,68
-U-Net + TTA,1,22,37.25,110
-U-Net + TTA,1,23,0.0,26
-U-Net + TTA,1,23,2.25,27
-U-Net + TTA,1,23,12.25,40
-U-Net + TTA,1,23,24.75,46
-U-Net + TTA,1,23,37.25,66
-U-Net + TTA,1,24,0.0,50
-U-Net + TTA,1,24,2.25,58
-U-Net + TTA,1,24,12.25,82
-U-Net + TTA,1,24,24.75,114
-U-Net + TTA,1,24,37.25,154
-U-Net + TTA,1,3,0.0,54
-U-Net + TTA,1,3,2.25,57
-U-Net + TTA,1,3,12.25,77
-U-Net + TTA,1,3,24.75,118
-U-Net + TTA,1,3,37.25,171
-U-Net + TTA,1,4,0.0,61
-U-Net + TTA,1,4,2.25,68
-U-Net + TTA,1,4,12.25,104
-U-Net + TTA,1,4,24.75,149
-U-Net + TTA,1,4,37.25,185
-U-Net + TTA,1,5,0.0,46
-U-Net + TTA,1,5,2.25,54
-U-Net + TTA,1,5,12.25,64
-U-Net + TTA,1,5,24.75,113
-U-Net + TTA,1,5,37.25,152
-U-Net + TTA,1,6,0.0,47
-U-Net + TTA,1,6,2.25,51
-U-Net + TTA,1,6,12.25,67
-U-Net + TTA,1,6,24.75,91
-U-Net + TTA,1,6,37.25,125
-U-Net + TTA,1,7,0.0,25
-U-Net + TTA,1,7,2.25,30
-U-Net + TTA,1,7,12.25,35
-U-Net + TTA,1,7,24.75,56
-U-Net + TTA,1,7,37.25,83
-U-Net + TTA,1,8,0.0,62
-U-Net + TTA,1,8,2.25,67
-U-Net + TTA,1,8,12.25,85
-U-Net + TTA,1,8,24.75,119
-U-Net + TTA,1,8,37.25,145
-U-Net + TTA,1,9,0.0,101
-U-Net + TTA,1,9,2.25,116
-U-Net + TTA,1,9,12.25,151
-U-Net + TTA,1,9,24.75,225
-U-Net + TTA,1,9,37.25,325
-U-Net + TTA,2,0,0.0,68
-U-Net + TTA,2,0,2.25,64
-U-Net + TTA,2,0,12.25,82
-U-Net + TTA,2,0,24.75,120
-U-Net + TTA,2,0,37.25,167
-U-Net + TTA,2,1,0.0,121
-U-Net + TTA,2,1,2.25,142
-U-Net + TTA,2,1,12.25,177
-U-Net + TTA,2,1,24.75,244
-U-Net + TTA,2,1,37.25,242
-U-Net + TTA,2,10,0.0,165
-U-Net + TTA,2,10,2.25,186
-U-Net + TTA,2,10,12.25,239
-U-Net + TTA,2,10,24.75,285
-U-Net + TTA,2,10,37.25,332
-U-Net + TTA,2,11,0.0,141
-U-Net + TTA,2,11,2.25,164
-U-Net + TTA,2,11,12.25,207
-U-Net + TTA,2,11,24.75,264
-U-Net + TTA,2,11,37.25,257
-U-Net + TTA,2,12,0.0,97
-U-Net + TTA,2,12,2.25,114
-U-Net + TTA,2,12,12.25,140
-U-Net + TTA,2,12,24.75,199
-U-Net + TTA,2,12,37.25,230
-U-Net + TTA,2,13,0.0,33
-U-Net + TTA,2,13,2.25,38
-U-Net + TTA,2,13,12.25,51
-U-Net + TTA,2,13,24.75,72
-U-Net + TTA,2,13,37.25,91
-U-Net + TTA,2,14,0.0,30
-U-Net + TTA,2,14,2.25,31
-U-Net + TTA,2,14,12.25,39
-U-Net + TTA,2,14,24.75,55
-U-Net + TTA,2,14,37.25,67
-U-Net + TTA,2,15,0.0,41
-U-Net + TTA,2,15,2.25,37
-U-Net + TTA,2,15,12.25,42
-U-Net + TTA,2,15,24.75,62
-U-Net + TTA,2,15,37.25,80
-U-Net + TTA,2,16,0.0,39
-U-Net + TTA,2,16,2.25,41
-U-Net + TTA,2,16,12.25,59
-U-Net + TTA,2,16,24.75,79
-U-Net + TTA,2,16,37.25,98
-U-Net + TTA,2,17,0.0,25
-U-Net + TTA,2,17,2.25,27
-U-Net + TTA,2,17,12.25,31
-U-Net + TTA,2,17,24.75,40
-U-Net + TTA,2,17,37.25,51
-U-Net + TTA,2,18,0.0,74
-U-Net + TTA,2,18,2.25,76
-U-Net + TTA,2,18,12.25,90
-U-Net + TTA,2,18,24.75,145
-U-Net + TTA,2,18,37.25,186
-U-Net + TTA,2,19,0.0,99
-U-Net + TTA,2,19,2.25,99
-U-Net + TTA,2,19,12.25,149
-U-Net + TTA,2,19,24.75,197
-U-Net + TTA,2,19,37.25,230
-U-Net + TTA,2,2,0.0,76
-U-Net + TTA,2,2,2.25,77
-U-Net + TTA,2,2,12.25,101
-U-Net + TTA,2,2,24.75,138
-U-Net + TTA,2,2,37.25,186
-U-Net + TTA,2,20,0.0,107
-U-Net + TTA,2,20,2.25,107
-U-Net + TTA,2,20,12.25,149
-U-Net + TTA,2,20,24.75,198
-U-Net + TTA,2,20,37.25,203
-U-Net + TTA,2,21,0.0,31
-U-Net + TTA,2,21,2.25,38
-U-Net + TTA,2,21,12.25,52
-U-Net + TTA,2,21,24.75,70
-U-Net + TTA,2,21,37.25,103
-U-Net + TTA,2,22,0.0,27
-U-Net + TTA,2,22,2.25,27
-U-Net + TTA,2,22,12.25,40
-U-Net + TTA,2,22,24.75,63
-U-Net + TTA,2,22,37.25,95
-U-Net + TTA,2,23,0.0,26
-U-Net + TTA,2,23,2.25,27
-U-Net + TTA,2,23,12.25,37
-U-Net + TTA,2,23,24.75,44
-U-Net + TTA,2,23,37.25,58
-U-Net + TTA,2,24,0.0,47
-U-Net + TTA,2,24,2.25,58
-U-Net + TTA,2,24,12.25,71
-U-Net + TTA,2,24,24.75,102
-U-Net + TTA,2,24,37.25,115
-U-Net + TTA,2,3,0.0,53
-U-Net + TTA,2,3,2.25,56
-U-Net + TTA,2,3,12.25,76
-U-Net + TTA,2,3,24.75,108
-U-Net + TTA,2,3,37.25,142
-U-Net + TTA,2,4,0.0,61
-U-Net + TTA,2,4,2.25,63
-U-Net + TTA,2,4,12.25,98
-U-Net + TTA,2,4,24.75,134
-U-Net + TTA,2,4,37.25,159
-U-Net + TTA,2,5,0.0,43
-U-Net + TTA,2,5,2.25,47
-U-Net + TTA,2,5,12.25,57
-U-Net + TTA,2,5,24.75,99
-U-Net + TTA,2,5,37.25,139
-U-Net + TTA,2,6,0.0,45
-U-Net + TTA,2,6,2.25,52
-U-Net + TTA,2,6,12.25,65
-U-Net + TTA,2,6,24.75,83
-U-Net + TTA,2,6,37.25,112
-U-Net + TTA,2,7,0.0,22
-U-Net + TTA,2,7,2.25,26
-U-Net + TTA,2,7,12.25,33
-U-Net + TTA,2,7,24.75,52
-U-Net + TTA,2,7,37.25,74
-U-Net + TTA,2,8,0.0,63
-U-Net + TTA,2,8,2.25,67
-U-Net + TTA,2,8,12.25,78
-U-Net + TTA,2,8,24.75,110
-U-Net + TTA,2,8,37.25,133
-U-Net + TTA,2,9,0.0,102
-U-Net + TTA,2,9,2.25,114
-U-Net + TTA,2,9,12.25,140
-U-Net + TTA,2,9,24.75,206
-U-Net + TTA,2,9,37.25,294
+Scratch U-Net + TTA,0,0,0.0,72
+Scratch U-Net + TTA,0,0,2.25,72
+Scratch U-Net + TTA,0,0,12.25,87
+Scratch U-Net + TTA,0,0,24.75,138
+Scratch U-Net + TTA,0,0,37.25,199
+Scratch U-Net + TTA,0,1,0.0,123
+Scratch U-Net + TTA,0,1,2.25,139
+Scratch U-Net + TTA,0,1,12.25,178
+Scratch U-Net + TTA,0,1,24.75,285
+Scratch U-Net + TTA,0,1,37.25,312
+Scratch U-Net + TTA,0,10,0.0,175
+Scratch U-Net + TTA,0,10,2.25,198
+Scratch U-Net + TTA,0,10,12.25,255
+Scratch U-Net + TTA,0,10,24.75,342
+Scratch U-Net + TTA,0,10,37.25,409
+Scratch U-Net + TTA,0,11,0.0,142
+Scratch U-Net + TTA,0,11,2.25,162
+Scratch U-Net + TTA,0,11,12.25,226
+Scratch U-Net + TTA,0,11,24.75,315
+Scratch U-Net + TTA,0,11,37.25,321
+Scratch U-Net + TTA,0,12,0.0,99
+Scratch U-Net + TTA,0,12,2.25,115
+Scratch U-Net + TTA,0,12,12.25,149
+Scratch U-Net + TTA,0,12,24.75,222
+Scratch U-Net + TTA,0,12,37.25,316
+Scratch U-Net + TTA,0,13,0.0,36
+Scratch U-Net + TTA,0,13,2.25,38
+Scratch U-Net + TTA,0,13,12.25,53
+Scratch U-Net + TTA,0,13,24.75,80
+Scratch U-Net + TTA,0,13,37.25,110
+Scratch U-Net + TTA,0,14,0.0,33
+Scratch U-Net + TTA,0,14,2.25,34
+Scratch U-Net + TTA,0,14,12.25,42
+Scratch U-Net + TTA,0,14,24.75,66
+Scratch U-Net + TTA,0,14,37.25,90
+Scratch U-Net + TTA,0,15,0.0,43
+Scratch U-Net + TTA,0,15,2.25,41
+Scratch U-Net + TTA,0,15,12.25,45
+Scratch U-Net + TTA,0,15,24.75,71
+Scratch U-Net + TTA,0,15,37.25,96
+Scratch U-Net + TTA,0,16,0.0,42
+Scratch U-Net + TTA,0,16,2.25,44
+Scratch U-Net + TTA,0,16,12.25,62
+Scratch U-Net + TTA,0,16,24.75,84
+Scratch U-Net + TTA,0,16,37.25,110
+Scratch U-Net + TTA,0,17,0.0,27
+Scratch U-Net + TTA,0,17,2.25,29
+Scratch U-Net + TTA,0,17,12.25,32
+Scratch U-Net + TTA,0,17,24.75,49
+Scratch U-Net + TTA,0,17,37.25,77
+Scratch U-Net + TTA,0,18,0.0,79
+Scratch U-Net + TTA,0,18,2.25,87
+Scratch U-Net + TTA,0,18,12.25,99
+Scratch U-Net + TTA,0,18,24.75,158
+Scratch U-Net + TTA,0,18,37.25,202
+Scratch U-Net + TTA,0,19,0.0,99
+Scratch U-Net + TTA,0,19,2.25,105
+Scratch U-Net + TTA,0,19,12.25,155
+Scratch U-Net + TTA,0,19,24.75,212
+Scratch U-Net + TTA,0,19,37.25,287
+Scratch U-Net + TTA,0,2,0.0,76
+Scratch U-Net + TTA,0,2,2.25,79
+Scratch U-Net + TTA,0,2,12.25,108
+Scratch U-Net + TTA,0,2,24.75,156
+Scratch U-Net + TTA,0,2,37.25,230
+Scratch U-Net + TTA,0,20,0.0,107
+Scratch U-Net + TTA,0,20,2.25,110
+Scratch U-Net + TTA,0,20,12.25,164
+Scratch U-Net + TTA,0,20,24.75,218
+Scratch U-Net + TTA,0,20,37.25,278
+Scratch U-Net + TTA,0,21,0.0,35
+Scratch U-Net + TTA,0,21,2.25,39
+Scratch U-Net + TTA,0,21,12.25,56
+Scratch U-Net + TTA,0,21,24.75,81
+Scratch U-Net + TTA,0,21,37.25,112
+Scratch U-Net + TTA,0,22,0.0,29
+Scratch U-Net + TTA,0,22,2.25,29
+Scratch U-Net + TTA,0,22,12.25,42
+Scratch U-Net + TTA,0,22,24.75,73
+Scratch U-Net + TTA,0,22,37.25,108
+Scratch U-Net + TTA,0,23,0.0,28
+Scratch U-Net + TTA,0,23,2.25,27
+Scratch U-Net + TTA,0,23,12.25,41
+Scratch U-Net + TTA,0,23,24.75,48
+Scratch U-Net + TTA,0,23,37.25,66
+Scratch U-Net + TTA,0,24,0.0,50
+Scratch U-Net + TTA,0,24,2.25,59
+Scratch U-Net + TTA,0,24,12.25,84
+Scratch U-Net + TTA,0,24,24.75,115
+Scratch U-Net + TTA,0,24,37.25,155
+Scratch U-Net + TTA,0,3,0.0,58
+Scratch U-Net + TTA,0,3,2.25,59
+Scratch U-Net + TTA,0,3,12.25,79
+Scratch U-Net + TTA,0,3,24.75,118
+Scratch U-Net + TTA,0,3,37.25,168
+Scratch U-Net + TTA,0,4,0.0,62
+Scratch U-Net + TTA,0,4,2.25,67
+Scratch U-Net + TTA,0,4,12.25,102
+Scratch U-Net + TTA,0,4,24.75,149
+Scratch U-Net + TTA,0,4,37.25,183
+Scratch U-Net + TTA,0,5,0.0,44
+Scratch U-Net + TTA,0,5,2.25,51
+Scratch U-Net + TTA,0,5,12.25,64
+Scratch U-Net + TTA,0,5,24.75,112
+Scratch U-Net + TTA,0,5,37.25,153
+Scratch U-Net + TTA,0,6,0.0,48
+Scratch U-Net + TTA,0,6,2.25,55
+Scratch U-Net + TTA,0,6,12.25,66
+Scratch U-Net + TTA,0,6,24.75,93
+Scratch U-Net + TTA,0,6,37.25,127
+Scratch U-Net + TTA,0,7,0.0,24
+Scratch U-Net + TTA,0,7,2.25,30
+Scratch U-Net + TTA,0,7,12.25,34
+Scratch U-Net + TTA,0,7,24.75,55
+Scratch U-Net + TTA,0,7,37.25,80
+Scratch U-Net + TTA,0,8,0.0,61
+Scratch U-Net + TTA,0,8,2.25,67
+Scratch U-Net + TTA,0,8,12.25,84
+Scratch U-Net + TTA,0,8,24.75,121
+Scratch U-Net + TTA,0,8,37.25,153
+Scratch U-Net + TTA,0,9,0.0,102
+Scratch U-Net + TTA,0,9,2.25,116
+Scratch U-Net + TTA,0,9,12.25,149
+Scratch U-Net + TTA,0,9,24.75,223
+Scratch U-Net + TTA,0,9,37.25,316
+Scratch U-Net + TTA,1,0,0.0,70
+Scratch U-Net + TTA,1,0,2.25,73
+Scratch U-Net + TTA,1,0,12.25,87
+Scratch U-Net + TTA,1,0,24.75,136
+Scratch U-Net + TTA,1,0,37.25,194
+Scratch U-Net + TTA,1,1,0.0,123
+Scratch U-Net + TTA,1,1,2.25,141
+Scratch U-Net + TTA,1,1,12.25,178
+Scratch U-Net + TTA,1,1,24.75,287
+Scratch U-Net + TTA,1,1,37.25,315
+Scratch U-Net + TTA,1,10,0.0,176
+Scratch U-Net + TTA,1,10,2.25,199
+Scratch U-Net + TTA,1,10,12.25,260
+Scratch U-Net + TTA,1,10,24.75,351
+Scratch U-Net + TTA,1,10,37.25,418
+Scratch U-Net + TTA,1,11,0.0,142
+Scratch U-Net + TTA,1,11,2.25,164
+Scratch U-Net + TTA,1,11,12.25,221
+Scratch U-Net + TTA,1,11,24.75,318
+Scratch U-Net + TTA,1,11,37.25,339
+Scratch U-Net + TTA,1,12,0.0,101
+Scratch U-Net + TTA,1,12,2.25,115
+Scratch U-Net + TTA,1,12,12.25,155
+Scratch U-Net + TTA,1,12,24.75,218
+Scratch U-Net + TTA,1,12,37.25,309
+Scratch U-Net + TTA,1,13,0.0,36
+Scratch U-Net + TTA,1,13,2.25,39
+Scratch U-Net + TTA,1,13,12.25,54
+Scratch U-Net + TTA,1,13,24.75,78
+Scratch U-Net + TTA,1,13,37.25,107
+Scratch U-Net + TTA,1,14,0.0,33
+Scratch U-Net + TTA,1,14,2.25,33
+Scratch U-Net + TTA,1,14,12.25,43
+Scratch U-Net + TTA,1,14,24.75,67
+Scratch U-Net + TTA,1,14,37.25,89
+Scratch U-Net + TTA,1,15,0.0,40
+Scratch U-Net + TTA,1,15,2.25,42
+Scratch U-Net + TTA,1,15,12.25,48
+Scratch U-Net + TTA,1,15,24.75,74
+Scratch U-Net + TTA,1,15,37.25,99
+Scratch U-Net + TTA,1,16,0.0,40
+Scratch U-Net + TTA,1,16,2.25,44
+Scratch U-Net + TTA,1,16,12.25,63
+Scratch U-Net + TTA,1,16,24.75,79
+Scratch U-Net + TTA,1,16,37.25,111
+Scratch U-Net + TTA,1,17,0.0,27
+Scratch U-Net + TTA,1,17,2.25,28
+Scratch U-Net + TTA,1,17,12.25,32
+Scratch U-Net + TTA,1,17,24.75,48
+Scratch U-Net + TTA,1,17,37.25,78
+Scratch U-Net + TTA,1,18,0.0,80
+Scratch U-Net + TTA,1,18,2.25,86
+Scratch U-Net + TTA,1,18,12.25,99
+Scratch U-Net + TTA,1,18,24.75,159
+Scratch U-Net + TTA,1,18,37.25,200
+Scratch U-Net + TTA,1,19,0.0,99
+Scratch U-Net + TTA,1,19,2.25,104
+Scratch U-Net + TTA,1,19,12.25,152
+Scratch U-Net + TTA,1,19,24.75,220
+Scratch U-Net + TTA,1,19,37.25,293
+Scratch U-Net + TTA,1,2,0.0,76
+Scratch U-Net + TTA,1,2,2.25,79
+Scratch U-Net + TTA,1,2,12.25,110
+Scratch U-Net + TTA,1,2,24.75,161
+Scratch U-Net + TTA,1,2,37.25,224
+Scratch U-Net + TTA,1,20,0.0,108
+Scratch U-Net + TTA,1,20,2.25,111
+Scratch U-Net + TTA,1,20,12.25,166
+Scratch U-Net + TTA,1,20,24.75,212
+Scratch U-Net + TTA,1,20,37.25,298
+Scratch U-Net + TTA,1,21,0.0,34
+Scratch U-Net + TTA,1,21,2.25,40
+Scratch U-Net + TTA,1,21,12.25,60
+Scratch U-Net + TTA,1,21,24.75,81
+Scratch U-Net + TTA,1,21,37.25,112
+Scratch U-Net + TTA,1,22,0.0,28
+Scratch U-Net + TTA,1,22,2.25,30
+Scratch U-Net + TTA,1,22,12.25,43
+Scratch U-Net + TTA,1,22,24.75,68
+Scratch U-Net + TTA,1,22,37.25,110
+Scratch U-Net + TTA,1,23,0.0,26
+Scratch U-Net + TTA,1,23,2.25,27
+Scratch U-Net + TTA,1,23,12.25,40
+Scratch U-Net + TTA,1,23,24.75,46
+Scratch U-Net + TTA,1,23,37.25,66
+Scratch U-Net + TTA,1,24,0.0,50
+Scratch U-Net + TTA,1,24,2.25,58
+Scratch U-Net + TTA,1,24,12.25,82
+Scratch U-Net + TTA,1,24,24.75,114
+Scratch U-Net + TTA,1,24,37.25,154
+Scratch U-Net + TTA,1,3,0.0,54
+Scratch U-Net + TTA,1,3,2.25,57
+Scratch U-Net + TTA,1,3,12.25,77
+Scratch U-Net + TTA,1,3,24.75,118
+Scratch U-Net + TTA,1,3,37.25,171
+Scratch U-Net + TTA,1,4,0.0,61
+Scratch U-Net + TTA,1,4,2.25,68
+Scratch U-Net + TTA,1,4,12.25,104
+Scratch U-Net + TTA,1,4,24.75,149
+Scratch U-Net + TTA,1,4,37.25,185
+Scratch U-Net + TTA,1,5,0.0,46
+Scratch U-Net + TTA,1,5,2.25,54
+Scratch U-Net + TTA,1,5,12.25,64
+Scratch U-Net + TTA,1,5,24.75,113
+Scratch U-Net + TTA,1,5,37.25,152
+Scratch U-Net + TTA,1,6,0.0,47
+Scratch U-Net + TTA,1,6,2.25,51
+Scratch U-Net + TTA,1,6,12.25,67
+Scratch U-Net + TTA,1,6,24.75,91
+Scratch U-Net + TTA,1,6,37.25,125
+Scratch U-Net + TTA,1,7,0.0,25
+Scratch U-Net + TTA,1,7,2.25,30
+Scratch U-Net + TTA,1,7,12.25,35
+Scratch U-Net + TTA,1,7,24.75,56
+Scratch U-Net + TTA,1,7,37.25,83
+Scratch U-Net + TTA,1,8,0.0,62
+Scratch U-Net + TTA,1,8,2.25,67
+Scratch U-Net + TTA,1,8,12.25,85
+Scratch U-Net + TTA,1,8,24.75,119
+Scratch U-Net + TTA,1,8,37.25,145
+Scratch U-Net + TTA,1,9,0.0,101
+Scratch U-Net + TTA,1,9,2.25,116
+Scratch U-Net + TTA,1,9,12.25,151
+Scratch U-Net + TTA,1,9,24.75,225
+Scratch U-Net + TTA,1,9,37.25,325
+Scratch U-Net + TTA,2,0,0.0,68
+Scratch U-Net + TTA,2,0,2.25,64
+Scratch U-Net + TTA,2,0,12.25,82
+Scratch U-Net + TTA,2,0,24.75,120
+Scratch U-Net + TTA,2,0,37.25,167
+Scratch U-Net + TTA,2,1,0.0,121
+Scratch U-Net + TTA,2,1,2.25,142
+Scratch U-Net + TTA,2,1,12.25,177
+Scratch U-Net + TTA,2,1,24.75,244
+Scratch U-Net + TTA,2,1,37.25,242
+Scratch U-Net + TTA,2,10,0.0,165
+Scratch U-Net + TTA,2,10,2.25,186
+Scratch U-Net + TTA,2,10,12.25,239
+Scratch U-Net + TTA,2,10,24.75,285
+Scratch U-Net + TTA,2,10,37.25,332
+Scratch U-Net + TTA,2,11,0.0,141
+Scratch U-Net + TTA,2,11,2.25,164
+Scratch U-Net + TTA,2,11,12.25,207
+Scratch U-Net + TTA,2,11,24.75,264
+Scratch U-Net + TTA,2,11,37.25,257
+Scratch U-Net + TTA,2,12,0.0,97
+Scratch U-Net + TTA,2,12,2.25,114
+Scratch U-Net + TTA,2,12,12.25,140
+Scratch U-Net + TTA,2,12,24.75,199
+Scratch U-Net + TTA,2,12,37.25,230
+Scratch U-Net + TTA,2,13,0.0,33
+Scratch U-Net + TTA,2,13,2.25,38
+Scratch U-Net + TTA,2,13,12.25,51
+Scratch U-Net + TTA,2,13,24.75,72
+Scratch U-Net + TTA,2,13,37.25,91
+Scratch U-Net + TTA,2,14,0.0,30
+Scratch U-Net + TTA,2,14,2.25,31
+Scratch U-Net + TTA,2,14,12.25,39
+Scratch U-Net + TTA,2,14,24.75,55
+Scratch U-Net + TTA,2,14,37.25,67
+Scratch U-Net + TTA,2,15,0.0,41
+Scratch U-Net + TTA,2,15,2.25,37
+Scratch U-Net + TTA,2,15,12.25,42
+Scratch U-Net + TTA,2,15,24.75,62
+Scratch U-Net + TTA,2,15,37.25,80
+Scratch U-Net + TTA,2,16,0.0,39
+Scratch U-Net + TTA,2,16,2.25,41
+Scratch U-Net + TTA,2,16,12.25,59
+Scratch U-Net + TTA,2,16,24.75,79
+Scratch U-Net + TTA,2,16,37.25,98
+Scratch U-Net + TTA,2,17,0.0,25
+Scratch U-Net + TTA,2,17,2.25,27
+Scratch U-Net + TTA,2,17,12.25,31
+Scratch U-Net + TTA,2,17,24.75,40
+Scratch U-Net + TTA,2,17,37.25,51
+Scratch U-Net + TTA,2,18,0.0,74
+Scratch U-Net + TTA,2,18,2.25,76
+Scratch U-Net + TTA,2,18,12.25,90
+Scratch U-Net + TTA,2,18,24.75,145
+Scratch U-Net + TTA,2,18,37.25,186
+Scratch U-Net + TTA,2,19,0.0,99
+Scratch U-Net + TTA,2,19,2.25,99
+Scratch U-Net + TTA,2,19,12.25,149
+Scratch U-Net + TTA,2,19,24.75,197
+Scratch U-Net + TTA,2,19,37.25,230
+Scratch U-Net + TTA,2,2,0.0,76
+Scratch U-Net + TTA,2,2,2.25,77
+Scratch U-Net + TTA,2,2,12.25,101
+Scratch U-Net + TTA,2,2,24.75,138
+Scratch U-Net + TTA,2,2,37.25,186
+Scratch U-Net + TTA,2,20,0.0,107
+Scratch U-Net + TTA,2,20,2.25,107
+Scratch U-Net + TTA,2,20,12.25,149
+Scratch U-Net + TTA,2,20,24.75,198
+Scratch U-Net + TTA,2,20,37.25,203
+Scratch U-Net + TTA,2,21,0.0,31
+Scratch U-Net + TTA,2,21,2.25,38
+Scratch U-Net + TTA,2,21,12.25,52
+Scratch U-Net + TTA,2,21,24.75,70
+Scratch U-Net + TTA,2,21,37.25,103
+Scratch U-Net + TTA,2,22,0.0,27
+Scratch U-Net + TTA,2,22,2.25,27
+Scratch U-Net + TTA,2,22,12.25,40
+Scratch U-Net + TTA,2,22,24.75,63
+Scratch U-Net + TTA,2,22,37.25,95
+Scratch U-Net + TTA,2,23,0.0,26
+Scratch U-Net + TTA,2,23,2.25,27
+Scratch U-Net + TTA,2,23,12.25,37
+Scratch U-Net + TTA,2,23,24.75,44
+Scratch U-Net + TTA,2,23,37.25,58
+Scratch U-Net + TTA,2,24,0.0,47
+Scratch U-Net + TTA,2,24,2.25,58
+Scratch U-Net + TTA,2,24,12.25,71
+Scratch U-Net + TTA,2,24,24.75,102
+Scratch U-Net + TTA,2,24,37.25,115
+Scratch U-Net + TTA,2,3,0.0,53
+Scratch U-Net + TTA,2,3,2.25,56
+Scratch U-Net + TTA,2,3,12.25,76
+Scratch U-Net + TTA,2,3,24.75,108
+Scratch U-Net + TTA,2,3,37.25,142
+Scratch U-Net + TTA,2,4,0.0,61
+Scratch U-Net + TTA,2,4,2.25,63
+Scratch U-Net + TTA,2,4,12.25,98
+Scratch U-Net + TTA,2,4,24.75,134
+Scratch U-Net + TTA,2,4,37.25,159
+Scratch U-Net + TTA,2,5,0.0,43
+Scratch U-Net + TTA,2,5,2.25,47
+Scratch U-Net + TTA,2,5,12.25,57
+Scratch U-Net + TTA,2,5,24.75,99
+Scratch U-Net + TTA,2,5,37.25,139
+Scratch U-Net + TTA,2,6,0.0,45
+Scratch U-Net + TTA,2,6,2.25,52
+Scratch U-Net + TTA,2,6,12.25,65
+Scratch U-Net + TTA,2,6,24.75,83
+Scratch U-Net + TTA,2,6,37.25,112
+Scratch U-Net + TTA,2,7,0.0,22
+Scratch U-Net + TTA,2,7,2.25,26
+Scratch U-Net + TTA,2,7,12.25,33
+Scratch U-Net + TTA,2,7,24.75,52
+Scratch U-Net + TTA,2,7,37.25,74
+Scratch U-Net + TTA,2,8,0.0,63
+Scratch U-Net + TTA,2,8,2.25,67
+Scratch U-Net + TTA,2,8,12.25,78
+Scratch U-Net + TTA,2,8,24.75,110
+Scratch U-Net + TTA,2,8,37.25,133
+Scratch U-Net + TTA,2,9,0.0,102
+Scratch U-Net + TTA,2,9,2.25,114
+Scratch U-Net + TTA,2,9,12.25,140
+Scratch U-Net + TTA,2,9,24.75,206
+Scratch U-Net + TTA,2,9,37.25,294
 ChipStain + TTA,0,0,0.0,69
 ChipStain + TTA,0,0,2.25,75
 ChipStain + TTA,0,0,12.25,93
@@ -874,3 +874,378 @@ ChipStain + TTA,2,9,2.25,115
 ChipStain + TTA,2,9,12.25,153
 ChipStain + TTA,2,9,24.75,238
 ChipStain + TTA,2,9,37.25,309
+ImageNet-L1 U-Net + TTA,0,0,0.0,70
+ImageNet-L1 U-Net + TTA,0,0,2.25,71
+ImageNet-L1 U-Net + TTA,0,0,12.25,87
+ImageNet-L1 U-Net + TTA,0,0,24.75,130
+ImageNet-L1 U-Net + TTA,0,0,37.25,183
+ImageNet-L1 U-Net + TTA,0,1,0.0,121
+ImageNet-L1 U-Net + TTA,0,1,2.25,144
+ImageNet-L1 U-Net + TTA,0,1,12.25,192
+ImageNet-L1 U-Net + TTA,0,1,24.75,286
+ImageNet-L1 U-Net + TTA,0,1,37.25,345
+ImageNet-L1 U-Net + TTA,0,10,0.0,177
+ImageNet-L1 U-Net + TTA,0,10,2.25,200
+ImageNet-L1 U-Net + TTA,0,10,12.25,251
+ImageNet-L1 U-Net + TTA,0,10,24.75,346
+ImageNet-L1 U-Net + TTA,0,10,37.25,428
+ImageNet-L1 U-Net + TTA,0,11,0.0,142
+ImageNet-L1 U-Net + TTA,0,11,2.25,168
+ImageNet-L1 U-Net + TTA,0,11,12.25,218
+ImageNet-L1 U-Net + TTA,0,11,24.75,296
+ImageNet-L1 U-Net + TTA,0,11,37.25,344
+ImageNet-L1 U-Net + TTA,0,12,0.0,103
+ImageNet-L1 U-Net + TTA,0,12,2.25,115
+ImageNet-L1 U-Net + TTA,0,12,12.25,148
+ImageNet-L1 U-Net + TTA,0,12,24.75,212
+ImageNet-L1 U-Net + TTA,0,12,37.25,292
+ImageNet-L1 U-Net + TTA,0,13,0.0,34
+ImageNet-L1 U-Net + TTA,0,13,2.25,38
+ImageNet-L1 U-Net + TTA,0,13,12.25,55
+ImageNet-L1 U-Net + TTA,0,13,24.75,75
+ImageNet-L1 U-Net + TTA,0,13,37.25,106
+ImageNet-L1 U-Net + TTA,0,14,0.0,33
+ImageNet-L1 U-Net + TTA,0,14,2.25,32
+ImageNet-L1 U-Net + TTA,0,14,12.25,41
+ImageNet-L1 U-Net + TTA,0,14,24.75,64
+ImageNet-L1 U-Net + TTA,0,14,37.25,86
+ImageNet-L1 U-Net + TTA,0,15,0.0,42
+ImageNet-L1 U-Net + TTA,0,15,2.25,38
+ImageNet-L1 U-Net + TTA,0,15,12.25,51
+ImageNet-L1 U-Net + TTA,0,15,24.75,71
+ImageNet-L1 U-Net + TTA,0,15,37.25,96
+ImageNet-L1 U-Net + TTA,0,16,0.0,39
+ImageNet-L1 U-Net + TTA,0,16,2.25,44
+ImageNet-L1 U-Net + TTA,0,16,12.25,64
+ImageNet-L1 U-Net + TTA,0,16,24.75,84
+ImageNet-L1 U-Net + TTA,0,16,37.25,111
+ImageNet-L1 U-Net + TTA,0,17,0.0,26
+ImageNet-L1 U-Net + TTA,0,17,2.25,27
+ImageNet-L1 U-Net + TTA,0,17,12.25,31
+ImageNet-L1 U-Net + TTA,0,17,24.75,47
+ImageNet-L1 U-Net + TTA,0,17,37.25,72
+ImageNet-L1 U-Net + TTA,0,18,0.0,81
+ImageNet-L1 U-Net + TTA,0,18,2.25,84
+ImageNet-L1 U-Net + TTA,0,18,12.25,98
+ImageNet-L1 U-Net + TTA,0,18,24.75,153
+ImageNet-L1 U-Net + TTA,0,18,37.25,199
+ImageNet-L1 U-Net + TTA,0,19,0.0,99
+ImageNet-L1 U-Net + TTA,0,19,2.25,102
+ImageNet-L1 U-Net + TTA,0,19,12.25,152
+ImageNet-L1 U-Net + TTA,0,19,24.75,213
+ImageNet-L1 U-Net + TTA,0,19,37.25,277
+ImageNet-L1 U-Net + TTA,0,2,0.0,80
+ImageNet-L1 U-Net + TTA,0,2,2.25,79
+ImageNet-L1 U-Net + TTA,0,2,12.25,103
+ImageNet-L1 U-Net + TTA,0,2,24.75,153
+ImageNet-L1 U-Net + TTA,0,2,37.25,215
+ImageNet-L1 U-Net + TTA,0,20,0.0,108
+ImageNet-L1 U-Net + TTA,0,20,2.25,110
+ImageNet-L1 U-Net + TTA,0,20,12.25,161
+ImageNet-L1 U-Net + TTA,0,20,24.75,214
+ImageNet-L1 U-Net + TTA,0,20,37.25,269
+ImageNet-L1 U-Net + TTA,0,21,0.0,34
+ImageNet-L1 U-Net + TTA,0,21,2.25,42
+ImageNet-L1 U-Net + TTA,0,21,12.25,57
+ImageNet-L1 U-Net + TTA,0,21,24.75,79
+ImageNet-L1 U-Net + TTA,0,21,37.25,114
+ImageNet-L1 U-Net + TTA,0,22,0.0,27
+ImageNet-L1 U-Net + TTA,0,22,2.25,27
+ImageNet-L1 U-Net + TTA,0,22,12.25,40
+ImageNet-L1 U-Net + TTA,0,22,24.75,73
+ImageNet-L1 U-Net + TTA,0,22,37.25,100
+ImageNet-L1 U-Net + TTA,0,23,0.0,29
+ImageNet-L1 U-Net + TTA,0,23,2.25,27
+ImageNet-L1 U-Net + TTA,0,23,12.25,38
+ImageNet-L1 U-Net + TTA,0,23,24.75,50
+ImageNet-L1 U-Net + TTA,0,23,37.25,68
+ImageNet-L1 U-Net + TTA,0,24,0.0,50
+ImageNet-L1 U-Net + TTA,0,24,2.25,59
+ImageNet-L1 U-Net + TTA,0,24,12.25,82
+ImageNet-L1 U-Net + TTA,0,24,24.75,112
+ImageNet-L1 U-Net + TTA,0,24,37.25,142
+ImageNet-L1 U-Net + TTA,0,3,0.0,56
+ImageNet-L1 U-Net + TTA,0,3,2.25,60
+ImageNet-L1 U-Net + TTA,0,3,12.25,77
+ImageNet-L1 U-Net + TTA,0,3,24.75,118
+ImageNet-L1 U-Net + TTA,0,3,37.25,171
+ImageNet-L1 U-Net + TTA,0,4,0.0,62
+ImageNet-L1 U-Net + TTA,0,4,2.25,69
+ImageNet-L1 U-Net + TTA,0,4,12.25,100
+ImageNet-L1 U-Net + TTA,0,4,24.75,147
+ImageNet-L1 U-Net + TTA,0,4,37.25,179
+ImageNet-L1 U-Net + TTA,0,5,0.0,44
+ImageNet-L1 U-Net + TTA,0,5,2.25,52
+ImageNet-L1 U-Net + TTA,0,5,12.25,63
+ImageNet-L1 U-Net + TTA,0,5,24.75,104
+ImageNet-L1 U-Net + TTA,0,5,37.25,146
+ImageNet-L1 U-Net + TTA,0,6,0.0,45
+ImageNet-L1 U-Net + TTA,0,6,2.25,52
+ImageNet-L1 U-Net + TTA,0,6,12.25,65
+ImageNet-L1 U-Net + TTA,0,6,24.75,93
+ImageNet-L1 U-Net + TTA,0,6,37.25,122
+ImageNet-L1 U-Net + TTA,0,7,0.0,24
+ImageNet-L1 U-Net + TTA,0,7,2.25,30
+ImageNet-L1 U-Net + TTA,0,7,12.25,33
+ImageNet-L1 U-Net + TTA,0,7,24.75,54
+ImageNet-L1 U-Net + TTA,0,7,37.25,81
+ImageNet-L1 U-Net + TTA,0,8,0.0,63
+ImageNet-L1 U-Net + TTA,0,8,2.25,69
+ImageNet-L1 U-Net + TTA,0,8,12.25,85
+ImageNet-L1 U-Net + TTA,0,8,24.75,119
+ImageNet-L1 U-Net + TTA,0,8,37.25,143
+ImageNet-L1 U-Net + TTA,0,9,0.0,101
+ImageNet-L1 U-Net + TTA,0,9,2.25,115
+ImageNet-L1 U-Net + TTA,0,9,12.25,150
+ImageNet-L1 U-Net + TTA,0,9,24.75,223
+ImageNet-L1 U-Net + TTA,0,9,37.25,319
+ImageNet-L1 U-Net + TTA,1,0,0.0,70
+ImageNet-L1 U-Net + TTA,1,0,2.25,71
+ImageNet-L1 U-Net + TTA,1,0,12.25,87
+ImageNet-L1 U-Net + TTA,1,0,24.75,134
+ImageNet-L1 U-Net + TTA,1,0,37.25,186
+ImageNet-L1 U-Net + TTA,1,1,0.0,122
+ImageNet-L1 U-Net + TTA,1,1,2.25,143
+ImageNet-L1 U-Net + TTA,1,1,12.25,187
+ImageNet-L1 U-Net + TTA,1,1,24.75,279
+ImageNet-L1 U-Net + TTA,1,1,37.25,340
+ImageNet-L1 U-Net + TTA,1,10,0.0,177
+ImageNet-L1 U-Net + TTA,1,10,2.25,195
+ImageNet-L1 U-Net + TTA,1,10,12.25,250
+ImageNet-L1 U-Net + TTA,1,10,24.75,349
+ImageNet-L1 U-Net + TTA,1,10,37.25,432
+ImageNet-L1 U-Net + TTA,1,11,0.0,143
+ImageNet-L1 U-Net + TTA,1,11,2.25,166
+ImageNet-L1 U-Net + TTA,1,11,12.25,217
+ImageNet-L1 U-Net + TTA,1,11,24.75,298
+ImageNet-L1 U-Net + TTA,1,11,37.25,343
+ImageNet-L1 U-Net + TTA,1,12,0.0,101
+ImageNet-L1 U-Net + TTA,1,12,2.25,117
+ImageNet-L1 U-Net + TTA,1,12,12.25,151
+ImageNet-L1 U-Net + TTA,1,12,24.75,215
+ImageNet-L1 U-Net + TTA,1,12,37.25,289
+ImageNet-L1 U-Net + TTA,1,13,0.0,35
+ImageNet-L1 U-Net + TTA,1,13,2.25,39
+ImageNet-L1 U-Net + TTA,1,13,12.25,53
+ImageNet-L1 U-Net + TTA,1,13,24.75,78
+ImageNet-L1 U-Net + TTA,1,13,37.25,108
+ImageNet-L1 U-Net + TTA,1,14,0.0,32
+ImageNet-L1 U-Net + TTA,1,14,2.25,34
+ImageNet-L1 U-Net + TTA,1,14,12.25,42
+ImageNet-L1 U-Net + TTA,1,14,24.75,63
+ImageNet-L1 U-Net + TTA,1,14,37.25,83
+ImageNet-L1 U-Net + TTA,1,15,0.0,38
+ImageNet-L1 U-Net + TTA,1,15,2.25,40
+ImageNet-L1 U-Net + TTA,1,15,12.25,49
+ImageNet-L1 U-Net + TTA,1,15,24.75,71
+ImageNet-L1 U-Net + TTA,1,15,37.25,93
+ImageNet-L1 U-Net + TTA,1,16,0.0,39
+ImageNet-L1 U-Net + TTA,1,16,2.25,44
+ImageNet-L1 U-Net + TTA,1,16,12.25,60
+ImageNet-L1 U-Net + TTA,1,16,24.75,78
+ImageNet-L1 U-Net + TTA,1,16,37.25,111
+ImageNet-L1 U-Net + TTA,1,17,0.0,26
+ImageNet-L1 U-Net + TTA,1,17,2.25,28
+ImageNet-L1 U-Net + TTA,1,17,12.25,30
+ImageNet-L1 U-Net + TTA,1,17,24.75,48
+ImageNet-L1 U-Net + TTA,1,17,37.25,71
+ImageNet-L1 U-Net + TTA,1,18,0.0,79
+ImageNet-L1 U-Net + TTA,1,18,2.25,83
+ImageNet-L1 U-Net + TTA,1,18,12.25,94
+ImageNet-L1 U-Net + TTA,1,18,24.75,157
+ImageNet-L1 U-Net + TTA,1,18,37.25,201
+ImageNet-L1 U-Net + TTA,1,19,0.0,96
+ImageNet-L1 U-Net + TTA,1,19,2.25,102
+ImageNet-L1 U-Net + TTA,1,19,12.25,154
+ImageNet-L1 U-Net + TTA,1,19,24.75,209
+ImageNet-L1 U-Net + TTA,1,19,37.25,282
+ImageNet-L1 U-Net + TTA,1,2,0.0,78
+ImageNet-L1 U-Net + TTA,1,2,2.25,78
+ImageNet-L1 U-Net + TTA,1,2,12.25,104
+ImageNet-L1 U-Net + TTA,1,2,24.75,153
+ImageNet-L1 U-Net + TTA,1,2,37.25,214
+ImageNet-L1 U-Net + TTA,1,20,0.0,108
+ImageNet-L1 U-Net + TTA,1,20,2.25,112
+ImageNet-L1 U-Net + TTA,1,20,12.25,162
+ImageNet-L1 U-Net + TTA,1,20,24.75,216
+ImageNet-L1 U-Net + TTA,1,20,37.25,284
+ImageNet-L1 U-Net + TTA,1,21,0.0,34
+ImageNet-L1 U-Net + TTA,1,21,2.25,40
+ImageNet-L1 U-Net + TTA,1,21,12.25,56
+ImageNet-L1 U-Net + TTA,1,21,24.75,78
+ImageNet-L1 U-Net + TTA,1,21,37.25,113
+ImageNet-L1 U-Net + TTA,1,22,0.0,27
+ImageNet-L1 U-Net + TTA,1,22,2.25,27
+ImageNet-L1 U-Net + TTA,1,22,12.25,40
+ImageNet-L1 U-Net + TTA,1,22,24.75,70
+ImageNet-L1 U-Net + TTA,1,22,37.25,101
+ImageNet-L1 U-Net + TTA,1,23,0.0,27
+ImageNet-L1 U-Net + TTA,1,23,2.25,27
+ImageNet-L1 U-Net + TTA,1,23,12.25,36
+ImageNet-L1 U-Net + TTA,1,23,24.75,48
+ImageNet-L1 U-Net + TTA,1,23,37.25,65
+ImageNet-L1 U-Net + TTA,1,24,0.0,50
+ImageNet-L1 U-Net + TTA,1,24,2.25,59
+ImageNet-L1 U-Net + TTA,1,24,12.25,81
+ImageNet-L1 U-Net + TTA,1,24,24.75,113
+ImageNet-L1 U-Net + TTA,1,24,37.25,144
+ImageNet-L1 U-Net + TTA,1,3,0.0,56
+ImageNet-L1 U-Net + TTA,1,3,2.25,61
+ImageNet-L1 U-Net + TTA,1,3,12.25,76
+ImageNet-L1 U-Net + TTA,1,3,24.75,113
+ImageNet-L1 U-Net + TTA,1,3,37.25,171
+ImageNet-L1 U-Net + TTA,1,4,0.0,63
+ImageNet-L1 U-Net + TTA,1,4,2.25,67
+ImageNet-L1 U-Net + TTA,1,4,12.25,101
+ImageNet-L1 U-Net + TTA,1,4,24.75,146
+ImageNet-L1 U-Net + TTA,1,4,37.25,179
+ImageNet-L1 U-Net + TTA,1,5,0.0,46
+ImageNet-L1 U-Net + TTA,1,5,2.25,50
+ImageNet-L1 U-Net + TTA,1,5,12.25,62
+ImageNet-L1 U-Net + TTA,1,5,24.75,105
+ImageNet-L1 U-Net + TTA,1,5,37.25,147
+ImageNet-L1 U-Net + TTA,1,6,0.0,46
+ImageNet-L1 U-Net + TTA,1,6,2.25,51
+ImageNet-L1 U-Net + TTA,1,6,12.25,64
+ImageNet-L1 U-Net + TTA,1,6,24.75,90
+ImageNet-L1 U-Net + TTA,1,6,37.25,119
+ImageNet-L1 U-Net + TTA,1,7,0.0,24
+ImageNet-L1 U-Net + TTA,1,7,2.25,30
+ImageNet-L1 U-Net + TTA,1,7,12.25,31
+ImageNet-L1 U-Net + TTA,1,7,24.75,54
+ImageNet-L1 U-Net + TTA,1,7,37.25,78
+ImageNet-L1 U-Net + TTA,1,8,0.0,64
+ImageNet-L1 U-Net + TTA,1,8,2.25,67
+ImageNet-L1 U-Net + TTA,1,8,12.25,84
+ImageNet-L1 U-Net + TTA,1,8,24.75,116
+ImageNet-L1 U-Net + TTA,1,8,37.25,147
+ImageNet-L1 U-Net + TTA,1,9,0.0,102
+ImageNet-L1 U-Net + TTA,1,9,2.25,115
+ImageNet-L1 U-Net + TTA,1,9,12.25,151
+ImageNet-L1 U-Net + TTA,1,9,24.75,221
+ImageNet-L1 U-Net + TTA,1,9,37.25,310
+ImageNet-L1 U-Net + TTA,2,0,0.0,68
+ImageNet-L1 U-Net + TTA,2,0,2.25,70
+ImageNet-L1 U-Net + TTA,2,0,12.25,86
+ImageNet-L1 U-Net + TTA,2,0,24.75,133
+ImageNet-L1 U-Net + TTA,2,0,37.25,175
+ImageNet-L1 U-Net + TTA,2,1,0.0,123
+ImageNet-L1 U-Net + TTA,2,1,2.25,147
+ImageNet-L1 U-Net + TTA,2,1,12.25,185
+ImageNet-L1 U-Net + TTA,2,1,24.75,269
+ImageNet-L1 U-Net + TTA,2,1,37.25,306
+ImageNet-L1 U-Net + TTA,2,10,0.0,175
+ImageNet-L1 U-Net + TTA,2,10,2.25,198
+ImageNet-L1 U-Net + TTA,2,10,12.25,250
+ImageNet-L1 U-Net + TTA,2,10,24.75,324
+ImageNet-L1 U-Net + TTA,2,10,37.25,391
+ImageNet-L1 U-Net + TTA,2,11,0.0,144
+ImageNet-L1 U-Net + TTA,2,11,2.25,166
+ImageNet-L1 U-Net + TTA,2,11,12.25,219
+ImageNet-L1 U-Net + TTA,2,11,24.75,290
+ImageNet-L1 U-Net + TTA,2,11,37.25,299
+ImageNet-L1 U-Net + TTA,2,12,0.0,104
+ImageNet-L1 U-Net + TTA,2,12,2.25,117
+ImageNet-L1 U-Net + TTA,2,12,12.25,154
+ImageNet-L1 U-Net + TTA,2,12,24.75,215
+ImageNet-L1 U-Net + TTA,2,12,37.25,294
+ImageNet-L1 U-Net + TTA,2,13,0.0,37
+ImageNet-L1 U-Net + TTA,2,13,2.25,38
+ImageNet-L1 U-Net + TTA,2,13,12.25,56
+ImageNet-L1 U-Net + TTA,2,13,24.75,77
+ImageNet-L1 U-Net + TTA,2,13,37.25,112
+ImageNet-L1 U-Net + TTA,2,14,0.0,32
+ImageNet-L1 U-Net + TTA,2,14,2.25,32
+ImageNet-L1 U-Net + TTA,2,14,12.25,42
+ImageNet-L1 U-Net + TTA,2,14,24.75,68
+ImageNet-L1 U-Net + TTA,2,14,37.25,84
+ImageNet-L1 U-Net + TTA,2,15,0.0,40
+ImageNet-L1 U-Net + TTA,2,15,2.25,39
+ImageNet-L1 U-Net + TTA,2,15,12.25,50
+ImageNet-L1 U-Net + TTA,2,15,24.75,70
+ImageNet-L1 U-Net + TTA,2,15,37.25,92
+ImageNet-L1 U-Net + TTA,2,16,0.0,40
+ImageNet-L1 U-Net + TTA,2,16,2.25,45
+ImageNet-L1 U-Net + TTA,2,16,12.25,62
+ImageNet-L1 U-Net + TTA,2,16,24.75,81
+ImageNet-L1 U-Net + TTA,2,16,37.25,105
+ImageNet-L1 U-Net + TTA,2,17,0.0,26
+ImageNet-L1 U-Net + TTA,2,17,2.25,29
+ImageNet-L1 U-Net + TTA,2,17,12.25,31
+ImageNet-L1 U-Net + TTA,2,17,24.75,47
+ImageNet-L1 U-Net + TTA,2,17,37.25,76
+ImageNet-L1 U-Net + TTA,2,18,0.0,79
+ImageNet-L1 U-Net + TTA,2,18,2.25,85
+ImageNet-L1 U-Net + TTA,2,18,12.25,100
+ImageNet-L1 U-Net + TTA,2,18,24.75,158
+ImageNet-L1 U-Net + TTA,2,18,37.25,198
+ImageNet-L1 U-Net + TTA,2,19,0.0,100
+ImageNet-L1 U-Net + TTA,2,19,2.25,107
+ImageNet-L1 U-Net + TTA,2,19,12.25,160
+ImageNet-L1 U-Net + TTA,2,19,24.75,211
+ImageNet-L1 U-Net + TTA,2,19,37.25,258
+ImageNet-L1 U-Net + TTA,2,2,0.0,80
+ImageNet-L1 U-Net + TTA,2,2,2.25,77
+ImageNet-L1 U-Net + TTA,2,2,12.25,106
+ImageNet-L1 U-Net + TTA,2,2,24.75,161
+ImageNet-L1 U-Net + TTA,2,2,37.25,214
+ImageNet-L1 U-Net + TTA,2,20,0.0,110
+ImageNet-L1 U-Net + TTA,2,20,2.25,110
+ImageNet-L1 U-Net + TTA,2,20,12.25,162
+ImageNet-L1 U-Net + TTA,2,20,24.75,212
+ImageNet-L1 U-Net + TTA,2,20,37.25,250
+ImageNet-L1 U-Net + TTA,2,21,0.0,32
+ImageNet-L1 U-Net + TTA,2,21,2.25,39
+ImageNet-L1 U-Net + TTA,2,21,12.25,56
+ImageNet-L1 U-Net + TTA,2,21,24.75,79
+ImageNet-L1 U-Net + TTA,2,21,37.25,118
+ImageNet-L1 U-Net + TTA,2,22,0.0,27
+ImageNet-L1 U-Net + TTA,2,22,2.25,26
+ImageNet-L1 U-Net + TTA,2,22,12.25,39
+ImageNet-L1 U-Net + TTA,2,22,24.75,72
+ImageNet-L1 U-Net + TTA,2,22,37.25,99
+ImageNet-L1 U-Net + TTA,2,23,0.0,28
+ImageNet-L1 U-Net + TTA,2,23,2.25,28
+ImageNet-L1 U-Net + TTA,2,23,12.25,42
+ImageNet-L1 U-Net + TTA,2,23,24.75,54
+ImageNet-L1 U-Net + TTA,2,23,37.25,64
+ImageNet-L1 U-Net + TTA,2,24,0.0,50
+ImageNet-L1 U-Net + TTA,2,24,2.25,60
+ImageNet-L1 U-Net + TTA,2,24,12.25,85
+ImageNet-L1 U-Net + TTA,2,24,24.75,110
+ImageNet-L1 U-Net + TTA,2,24,37.25,143
+ImageNet-L1 U-Net + TTA,2,3,0.0,59
+ImageNet-L1 U-Net + TTA,2,3,2.25,60
+ImageNet-L1 U-Net + TTA,2,3,12.25,79
+ImageNet-L1 U-Net + TTA,2,3,24.75,113
+ImageNet-L1 U-Net + TTA,2,3,37.25,163
+ImageNet-L1 U-Net + TTA,2,4,0.0,61
+ImageNet-L1 U-Net + TTA,2,4,2.25,69
+ImageNet-L1 U-Net + TTA,2,4,12.25,103
+ImageNet-L1 U-Net + TTA,2,4,24.75,147
+ImageNet-L1 U-Net + TTA,2,4,37.25,172
+ImageNet-L1 U-Net + TTA,2,5,0.0,47
+ImageNet-L1 U-Net + TTA,2,5,2.25,52
+ImageNet-L1 U-Net + TTA,2,5,12.25,63
+ImageNet-L1 U-Net + TTA,2,5,24.75,109
+ImageNet-L1 U-Net + TTA,2,5,37.25,145
+ImageNet-L1 U-Net + TTA,2,6,0.0,46
+ImageNet-L1 U-Net + TTA,2,6,2.25,53
+ImageNet-L1 U-Net + TTA,2,6,12.25,68
+ImageNet-L1 U-Net + TTA,2,6,24.75,91
+ImageNet-L1 U-Net + TTA,2,6,37.25,121
+ImageNet-L1 U-Net + TTA,2,7,0.0,24
+ImageNet-L1 U-Net + TTA,2,7,2.25,28
+ImageNet-L1 U-Net + TTA,2,7,12.25,34
+ImageNet-L1 U-Net + TTA,2,7,24.75,55
+ImageNet-L1 U-Net + TTA,2,7,37.25,80
+ImageNet-L1 U-Net + TTA,2,8,0.0,60
+ImageNet-L1 U-Net + TTA,2,8,2.25,68
+ImageNet-L1 U-Net + TTA,2,8,12.25,84
+ImageNet-L1 U-Net + TTA,2,8,24.75,117
+ImageNet-L1 U-Net + TTA,2,8,37.25,140
+ImageNet-L1 U-Net + TTA,2,9,0.0,105
+ImageNet-L1 U-Net + TTA,2,9,2.25,114
+ImageNet-L1 U-Net + TTA,2,9,12.25,152
+ImageNet-L1 U-Net + TTA,2,9,24.75,219
+ImageNet-L1 U-Net + TTA,2,9,37.25,310

@@ -14,6 +14,7 @@ ChipStain uses only public, openly licensed data. No clinical, personal or restr
 | Culture format | 2-D monolayer in a CellCarrier Ultra 96-well imaging plate (PerkinElmer) — **not** a microfluidic / organ-on-a-chip device |
 | Cells | HeLa "Kyoto" expressing EGFP-α-tubulin and mCherry-H2B |
 | Microscope | PerkinElmer Operetta, 20× / NA 0.8, Andor Zyla 5.5 |
+| Acquisition details | see the source record [10.5281/zenodo.6139958](https://doi.org/10.5281/zenodo.6139958) (pixel size, exposure, time-lapse interval) |
 | Images | 540 × 540 px, 16-bit TIFF, single z-plane |
 | Channels per field | bright-field (`_bf`), digital phase contrast (`_dpc`, `_sqrdpc`), 2-channel fluorescence (`_fluo`: [0] tubulin, [1] H2B), StarDist nuclei labels (`_nuclei`), Cellpose cell labels (`_cyto`) |
 | Fields | train: wells R05-C05 and R05-C07, 25 fields × 5 time-points = 250 · test: well R05-C03, 125 |

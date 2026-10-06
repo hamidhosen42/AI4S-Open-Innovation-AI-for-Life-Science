@@ -71,10 +71,21 @@ def diff_txt(r, t, m, digits=3, pct=False):
     return txt + ")"
 
 
+def robust(t):
+    """Two-sided robust difference: the seed+field bootstrap CI excludes 0, at least 2 of 3 seeds are
+    significant in the same direction and none in the other. Returns "better", "worse" or None
+    (better/worse from A's point of view; for MAE and AUSE lower is better)."""
+    if t is None or not (t.ci_lo > 0 or t.ci_hi < 0):
+        return None
+    if t.seeds_sig_better >= 2 and t.seeds_sig_worse == 0:
+        return "better"
+    if t.seeds_sig_worse >= 2 and t.seeds_sig_better == 0:
+        return "worse"
+    return None
+
+
 def sig(t):
-    """A robust difference: the seed+field bootstrap CI excludes 0, no seed goes the other way,
-    and at least 2 of 3 seeds are significant on their own."""
-    return t is not None and (t.ci_lo > 0 or t.ci_hi < 0) and t.seeds_sig_worse == 0 and t.seeds_sig_better >= 2
+    return robust(t) is not None
 
 
 # ----------------------------------------------------------------------------- sections
@@ -86,40 +97,39 @@ def sec_main(r):
              f"The released checkpoint is seed 0 (ChipStain + TTA: Pearson r {r.seed0(FULL, 'pearson'):.3f}, SSIM {r.seed0(FULL, 'ssim'):.3f}, "
              f"seg-F1 {r.seed0(FULL, 'seg_f1'):.3f}, ρ(σ, err) {r.seed0(FULL, 'spearman_unc_err'):.3f}). "
              "The real-fluorescence row runs the same watershed on the real H2B image; it is a reference level, not a strict bound.</p>")
-    s.append(figure("multiseed.png", "<b>Figure 1.</b> All configurations over three training seeds: open circles are seeds, diamonds their mean, bars ±1 s.d. "
+    s.append(figure("multiseed.png", "<b>Figure 1.</b> The six main configurations over three training seeds: open circles are seeds, diamonds their mean, bars ±1 s.d.; the dashed line is the real-stain reference level (not a bound). "
                     "ChipStain + TTA (blue) is the full method."))
-    # like-for-like narrative
-    tp, ts, tm, tf = (r.t(FULL, BT, k) for k in ("pearson", "ssim", "mae", "seg_f1"))
-    tr, ta = r.t(FULL, BT, "spearman_unc_err"), r.t(FULL, BT, "ause")
+    # like-for-like narrative: the matched control is the ImageNet-L1 U-Net with the same TTA and learning rate
+    PT = "pretrained_l1+tta"
+    mp, ms_, mm, mf, mr, ma = (r.t(FULL, PT, k) for k in ("pearson", "ssim", "mae", "seg_f1", "spearman_unc_err", "ause"))
+    sr, sa = r.t(FULL, BT, "spearman_unc_err"), r.t(FULL, BT, "ause")
     s.append("<h3>6.2 Like-for-like comparison and statistics</h3>")
-    s.append("<p>The fair comparison for the full method is a U-Net that also uses 8× TTA (its uncertainty is then the TTA disagreement). "
-             "Differences are ChipStain + TTA minus U-Net + TTA, with a 95 % CI from a bootstrap that resamples both seeds and fields, and a field-level Wilcoxon test (Holm-corrected).</p><ul>")
-    s.append(f"<li><b>Correlation with the real stain:</b> Pearson r {diff_txt(r, tp, 'pearson')} — {'a robust gain' if sig(tp) and tp.mean_a > tp.mean_b else 'comparable; no robust difference'}.</li>")
-    s.append(f"<li><b>Pixel fidelity:</b> MAE {diff_txt(r, tm, 'mae', digits=4)}; SSIM {diff_txt(r, ts, 'ssim')}. "
-             f"The MAE cost is small but consistent (its CI excludes zero); SSIM is lower in most seeds. §6.3 tests whether it comes from the loss or the head.</li>")
-    s.append(f"<li><b>Downstream nuclei F1:</b> {diff_txt(r, tf, 'seg_f1')}: higher on average but not robust across seeds — the U-Net's seed-to-seed spread "
-             f"(s.d. {r.sd(BT, 'seg_f1'):.3f} vs {r.sd(FULL, 'seg_f1'):.3f} for ChipStain) comes from one unstable U-Net run (n = 3 seeds, descriptive only).</li>")
-    s.append(f"<li><b>Uncertainty ranking:</b> ρ(σ, |error|) {diff_txt(r, tr, 'spearman_unc_err')}; AUSE {diff_txt(r, ta, 'ause')}. "
-             f"This is the clearest and most consistent result of the study.</li></ul>")
-    tm2 = {k: r.t(FULL, "pretrained_l1+tta", k) for k in ("pearson", "mae", "spearman_unc_err", "ause")}
-    if all(v is not None for v in tm2.values()):
-        s.append(f"<p><b>Matched control.</b> The U-Net above differs from ChipStain in encoder initialisation and learning rate as well as in the head. "
-                 f"Against an ImageNet-encoder L1 U-Net with the same TTA and learning rate — differing only in the probabilistic head and loss — ChipStain's uncertainty is still better: "
-                 f"ρ {diff_txt(r, tm2['spearman_unc_err'], 'spearman_unc_err')}; AUSE {diff_txt(r, tm2['ause'], 'ause')}; with Pearson r {diff_txt(r, tm2['pearson'], 'pearson')} and MAE {diff_txt(r, tm2['mae'], 'mae', digits=4)}.</p>")
+    s.append("<p>The like-for-like control for the full method is an <b>ImageNet-encoder L1 U-Net with the same 8× TTA and the same learning rate</b> (its uncertainty is the TTA disagreement): "
+             "it differs from ChipStain only in the probabilistic head and loss. Differences are ChipStain + TTA minus that control, with a 95 % CI from a bootstrap that resamples both seeds and fields, "
+             "and per-seed field-level tests.</p><ul>")
+    s.append(f"<li><b>Correlation with the real stain:</b> Pearson r {diff_txt(r, mp, 'pearson')} — {'a robust gain' if robust(mp) == 'better' else 'identical within run-to-run variation'}.</li>")
+    s.append(f"<li><b>Pixel fidelity:</b> MAE {diff_txt(r, mm, 'mae', digits=4)} ({100 * (mm.mean_a / mm.mean_b - 1):+.0f} %); SSIM {diff_txt(r, ms_, 'ssim')}. "
+             "The MAE cost is small but consistent (its CI excludes zero); §6.3 traces it to the change of loss family (L1 → squared error), not to the variance head.</li>")
+    s.append(f"<li><b>Downstream nuclei F1:</b> {diff_txt(r, mf, 'seg_f1')}.</li>")
+    s.append(f"<li><b>Uncertainty ranking:</b> ρ(σ, |error|) {diff_txt(r, mr, 'spearman_unc_err')}; AUSE {diff_txt(r, ma, 'ause')}. "
+             "This is the clearest and most consistent result of the study.</li></ul>")
+    s.append(f"<p><b>Against the scratch U-Net + TTA</b> (from-scratch encoder, learning rate 1e-3 — a weaker and less matched baseline) the uncertainty advantage is similar: "
+             f"ρ {diff_txt(r, sr, 'spearman_unc_err')}; AUSE {diff_txt(r, sa, 'ause')}.</p>")
     t1 = r.t(CS, BT, "ause")
     if t1 is not None:
-        s.append(f"<p>Without TTA, ChipStain's learned σ alone still ranks errors better than the U-Net's TTA disagreement in ρ, but <b>not</b> in AUSE "
-                 f"({r.m(CS, 'ause'):.3f} vs {r.m(BT, 'ause'):.3f}; Holm {p_txt(t1.p_holm)}): the learned head and the TTA term are complementary, and the full method needs both.</p>")
+        t2 = r.t(CS, "pretrained_l1+tta", "ause")
+        s.append(f"<p>Without TTA, ChipStain's learned σ alone still ranks errors better than the control's TTA disagreement in ρ, but <b>not</b> in AUSE "
+                 f"({r.m(CS, 'ause'):.3f} vs {r.m('pretrained_l1+tta', 'ause'):.3f}; no robust difference): the learned head and the TTA term are complementary, and the full method needs both.</p>")
     tests = r.tests
     keep = tests[tests.a.isin([FULL, CS, "pretrained_l1+tta"]) & tests.b.isin([BT, "pretrained_l1+tta"])].copy()
     rows = [["A vs B", "metric", "A", "B", "A − B (95 % CI, seeds + fields)", "seeds sig. better / worse", "p (pooled, Holm; σ metrics)"]]
-    lab = {FULL: "ChipStain + TTA", CS: "ChipStain", BT: "U-Net + TTA", BU: "U-Net", "pretrained_l1+tta": "ImageNet-L1 U-Net + TTA"}
+    lab = {FULL: "ChipStain + TTA", CS: "ChipStain", BT: "Scratch U-Net + TTA", BU: "Scratch U-Net", "pretrained_l1+tta": "ImageNet-L1 U-Net + TTA (matched)"}
     mname = {"pearson": "Pearson r", "ssim": "SSIM", "mae": "MAE", "seg_f1": "nuclei F1", "spearman_unc_err": "ρ(σ, error)", "ause": "AUSE"}
     for _, t in keep.iterrows():
         rows.append([f"{lab[t.a]} vs {lab[t.b]}", mname.get(t.metric, t.metric), f"{t.mean_a:.4f}", f"{t.mean_b:.4f}", f"{t.mean_a - t.mean_b:+.4f} ({t.ci_lo:+.4f}, {t.ci_hi:+.4f})",
                      f"{int(t.seeds_sig_better)} / {int(t.seeds_sig_worse)} of {int(t.n_seeds)}", f"{t.p_holm:.2g}" if t.metric in ("spearman_unc_err", "ause") else "—"])
     s.append(html_table(rows))
-    s.append("<p class='small'><b>Table 2.</b> Paired comparisons, all with TTA on both sides (except single-pass ChipStain, marked). Inference rests on the hierarchical seed+field bootstrap CI and on per-seed tests; "
+    s.append("<p class='small'><b>Table 2.</b> Paired comparisons; the matched control is the ImageNet-L1 U-Net + TTA. All with TTA on both sides except the single-pass ChipStain rows. Inference rests on the hierarchical seed+field bootstrap CI and on per-seed tests; "
              "the pooled field-level p-value averages over seeds, so it is shown for the uncertainty metrics only. For MAE and AUSE lower is better.</p>")
     return "\n".join(s)
 
@@ -136,16 +146,18 @@ def sec_ablation(r):
              (CS, "ablate_pretrained_mse", "Variance head only: β-NLL vs MSE"),
              (CS, "ablate_nll_beta0", "β = 0.5 vs plain NLL (β = 0)"),
              (CS, "ablate_nll_beta1", "β = 0.5 vs β = 1")]
-    rows = [["step (A vs B)", "Δ Pearson r", "Δ SSIM", "Δ MAE", "Δ seg-F1"]]
+    rows = [["step (A vs B)", "Δ Pearson r", "Δ SSIM", "Δ MAE", "Δ seg-F1", "Δ ρ(σ, err)", "Δ AUSE"]]
+    mark = {"better": " ▲", "worse": " ▼", None: ""}
     for a, b, name in steps:
         cells = [name]
-        for m in ("pearson", "ssim", "mae", "seg_f1"):
+        for m in ("pearson", "ssim", "mae", "seg_f1", "spearman_unc_err", "ause"):
             t = r.t(a, b, m)
-            cells.append("—" if t is None else f"{t.mean_a - t.mean_b:+.4f}{'*' if sig(t) else ''}")
+            cells.append("—" if t is None else f"{t.mean_a - t.mean_b:+.4f}{mark[robust(t)]}")
         rows.append(cells)
     s.append(html_table(rows))
-    s.append("<p class='small'><b>Table 3.</b> Each row changes one factor (A − B; * = Holm p &lt; 0.05 and the seed+field bootstrap CI excludes 0). "
-             "All arms: 3 seeds, no TTA.</p>")
+    s.append("<p class='small'><b>Table 3.</b> Each row changes one factor (A − B; 3 seeds, no TTA). ▲ / ▼ = A robustly better / worse: the seed+field bootstrap CI "
+             "excludes zero, at least two seeds are significant in that direction and none in the other. For MAE and AUSE lower is better. "
+             "— = not applicable (no σ) or not tested.</p>")
     s.append("{{ablation_text}}")
     return "\n".join(s)
 
@@ -203,15 +215,24 @@ def sec_image_level(r):
 
 def sec_shift():
     s = ["<h3>6.7 Imaging shift: does the uncertainty notice?</h3>",
-         "<p>Moving from a well plate to a chip changes the optics: thick PDMS and curved channel walls defocus and scatter light, and labs differ in camera noise, contrast and modality. "
-         "We applied such shifts to 50 test images (time-points 10 and 100): Gaussian defocus, sensor noise, contrast loss, and a modality swap to the dataset's digital phase-contrast rendering.</p>",
+         "<p>Moving from a well plate to a chip can change the optics (thicker PDMS, curved channel walls, scattering), and labs differ in camera noise and modality. "
+         "We applied simulated shifts to 50 test images (time-points 10 and 100), for three training seeds of each model: Gaussian blur of 1, 2 and 4 px (a crude defocus proxy), "
+         "added sensor noise (10 % and 20 %), and a modality swap to the dataset's digital phase-contrast rendering of the same fields.</p>",
          figure("shift_test.png", "<b>Figure 6.</b> (A) Pearson r with the real stain under each shift. (B) Mean σ relative to the clean image (log scale). "
-                "ChipStain (blue) and the U-Net (orange) both use 8× TTA; the U-Net's σ is its TTA disagreement.")]
+                "Dots are means over three seeds and thin bars the range over seeds; a mean above 1× can hide seeds in which σ falls (Table 7b). "
+                "All models use 8× TTA; for the L1 U-Nets σ is the TTA disagreement.")]
     tabs = md_tables(f"{RES}/shift_test.md")
-    if tabs:
-        s.append(html_table(tabs[0][1]))
-        s.append("<p class='small'><b>Table 7.</b> AUROC of per-image mean σ for separating shifted from clean images, per uncertainty term "
-                 "(1 = perfect separation, 0.5 = no signal, &lt; 0.5 = σ falls under shift).</p>")
+    by = {h.split("(")[0].strip().lower(): rows for h, rows in tabs}
+    fail = next((rows for h, rows in tabs if h.lower().startswith("failure detection")), None)
+    det = next((rows for h, rows in tabs if h.lower().startswith("shift detection")), None)
+    if det:
+        s.append(html_table(det))
+        s.append("<p class='small'><b>Table 7a.</b> Shift detection: AUROC of per-image mean σ for separating shifted from clean images, per uncertainty term, "
+                 "mean ± s.d. over three seeds (1 = perfect separation, 0.5 = no signal, &lt; 0.5 = σ falls under shift).</p>")
+    if fail:
+        s.append(html_table(fail))
+        s.append("<p class='small'><b>Table 7b.</b> Failure detection: AUROC of per-image mean σ for separating failed predictions (Pearson r &lt; 0.5) from successful ones (r &gt; 0.7), "
+                 "clean and shifted images pooled, mean ± s.d. over three seeds. 'Failed images' are summed over the three seeds (of 1,050 shifted and clean images per model).</p>")
     s.append("{{shift_text}}")
     return "\n".join(s)
 
@@ -231,7 +252,8 @@ def sec_nucleus():
     tabs = md_tables(f"{RES}/nucleus_uncertainty.md")
     if tabs:
         s.append(html_table(tabs[0][1]))
-        s.append("<p class='small'><b>Table 9.</b> AUROC of each per-nucleus score for flagging predicted nuclei that match no reference nucleus (IoU &lt; 0.5).</p>")
+        s.append("<p class='small'><b>Table 9.</b> AUROC of each per-nucleus score for flagging predicted nuclei that match no reference nucleus (IoU &lt; 0.5). "
+                 "For ChipStain + TTA, 'sigma_learned' is the total σ (learned variance + TTA disagreement); for the L1 U-Net, 'sigma_tta_unet' is its TTA disagreement.</p>")
     s.append(figure("nucleus_gate.png", "<b>Figure 7.</b> Discarding the highest-score detections raises precision but lowers recall and F1 for every score: per-nucleus σ is a review flag, not a count filter."))
     s.append("{{nucleus_text}}")
     return "\n".join(s)
@@ -244,8 +266,9 @@ def sec_prolif():
     tabs = md_tables(f"{RES}/proliferation.md")
     if tabs:
         s.append(html_table(tabs[0][1]))
-        s.append("<p class='small'><b>Table 10.</b> Doubling time (geometric mean over fields) and its error against the reference, without and with the σ gate "
-                 "(threshold fixed on the validation split, §4.4). 'Failed frames' are test frames whose nuclei F1 is below 0.5.</p>")
+        s.append("<p class='small'><b>Table 10.</b> Doubling time (geometric mean over the fields used) and its error against the reference, per run, three ways: all frames; all frames on the same fields that the gate keeps; "
+                 "and gated (threshold fixed on the validation split, §4.4). 'Collapsed fields' have no positive growth fit on all frames and are excluded from the all-frames row (counted as failures in the text); "
+                 "'fields to review' are fields the gate leaves with fewer than three frames. Bias is the mean signed error over fields. 'Failed frames' are test frames whose nuclei F1 is below 0.5.</p>")
     s.append(figure("proliferation.png", "<b>Figure 8.</b> (A) Mean nuclei per field over time from the reference and from label-free counts (seed 0). (B) Per-field doubling times, all seeds."))
     s.append("{{prolif_text}}")
     s.append(figure("timelapse.png", "<b>Figure 9.</b> One held-out field imaged every 15 min for 60 h (240 frames): nuclei counted on the label-free prediction and on the real H2B stain with the same pipeline (top), and the frame's mean σ (bottom). "
@@ -320,6 +343,18 @@ def numbers(r):
     put("n_full_s0_pearson", lambda: f"{r.seed0(FULL, 'pearson'):.3f}")
     put("n_full_s0_segf1", lambda: f"{r.seed0(FULL, 'seg_f1'):.3f}")
     put("n_bu_seed_gap", lambda: (lambda v: f"{v.max() - v.min():.2f}")(r.seed[r.seed.cfg == BU]["seg_f1"]))
+    put("n_b0tta_rho", lambda: f"{r.m('ablate_nll_beta0+tta', 'spearman_unc_err'):.2f}")
+    put("n_b0tta_ause", lambda: f"{r.m('ablate_nll_beta0+tta', 'ause'):.3f}")
+    put("n_b0_pearson", lambda: f"{r.m('ablate_nll_beta0', 'pearson'):.3f}")
+    put("n_b0_segf1", lambda: f"{r.m('ablate_nll_beta0', 'seg_f1'):.3f}")
+    put("n_pm_pearson", lambda: f"{r.m('pretrained_l1+tta', 'pearson'):.3f}")
+    put("n_pm_rho", lambda: f"{r.m('pretrained_l1+tta', 'spearman_unc_err'):.2f}")
+    put("n_pm_ause", lambda: f"{r.m('pretrained_l1+tta', 'ause'):.3f}")
+    put("n_pm_segf1", lambda: f"{r.m('pretrained_l1+tta', 'seg_f1'):.3f}")
+    put("n_pm_mae_rel", lambda: f"{100 * (r.m(FULL, 'mae') / r.m('pretrained_l1+tta', 'mae') - 1):.0f}")
+    for m in ("pearson", "spearman_unc_err", "ause", "seg_f1"):
+        put(f"n_pmci_{m}", lambda m=m: (lambda t: f"{t.mean_a - t.mean_b:+.3f} (95 % CI {t.ci_lo:+.3f} to {t.ci_hi:+.3f})")(r.t(FULL, "pretrained_l1+tta", m)))
+    put("n_pmci_mae", lambda: (lambda t: f"{t.mean_a - t.mean_b:+.4f} (95 % CI {t.ci_lo:+.4f} to {t.ci_hi:+.4f})")(r.t(FULL, "pretrained_l1+tta", "mae")))
     put("n_mae_rel", lambda: f"{100 * (r.m(FULL, 'mae') / r.m(BT, 'mae') - 1):.0f}")
     put("n_gain", lambda: f"{100 * r.m(FULL, 'gain20'):.0f}")
     put("n_gain_mu", lambda: f"{100 * r.m(FULL, 'gain20_mu'):.0f}")
@@ -417,23 +452,31 @@ def numbers(r):
         return {"n_cal_68": f"{100 * g.loc['chipstain_nll_tta', 'raw_0.683']:.0f}", "n_cal_95": f"{100 * g.loc['chipstain_nll_tta', 'raw_0.95']:.0f}",
                 "n_cal_fg95": f"{100 * g.loc['chipstain_nll_tta', 'fg_0.95']:.0f}" if "fg_0.95" in g else "n/a",
                 "n_cal_scale": f"{g.loc['chipstain_nll_tta', 'val_scale']:.2f}", "n_cal_unet_68": f"{100 * g.loc['baseline_unet_tta', 'raw_0.683']:.0f}",
-                "n_cal_unet_scale": f"{g.loc['baseline_unet_tta', 'val_scale']:.0f}"}
+                "n_cal_unet_scale": f"{g.loc['baseline_unet_tta', 'val_scale']:.0f}",
+                "n_cal_pm_scale": f"{g.loc['pretrained_l1_tta', 'val_scale']:.0f}", "n_cal_pm_68": f"{100 * g.loc['pretrained_l1_tta', 'raw_0.683']:.0f}",
+                "n_cal_95_recal": f"{100 * g.loc['chipstain_nll_tta', 'cal_0.95']:.1f}", "n_cal_95_raw1": f"{100 * g.loc['chipstain_nll_tta', 'raw_0.95']:.1f}"}
     # proliferation
     def prolif():
         d = read("proliferation.csv")
         o = {}
-        for model, k in [("ChipStain + TTA", "cs"), ("U-Net + TTA", "bt")]:
-            a = d[(d.model == model) & (d.frames == "all frames")].set_index("seed")
-            gt = d[(d.model == model) & (d.frames == "σ-gated")].set_index("seed")
-            o[f"n_pl_{k}_bias_all"] = f"{a.bias_pct.abs().mean():.1f}"
+        for model, k in [("ChipStain + TTA", "cs"), ("Scratch U-Net + TTA", "bt"), ("ImageNet-L1 U-Net + TTA", "pm")]:
+            g = {lab: d[(d.model == model) & (d.frames == lab)].set_index("seed") for lab in ("all frames", "all frames, same fields as gated", "σ-gated")}
+            if g["all frames"].empty:
+                continue
+            a_, sm, gt = g["all frames"], g["all frames, same fields as gated"], g["σ-gated"]
+            o[f"n_pl_{k}_bias_all"] = f"{a_.bias_pct.abs().mean():.1f}"
+            o[f"n_pl_{k}_bias_same"] = f"{sm.bias_pct.abs().mean():.1f}"
             o[f"n_pl_{k}_bias_gate"] = f"{gt.bias_pct.abs().mean():.1f}"
-            o[f"n_pl_{k}_mape_all"] = f"{a.mape_pct.mean():.1f}"
+            o[f"n_pl_{k}_mape_all"] = f"{a_.mape_pct.mean():.1f}"
+            o[f"n_pl_{k}_mape_same"] = f"{sm.mape_pct.mean():.1f}"
             o[f"n_pl_{k}_mape_gate"] = f"{gt.mape_pct.mean():.1f}"
             o[f"n_pl_{k}_caught"] = f"{int(gt.failed_frames_flagged.sum())}/{int(gt.failed_frames.sum())}"
             o[f"n_pl_{k}_flagged"] = f"{int(gt.frames_flagged.sum())}"
-            o[f"n_pl_{k}_worst_all"] = f"{a.bias_pct.abs().max():.1f}"
+            o[f"n_pl_{k}_flag_pct"] = f"{100 * gt.frames_flagged.sum() / (125 * len(gt)):.0f}"
+            o[f"n_pl_{k}_worst_all"] = f"{a_.bias_pct.abs().max():.1f}"
             o[f"n_pl_{k}_worst_gate"] = f"{gt.bias_pct.abs().max():.1f}"
             o[f"n_pl_{k}_review"] = f"{int(gt.fields_needing_review.sum())}"
+            o[f"n_pl_{k}_collapsed"] = f"{int(a_.collapsed_fields.sum())}"
         ref = read("proliferation_per_field.csv", index_col=0)["reference"]
         o["n_pl_ref_dt"] = f"{np.exp(np.log(ref).mean()):.1f}"
         o["n_pl_frames_total"] = str(3 * 125)
@@ -487,23 +530,30 @@ def numbers(r):
         return o
     # ablation: list the robust single-factor effects
     def ablation():
-        steps = [("ablate_scratch_l1_lr5e4", BU, "lowering the learning rate"), (PRE, "ablate_scratch_l1_lr5e4", "ImageNet pre-training"),
-                 ("ablate_pretrained_mse", PRE, "switching L1 to MSE"), (CS, "ablate_pretrained_mse", "the variance head (β-NLL vs MSE)"),
-                 (CS, "ablate_nll_beta0", "β = 0.5 instead of plain NLL"), (CS, "ablate_nll_beta1", "β = 0.5 instead of β = 1")]
+        steps = [("ablate_scratch_l1_lr5e4", BU, "lowering the learning rate to 5e-4 (scratch U-Net)"), (PRE, "ablate_scratch_l1_lr5e4", "ImageNet pre-training (same LR)"),
+                 ("ablate_pretrained_mse", PRE, "switching the loss from L1 to MSE"), (CS, "ablate_pretrained_mse", "adding the variance head (β-NLL vs MSE)"),
+                 (CS, "ablate_nll_beta0", "β = 0.5 instead of plain NLL (β = 0)"), (CS, "ablate_nll_beta1", "β = 0.5 instead of β = 1")]
         nm = {"pearson": "Pearson r", "ssim": "SSIM", "mae": "MAE", "seg_f1": "nuclei F1", "spearman_unc_err": "ρ(σ, error)", "ause": "AUSE"}
-        eff = []
-        for a, b, name in steps:
-            parts = []
-            for m in ("pearson", "ssim", "mae", "seg_f1", "spearman_unc_err", "ause"):
-                t = r.t(a, b, m)
-                if t is not None and sig(t):
-                    parts.append(f"{nm[m]} {t.mean_a - t.mean_b:+.3f}")
-            if parts:
-                eff.append(f"{name} ({', '.join(parts)})")
         if not r.has("ablate_pretrained_mse"):
             raise ValueError("ablation arms not evaluated yet")
-        return {"n_abl_robust": "; ".join(eff) + "; all other single-factor changes are within run-to-run variation" if eff else "none — no single-factor change has a robust effect (CI excluding zero and consistent across seeds)",
-                "n_abl_n": str(len(eff))}
+        eff, none = [], []
+        for a, b, name in steps:
+            better, worse = [], []
+            for m in ("pearson", "ssim", "mae", "seg_f1", "spearman_unc_err", "ause"):
+                t = r.t(a, b, m)
+                d = robust(t)
+                if d == "better":
+                    better.append(f"{nm[m]} {t.mean_a - t.mean_b:+.3f}")
+                elif d == "worse":
+                    worse.append(f"{nm[m]} {t.mean_a - t.mean_b:+.3f}")
+            if better or worse:
+                eff.append(f"{name}: " + "; ".join(x for x in [("better " + ", ".join(better)) if better else "", ("worse " + ", ".join(worse)) if worse else ""] if x))
+            else:
+                none.append(name)
+        txt = " · ".join(eff)
+        if none:
+            txt += " · no robust effect: " + ", ".join(none)
+        return {"n_abl_robust": txt}
     # Cellpose extras
     def cpx():
         o = {}
@@ -532,6 +582,7 @@ def numbers(r):
     try:
         t = json.load(open(f"{RES}/cpu_timing.json"))
         n["cpu_single"], n["cpu_tta"] = f"≤ {t['cpu_single']:.1f}", f"≤ {t['cpu_tta']:.1f}"
+        n["cpu_hw"] = "Apple M5 CPU, 8 threads"
     except Exception:  # noqa: BLE001
         n["cpu_single"], n["cpu_tta"] = "≈0.5", "≈2.5"
     return n

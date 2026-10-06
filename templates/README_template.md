@@ -12,8 +12,8 @@ Held-out well R05-C03 (125 images), **mean ± s.d. over 3 training seeds**:
 
 {{results_table}}
 
-* **Like-for-like (vs the same U-Net with test-time augmentation):** equal correlation with the real stain (Pearson r {{n_ci_pearson}}), {{n_mae_rel}} % higher MAE and lower SSIM.
-* **Uncertainty:** σ ranks pixel errors far better (ρ {{n_ci_spearman_unc_err}}; AUSE {{n_ci_ause}}) — better in all 25 test fields and significantly better in each seed — and beats uncertainty-free proxies over the whole sparsification curve (AUSE {{n_full_ause}} vs {{n_ause_grad}} for edge strength).
+* **Matched control (the same ImageNet U-Net trained with L1, same learning rate and test-time augmentation):** equal correlation with the real stain (Pearson r {{n_pmci_pearson}}), {{n_pm_mae_rel}} % higher MAE and lower SSIM.
+* **Uncertainty:** σ ranks pixel errors better than the matched control (ρ {{n_pmci_spearman_unc_err}}; AUSE {{n_pmci_ause}}) — in all 25 test fields and significantly in each seed — and beats uncertainty-free proxies over the whole sparsification curve (AUSE {{n_full_ause}} vs {{n_ause_grad}} for edge strength).
 * **Calibration:** {{calibration_bullet}}
 * **Imaging shift:** {{shift_bullet}}
 * **Biology:** {{prolif_bullet}}
@@ -33,7 +33,7 @@ pip install -r requirements.txt && pip install -e .     # exact versions used: r
 python scripts/download_data.py        # HeLa "Kyoto" data, Zenodo, ~757 MB, CC BY 4.0
 python scripts/download_weights.py     # released checkpoint -> weights/chipstain.pt
 
-# predict one bright-field image (CPU: {{cpu_single}} s single pass, {{cpu_tta}} s with 8x TTA)
+# predict one bright-field image (CPU, {{cpu_hw}}: {{cpu_single}} s single pass, {{cpu_tta}} s with 8x TTA; slower on a 4-core laptop)
 python scripts/inference.py --image demo/examples/example_bf_dense_t150.tif --weights weights/chipstain.pt --out outputs/pred --device cpu
 #    -> outputs/pred/prediction.tif, uncertainty.tif, panel.png
 
@@ -69,7 +69,7 @@ python scripts/image_register.py && python scripts/build_report.py && python scr
 
 ## Inputs and outputs
 
-* **Input:** one widefield bright-field plane of 2-D adherent cells (TIFF/PNG/JPG; RGB is averaged to grey; ≥ 64 px). Trained only on HeLa "Kyoto" images from a PerkinElmer Operetta, 20×/NA 0.8 ([DATA.md](DATA.md)); resample other magnifications to that pixel scale. Normalised per image, so camera offset and gain do not matter.
+* **Input:** one widefield bright-field plane of 2-D adherent cells (TIFF/PNG/JPG; RGB is averaged to grey; at least 32 × 32 px). Trained only on HeLa "Kyoto" images from a PerkinElmer Operetta, 20×/NA 0.8 ([DATA.md](DATA.md)); resample other magnifications to that pixel scale. Normalised per image, so camera offset and gain do not matter.
 * **Outputs:** `prediction.tif` — nuclear fluorescence in normalised units [0, 1] (`(I − 600)/(20000 − 600)` of the 16-bit training data); `uncertainty.tif` — σ in the same units; `panel.png` — side-by-side view.
 * **Out of domain:** no accuracy guarantee for other cell types, optics, chips or z-planes. On the test well the mean of `uncertainty.tif` lies around {{n_sigma_range}}; a much higher value is a warning, but a normal value is **not** evidence that the input is in domain — under blur or another modality σ rises only in some training runs ([report/results/shift_test.md](report/results/shift_test.md)). Fine-tune and re-check on paired images before using the model on a new system.
 
@@ -81,18 +81,17 @@ scripts/              train / evaluate / inference / analyses / figures / report
 configs/              baseline, pretrained, ours (ChipStain) and ablation arms
 demo/                 Gradio app + example images (see demo/examples/README.md)
 notebooks/            Kaggle notebook: train + evaluate
-report/               technical report (PDF + HTML), figures, result files, IMAGES.md (image register)
+report/               technical report (PDF), figures, result files, IMAGES.md (image register)
 writeup/              Kaggle Writeup and gallery assets
 presentation/         slide deck (single HTML) and video script
 templates/            sources of the report, README, Writeup and deck (numbers filled from report/results)
 DATA.md               data sources, licences, splits, usage note, ethics
-AI_ASSISTANCE.md      AI-tool, pre-trained weights and third-party disclosure
 ```
 
 ## Data, licences, disclosure
 
 * Data: HeLa "Kyoto" (R. Guiet, EPFL BIOP; Zenodo [10.5281/zenodo.6140064](https://doi.org/10.5281/zenodo.6140064), [10.5281/zenodo.6139958](https://doi.org/10.5281/zenodo.6139958)) and in-silico-labeling neurons (Christiansen et al., Cell 2018) — all [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Details: [DATA.md](DATA.md). Every image in the report, Writeup and repo: [report/IMAGES.md](report/IMAGES.md).
-* AI assistance and third-party components: [AI_ASSISTANCE.md](AI_ASSISTANCE.md).
+* AI assistance and third-party components: technical report, section 10.
 * Code and released checkpoint: MIT ([LICENSE](LICENSE)); the checkpoint was trained on CC BY 4.0 data, so reuse must attribute Guiet (2022), and its encoder was initialised from ImageNet-pretrained weights — commercial users should check the ImageNet terms.
 
 ## Team — Hack2Publish
