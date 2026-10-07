@@ -28,6 +28,7 @@ derivative works, shared under CC BY 4.0 with the attribution given in each row.
 | `report/figures/timelapse_strip.png` | 1644×1042 | 60 h label-free nuclear read-out of one field | HeLa "Kyoto" time-lapse, well R05-C03 field F0 — R. Guiet (EPFL BIOP), Zenodo 10.5281/zenodo.6139958, CC BY 4.0 | intensity-normalised, colour-mapped; counts are model/segmentation output | `scripts/make_figures_extra.py` |
 | `report/figures/training_curves.png` | 1275×480 | Validation curves per epoch | None (chart of numbers computed by this project) | — | `scripts/make_figures.py` |
 | `report/figures/uncertainty_baselines.png` | 1091×599 | Uncertainty vs uncertainty-free proxies | None (chart of numbers computed by this project) | — | `scripts/make_figures_extra.py` |
+| `writeup/assets/cover_1280x720.png` | 1280×720 | Kaggle cover / media image (16:9) | HeLa "Kyoto" test well R05-C03 — R. Guiet (EPFL BIOP), Zenodo 10.5281/zenodo.6140064, CC BY 4.0 | 320×360 crop of field F3 t150 (released model's prediction and σ), resized, colour-mapped, title text added | `inline script (see git history)` |
 | `writeup/assets/cover_560x280.png` | 560×280 | Kaggle cover / thumbnail | HeLa "Kyoto" test well R05-C03 — R. Guiet (EPFL BIOP), Zenodo 10.5281/zenodo.6140064, CC BY 4.0 | 380×380 crop of field F3 t150, resized, colour-mapped, title text added | `inline script (see git history)` |
 | `writeup/assets/gallery_1_qualitative.png` | 1950×1215 | Kaggle media-gallery copies of report figures | HeLa "Kyoto" test well R05-C03 — R. Guiet (EPFL BIOP), Zenodo 10.5281/zenodo.6140064, CC BY 4.0 (photographic panels) / none (charts) | copies of report/figures/* | `cp` |
 | `writeup/assets/gallery_2_multiseed.png` | 1999×518 | Kaggle media-gallery copies of report figures | HeLa "Kyoto" test well R05-C03 — R. Guiet (EPFL BIOP), Zenodo 10.5281/zenodo.6140064, CC BY 4.0 (photographic panels) / none (charts) | copies of report/figures/* | `cp` |
@@ -37,4 +38,4 @@ derivative works, shared under CC BY 4.0 with the attribution given in each row.
 | `writeup/assets/gallery_6_proliferation.png` | 1688×565 | Kaggle media-gallery copies of report figures | HeLa "Kyoto" test well R05-C03 — R. Guiet (EPFL BIOP), Zenodo 10.5281/zenodo.6140064, CC BY 4.0 (photographic panels) / none (charts) | copies of report/figures/* | `cp` |
 | `writeup/assets/gallery_7_neural.png` | 1941×418 | Kaggle media-gallery copy of the neural-transfer figure | Human iPSC-derived motor neurons (Condition A) — Christiansen et al., Cell 2018, gs://in-silico-labeling, CC BY 4.0 | copy of report/figures/neural_examples.png | `cp` |
 
-30 images registered; none unregistered.
+31 images registered; none unregistered.

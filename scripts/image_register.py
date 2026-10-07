@@ -36,6 +36,7 @@ RULES = [
     ("report/figures/ablation.png", "Seed-0 ablation bars (superseded by multiseed.png)", CHART, "—", "scripts/make_figures.py"),
     ("report/figures/training_curves.png", "Validation curves per epoch", CHART, "—", "scripts/make_figures.py"),
     ("writeup/assets/cover_560x280.png", "Kaggle cover / thumbnail", HELA, "380×380 crop of field F3 t150, resized, colour-mapped, title text added", "inline script (see git history)"),
+    ("writeup/assets/cover_1280x720.png", "Kaggle cover / media image (16:9)", HELA, "320×360 crop of field F3 t150 (released model's prediction and σ), resized, colour-mapped, title text added", "inline script (see git history)"),
     ("writeup/assets/thumbnail_*.png", "Kaggle thumbnail variants", HELA, "crop of field F3 t150, resized, colour-mapped, text added", "inline script (see git history)"),
     ("writeup/assets/gallery_7_neural.png", "Kaggle media-gallery copy of the neural-transfer figure", ISL, "copy of report/figures/neural_examples.png", "cp"),
     ("writeup/assets/gallery_4_timelapse.png", "Kaggle media-gallery copy of the time-lapse figure", HELA_TL, "copy of report/figures/timelapse.png", "cp"),
