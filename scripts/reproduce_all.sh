@@ -38,6 +38,7 @@ python scripts/check_channels.py
 
 if [ "$MODE" != "--main-only" ]; then
   eval python scripts/shift_test.py --runs runs/{baseline_unet,pretrained_l1,chipstain_nll}_s$S --out report/results
+  python scripts/input_qc.py --out report/results                # input-level drift check (needs shift_test.csv)
   mkdir -p data/raw/hela_timelapse
   [ -f data/raw/hela_timelapse/R05-C03-F0.tif ] || curl -L -o data/raw/hela_timelapse/R05-C03-F0.tif "https://zenodo.org/records/6139958/files/20210904_TL2%20-%20R05-C03-F0.tif?download=1"
   python scripts/timelapse.py --weights runs/chipstain_nll_s0/best.pt --out report/results

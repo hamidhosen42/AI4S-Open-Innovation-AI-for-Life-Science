@@ -234,6 +234,17 @@ def sec_shift():
         s.append("<p class='small'><b>Table 7b.</b> Failure detection: AUROC of per-image mean σ for separating failed predictions (Pearson r &lt; 0.5) from successful ones (r &gt; 0.7), "
                  "clean and shifted images pooled, mean ± s.d. over three seeds. 'Failed images' are summed over the three seeds (of 1,050 shifted and clean images per model).</p>")
     s.append("{{shift_text}}")
+    qc = md_tables(f"{RES}/input_qc.md")
+    if qc:
+        s.append("<h4>A cheap input check catches what σ misses</h4>")
+        s.append("{{inputqc_text}}")
+        s.append(html_table(qc[0][1]))
+        s.append("<p class='small'><b>Table 7c.</b> Input-level checks on the same images and seeds (ChipStain encoder): AUROC for separating shifted from clean images, and for separating failed (r &lt; 0.5) from successful (r &gt; 0.7) predictions, clean and shifted pooled; "
+                 "mean ± s.d. over three seeds. Total σ is repeated from Tables 7a–b for comparison. The focus check does not depend on the model, so its s.d. is zero for shift detection.</p>")
+        if len(qc) > 1:
+            s.append(html_table(qc[1][1]))
+            s.append("<p class='small'><b>Table 7d.</b> Fraction of images flagged per condition when each check's threshold is the 95th percentile of its score on the clean validation images; mean over seeds (range in brackets where seeds differ). "
+                     "'Focus or σ gate' combines the focus check with the σ gate of the shift test. This combination was chosen after seeing the per-check results.</p>")
     return "\n".join(s)
 
 
@@ -287,7 +298,7 @@ def sec_neural():
     s.append("{{neural_text}}")
     s.append(figure("neural_finetune.png", "<b>Figure 11.</b> Human iPSC-derived motor neurons (Christiansen et al. 2018, CC BY 4.0), 3 test wells. Fine-tuning with k training wells from the HeLa ChipStain weights (blue) "
                     "or from ImageNet only (orange); dashed line: HeLa model applied zero-shot."))
-    s.append(figure("neural_examples.png", "<b>Figure 12.</b> Neural test well: bright-field, real DAPI, zero-shot prediction and σ, fine-tuned prediction and σ."))
+    s.append(figure("neural_examples.png", "<b>Figure 12.</b> Neural test well: bright-field, real Hoechst stain, zero-shot prediction and σ, fine-tuned prediction and σ."))
     return "\n".join(s)
 
 
@@ -432,6 +443,29 @@ def numbers(r):
         n.update(shift())
     except Exception as e:  # noqa: BLE001
         print("numbers: shift unavailable:", e)
+    # input-level drift check (scripts/input_qc.py)
+    def input_qc():
+        out = {}
+        d, fl, raw = read("input_qc_detection.csv"), read("input_qc_flags.csv"), read("input_qc.csv")
+        C = {"focus (variance of Laplacian)": "focus", "encoder features (Mahalanobis)": "feat", "total σ (for comparison)": "sig"}
+        for (chk, fam), g in d.groupby(["check", "family"]):
+            out[f"n_qc_{C[chk]}_{ {'blur': 'blur', 'noise': 'noise', 'modality': 'dpc'}[fam]}"] = f"{g.auroc.mean():.2f}"
+        from scripts.shift_test import auroc
+        for chk, col in [("focus", "focus_score"), ("feat", "feature_score"), ("sig", "mean_sigma")]:
+            a_ = [auroc(g[g.pearson > 0.7][col], g[g.pearson < 0.5][col]) for _, g in raw.groupby("seed")]
+            out[f"n_qc_{chk}_fail"] = f"{np.mean(a_):.2f}"
+        CO = {"clean": "clean", "blur σ=1 px": "blur1", "noise 10 %": "noise10", "noise 20 %": "noise20", "modality: DPC": "dpc"}
+        for col, k in [("flag_focus", "focus"), ("flag_features", "feat"), ("flag_either", "either"), ("flag_focus_or_sigma", "fos")]:
+            for c, ck in CO.items():
+                v = 100 * fl[fl.condition == c][col].values
+                out[f"n_qc_{k}_gate_{ck}"] = f"{v.mean():.0f}"
+                out[f"n_qc_{k}_gate_{ck}_min"] = f"{v.min():.0f}"
+        out["n_qc_clean_r"] = f"{raw[(raw.condition == 'clean') & raw.flag_focus].pearson.mean():.2f}"
+        return out
+    try:
+        n.update(input_qc())
+    except Exception as e:  # noqa: BLE001
+        print("numbers: input QC unavailable:", e)
     # time-lapse
     def tl():
         d = read("timelapse.csv")

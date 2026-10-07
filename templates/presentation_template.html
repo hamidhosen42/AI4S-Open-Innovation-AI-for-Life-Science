@@ -323,11 +323,11 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
     <div class="figure grow"><img src="{{fig:demo_panel_dense_t150_blur1px.png}}" alt="Demo on blurred input"></div>
     <div class="col" style="width:440px">
       <div class="stat amber"><div class="k">Mean σ</div><div class="v">{{n_demo_sigma_clean}} → {{n_demo_sigma_blur}}</div><div class="d">the demo shows a warning</div></div>
-      <div class="card"><div class="tag">Honest caveat</div><p>Across three training runs, σ rose under blur in only <b>{{n_shift_cs_defocus_seeds_ok}}</b> — the released one. The baselines behave just as erratically. σ is <b>not</b> a reliable drift alarm.</p></div>
+      <div class="card"><div class="tag">Honest caveat</div><p>Across three training runs, σ rose under blur in only <b>{{n_shift_cs_defocus_seeds_ok}}</b> — the released one. σ is <b>not</b> a reliable drift alarm — a cheap <b>input focus check</b> is: the demo flags this image with it, and it catches {{n_qc_focus_gate_blur1}} % of blurred images in every run.</p></div>
     </div>
   </div>
   <div class="footer"><span><b>ChipStain</b> · Hack2Publish</span><span>Released checkpoint = seed 0 · blur is a crude stand-in for defocus</span></div>
-  <aside class="notes">Blurred by one pixel, the prediction fails, and this model's uncertainty jumps from {{n_demo_sigma_clean}} to {{n_demo_sigma_blur}}. But honestly, across three training runs sigma rose under blur only once — so it is not a drift alarm.</aside>
+  <aside class="notes">Blurred by one pixel, the prediction fails, and this model's uncertainty jumps from {{n_demo_sigma_clean}} to {{n_demo_sigma_blur}}. But honestly, across three training runs sigma rose under blur only once — so it is not a drift alarm. What does catch it is a cheap check on the input itself: image sharpness. The demo runs it on every upload, and it flags every blurred image in every run.</aside>
 </section>
 
 <!-- 9 — RESULTS -->
@@ -388,11 +388,11 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
   <h1>New imaging and new cells: what holds, and what does not</h1>
   <div class="content">
     <div class="grid2" style="width:100%">
-      <div class="card"><div class="tag">Imaging shift · 3 seeds per model</div><h3>σ is calibrated in distribution — not a drift alarm</h3>
+      <div class="card"><div class="tag">Imaging shift · 3 seeds per model</div><h3>σ for trust in distribution; an input check for drift</h3>
         <ul class="points" style="margin-top:14px">
           <li class="ok" style="font-size:25px">Added sensor noise raises σ in every model and seed</li>
           <li class="warn" style="font-size:25px">Blur or a new modality breaks every model; σ warns in only {{n_shift_cs_defocus_seeds_ok}} ChipStain seeds</li>
-          <li style="font-size:25px">New imaging must be checked with paired images</li>
+          <li class="ok" style="font-size:25px">A cheap input check (focus + feature distance) flags {{n_qc_focus_gate_dpc}} % of blurred and phase-contrast images, every seed; cost: {{n_qc_focus_gate_clean}} % false alarms</li>
         </ul></div>
       <div class="card"><div class="tag">Neural cultures · iPSC motor neurons</div><h3>A small paired set adapts the model</h3>
         <ul class="points" style="margin-top:14px">
@@ -403,7 +403,7 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
     </div>
   </div>
   <div class="footer"><span><b>ChipStain</b> · Hack2Publish</span><span>Neurons: Christiansen et al., Cell 2018, CC BY 4.0 · dish, not chip</span></div>
-  <aside class="notes">Outside the training data: added noise always raises sigma, but blur or a new modality breaks every model and sigma warns only sometimes. On stem-cell-derived neurons, fine-tuning on one well raises the correlation from {{n_nz_cs_r}} to {{n_nf_cs_k1_r}}.</aside>
+  <aside class="notes">Outside the training data: added noise always raises sigma, but blur or a new modality breaks every model and sigma warns only sometimes. A cheap check on the input — image sharpness and distance from the training features — catches every one of those images in every run, at the cost of some false alarms on a new well. On stem-cell-derived neurons, fine-tuning on one well raises the correlation from {{n_nz_cs_r}} to {{n_nf_cs_k1_r}}.</aside>
 </section>
 
 <!-- 13 — WHEN TO USE WHAT -->
@@ -415,7 +415,7 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
       <tr><th>If you need…</th><th>Use</th><th>Why</th></tr>
       <tr><td>Only a nuclear count</td><td>A direct bright-field segmenter</td><td>Cellpose: nuclei F1 <b>{{n_cp_f1}}</b> vs ours <b>{{n_full_segf1}}</b></td></tr>
       <tr class="hl"><td>A stain-like image plus a trust signal</td><td><b>ChipStain</b></td><td>Intensity, texture and morphology downstream, with calibrated σ and a frame gate</td></tr>
-      <tr><td>A new microscope, cell type or chip</td><td>Fine-tune, then recalibrate σ</td><td>One paired well already helps; σ alone will not detect the shift</td></tr>
+      <tr><td>A new microscope, cell type or chip</td><td>Fine-tune, then recalibrate σ</td><td>One paired well already helps; run the input check, because σ alone will not detect the shift</td></tr>
     </table>
     <ul class="points">
       <li class="warn">No organ-on-chip images were available — validation is in a plate and a dish</li>

@@ -133,7 +133,7 @@ python scripts/evaluate.py --runs runs/{baseline_unet,pretrained_l1,chipstain_nl
 python scripts/evaluate.py --runs runs/ablate_*_s{0,1,2} --out outputs/ablate
 python scripts/evaluate.py --runs runs/ablate_{nll_beta0,nll_beta1}_s{0,1,2} --tta --out outputs/ablate_tta
 python scripts/multiseed_summary.py &amp;&amp; python scripts/ensemble_eval.py &amp;&amp; python scripts/proliferation.py
-python scripts/nucleus_uncertainty.py &amp;&amp; python scripts/calibration.py &amp;&amp; python scripts/shift_test.py
+python scripts/nucleus_uncertainty.py &amp;&amp; python scripts/calibration.py &amp;&amp; python scripts/shift_test.py &amp;&amp; python scripts/input_qc.py
 curl -L -o data/raw/hela_timelapse/R05-C03-F0.tif "https://zenodo.org/records/6139958/files/20210904_TL2%20-%20R05-C03-F0.tif?download=1"
 python scripts/timelapse.py &amp;&amp; python scripts/download_isl_neurons.py &amp;&amp; python scripts/neural_transfer.py
 python scripts/make_figures.py &amp;&amp; python scripts/make_figures_extra.py &amp;&amp; python scripts/image_register.py

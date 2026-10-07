@@ -1,0 +1,28 @@
+seed,check,family,auroc
+0,focus (variance of Laplacian),blur,1.0
+0,focus (variance of Laplacian),noise,0.8382
+0,focus (variance of Laplacian),modality,1.0
+0,encoder features (Mahalanobis),blur,1.0
+0,encoder features (Mahalanobis),noise,1.0
+0,encoder features (Mahalanobis),modality,1.0
+0,total σ (for comparison),blur,0.9993333333333333
+0,total σ (for comparison),noise,0.9998
+0,total σ (for comparison),modality,1.0
+1,focus (variance of Laplacian),blur,1.0
+1,focus (variance of Laplacian),noise,0.8382
+1,focus (variance of Laplacian),modality,1.0
+1,encoder features (Mahalanobis),blur,1.0
+1,encoder features (Mahalanobis),noise,1.0
+1,encoder features (Mahalanobis),modality,1.0
+1,total σ (for comparison),blur,0.016133333333333333
+1,total σ (for comparison),noise,1.0
+1,total σ (for comparison),modality,0.0
+2,focus (variance of Laplacian),blur,1.0
+2,focus (variance of Laplacian),noise,0.8382
+2,focus (variance of Laplacian),modality,1.0
+2,encoder features (Mahalanobis),blur,0.9945333333333334
+2,encoder features (Mahalanobis),noise,0.953
+2,encoder features (Mahalanobis),modality,0.98
+2,total σ (for comparison),blur,0.0014666666666666667
+2,total σ (for comparison),noise,1.0
+2,total σ (for comparison),modality,0.0004

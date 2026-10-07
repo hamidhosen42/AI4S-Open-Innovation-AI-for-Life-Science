@@ -12,9 +12,11 @@ import gradio as gr
 import matplotlib
 import numpy as np
 import torch
+from scipy import ndimage as ndi
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from chipstain.data import normalize_input  # noqa: E402
 from chipstain.metrics import segment_nuclei  # noqa: E402
 from scripts.inference import load_model, read_grey, run  # noqa: E402
 
@@ -25,6 +27,11 @@ from scripts.inference import load_model, read_grey, run  # noqa: E402
 # and 15/50 with 20 % noise. It is stricter than the validation gate used in the report. Other training seeds
 # do not show this sigma rise (report section 6.7), so a normal sigma does not prove the input is in domain.
 OOD_SIGMA = 0.20
+# Input focus check (report section 6.7, scripts/input_qc.py, report/results/input_qc_focus.json): |log variance of the
+# Laplacian of the normalised input - training median|, threshold = 95th percentile on clean validation images. It flags
+# every blurred (1-4 px) and phase-contrast test image in the shift test, in every seed, and 16 % of clean test images
+# (false alarms); it assumes the training pixel scale (20x, 540 x 540 fields).
+FOCUS_REF, FOCUS_THR = -0.111, 0.468
 # reference nuclei (StarDist on the real H2B stain, from the dataset) for the bundled examples
 REF = {"example_bf_sparse_t010.tif": 64, "example_bf_dense_t150.tif": 180, "example_bf_dense_t150_blur1px.tif": 180}
 
@@ -61,13 +68,17 @@ def predict(file, tta):
     ref = REF.get(os.path.basename(str(file)))
     hi = float(np.percentile(sigma, 99))
     lines = []
+    focus = abs(float(np.log(ndi.laplace(normalize_input(bf).astype(np.float64)).var())) - FOCUS_REF)
+    if focus > FOCUS_THR:
+        lines.append(f"⚠ **Input check: the image sharpness differs from the training images (focus score {focus:.2f} > {FOCUS_THR}).** "
+                     "Defocus, another modality or heavy noise are likely; across all training runs such inputs gave poor predictions. Check this field with a real stain.  \n")
     if tta and sigma.mean() > OOD_SIGMA:
         lines.append(f"⚠ **Mean σ = {sigma.mean():.3f} is above anything seen on clean validation images (≤ 0.17).** The input looks unlike the "
                      "training bright-field (defocus, another modality, fluorescence…). Treat the prediction and the count as unreliable.  \n")
     lines.append(f"**Detected nuclei:** {n}" + (f" · reference annotation (StarDist on the real H2B stain): {ref}" if ref else "") + "  \n")
     lines.append(f"**Mean σ:** {sigma.mean():.4f} · **99th pct σ:** {hi:.4f}" + ("" if tta else " · (warning check needs TTA)") + "  \n")
     lines.append("σ is the predicted uncertainty per pixel: it is higher on nuclei (brighter = noisier) and highest where the prediction is least reliable. "
-                 "A low mean σ is necessary but not sufficient: it does not prove the input resembles the training data.")
+                 "A low mean σ is necessary but not sufficient: it does not prove the input resembles the training data — the input check above is the drift test.")
     return to_rgb(bf, "gray", *np.percentile(bf, [1, 99])), to_rgb(pred, "magma", 0, 1), to_rgb(sigma, "viridis", 0, hi), "".join(lines)
 
 
@@ -76,7 +87,7 @@ with gr.Blocks(title="ChipStain") as demo:
         "# ChipStain — label-free nuclear staining with uncertainty\n"
         "Upload a bright-field image (TIFF/PNG). The model predicts the H2B nuclear fluorescence channel and a per-pixel "
         "uncertainty map σ. Trained on HeLa 'Kyoto' cells (R. Guiet, EPFL BIOP; Zenodo 10.5281/zenodo.6140064; CC BY 4.0). "
-        "The third example is the dense example blurred by 1 px: with this released (seed-0) model σ rises and the app warns, but across three training runs σ rose under blur in only one — a normal σ does not prove the input is in domain."
+        "The third example is the dense example blurred by 1 px: the input focus check flags it (as it flags every blurred or phase-contrast test image), and with this released (seed-0) model σ rises too — but across three training runs σ rose under blur in only one, so σ alone does not prove the input is in domain."
     )
     with gr.Row():
         inp = gr.File(label="Bright-field image", file_types=[".tif", ".tiff", ".png", ".jpg"], type="filepath")
