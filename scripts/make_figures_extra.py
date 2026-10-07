@@ -25,11 +25,12 @@ NAME = {"baseline_unet": "Scratch U-Net (L1)", "pretrained_l1": "ImageNet-L1 U-N
         "baseline_unet+tta": "Scratch U-Net + TTA", "pretrained_l1+tta": "ImageNet-L1 U-Net + TTA (matched)", "chipstain_nll": "ChipStain (β-NLL)", "chipstain_nll+tta": "ChipStain + TTA (full)"}
 
 
-def multiseed(res, path):
+def multiseed(res, path, grid=(1, 4), figsize=(11, 2.9)):
     ps = pd.read_csv(os.path.join(res, "multiseed_seed_means.csv"))
     panels = [("pearson", "Pearson r  (higher is better)"), ("seg_f1", "Nuclei seg-F1  (higher is better)"),
               ("spearman_unc_err", "ρ(σ, |error|)  (higher is better)"), ("ause", "AUSE  (lower is better)")]
-    fig, axes = plt.subplots(1, 4, figsize=(11, 2.9), sharey=True)
+    fig, axes = plt.subplots(*grid, figsize=figsize, sharey=True)
+    axes = np.ravel(axes)
     for ax, (m, title) in zip(axes, panels):
         for yi, c in enumerate(CFG):
             v = ps.loc[ps.cfg == c, m].dropna().values
@@ -48,8 +49,10 @@ def multiseed(res, path):
         ax.grid(axis="x", color=GRID, lw=0.8)
         ax.set_axisbelow(True)
         ax.set_ylim(-0.6, len(CFG) - 0.2)
-    axes[0].set_yticks(range(len(CFG)))
-    axes[0].set_yticklabels([NAME[c] for c in CFG])
+        ax.xaxis.set_major_locator(plt.MaxNLocator(3))
+    for ax in axes[::grid[1]]:
+        ax.set_yticks(range(len(CFG)))
+        ax.set_yticklabels([NAME[c] for c in CFG])
     fig.text(0.01, -0.02, "◇ mean of 3 seeds · ○ individual seeds · bar = ±1 s.d. across seeds · each seed = mean over 125 test images (well R05-C03)", fontsize=7.5, color=INK2)
     plt.tight_layout()
     plt.savefig(path, dpi=170, bbox_inches="tight")
@@ -300,7 +303,7 @@ def neural_fig(res, path):
                 if name in zz.index:
                     ax.axhline(zz.loc[name, m], color=BLUE, ls=ls, lw=1)
                     ax.text(ax.get_xlim()[0] if False else 1, zz.loc[name, m], " zero-shot", fontsize=7, color=INK2, va="bottom")
-    for ax, t in zip(axes, ["Pearson r vs real DAPI", "nuclei F1 vs real-DAPI segmentation", "mean σ (test wells)"]):
+    for ax, t in zip(axes, ["Pearson r vs real nuclear stain", "nuclei F1 vs real-stain segmentation", "mean σ (test wells)"]):
         ax.set_xscale("log"); ax.set_xticks([1, 2, 5, 20]); ax.set_xticklabels(["1", "2", "5", "20"])
         ax.set_xlabel("training wells used for fine-tuning"); ax.set_title(t)
         ax.grid(color=GRID, lw=0.8); ax.set_axisbelow(True)
@@ -308,20 +311,22 @@ def neural_fig(res, path):
     plt.tight_layout(); plt.savefig(path, dpi=170, bbox_inches="tight"); plt.close(fig)
 
 
-def neural_examples(path):
+def neural_examples(path, grid=(1, 6), figsize=(13, 2.6)):
     fz, ff = "outputs/neural_example_zeroshot.npz", "outputs/neural_example_finetuned.npz"
     if not (os.path.exists(fz) and os.path.exists(ff)):
         return
     z, f = np.load(fz), np.load(ff)
     smax = float(np.percentile(np.concatenate([z["sigma"].ravel(), f["sigma"].ravel()]).astype(np.float32), 99))
-    panels = [(z["bf"], "bright-field (neurons)", "gray", None), (z["dapi"], "real DAPI", "magma", (0, 1)),
+    panels = [(z["bf"], "bright-field (neurons)", "gray", None), (z["dapi"], "real nuclear stain (Hoechst)", "magma", (0, 1)),
               (z["pred"], "zero-shot prediction", "magma", (0, 1)), (z["sigma"], "zero-shot σ", "viridis", (0, smax)),
               (f["pred"], "fine-tuned (20 wells)", "magma", (0, 1)), (f["sigma"], "fine-tuned σ", "viridis", (0, smax))]
-    fig, ax = plt.subplots(1, 6, figsize=(13, 2.6))
-    for a, (im, t, cm, rng) in zip(ax, panels):
+    if grid == (2, 3):  # rows: input / real stain, zero-shot / fine-tuned prediction, zero-shot / fine-tuned sigma
+        panels = [panels[i] for i in (0, 2, 3, 1, 4, 5)]
+    fig, ax = plt.subplots(*grid, figsize=figsize)
+    for a, (im, t, cm, rng) in zip(np.ravel(ax), panels):
         im = im.astype(np.float32)
         kw = {"vmin": rng[0], "vmax": rng[1]} if rng else {"vmin": np.percentile(im, 1), "vmax": np.percentile(im, 99)}
-        a.imshow(np.clip(im, 0, 1) if cm == "magma" else im, cmap=cm, **kw); a.set_title(t, fontsize=8.5); a.set_xticks([]); a.set_yticks([])
+        a.imshow(np.clip(im, 0, 1) if cm == "magma" else im, cmap=cm, **kw); a.set_title(t, fontsize=8.5 if grid[0] == 1 else 11); a.set_xticks([]); a.set_yticks([])
     fig.text(0.01, -0.03, "Data: Christiansen et al., Cell 2018, in-silico-labeling Condition A, CC BY 4.0 (rescaled, normalised, colour-mapped). σ panels share one colour scale.", fontsize=7, color=INK2)
     plt.tight_layout(); plt.savefig(path, dpi=150, bbox_inches="tight"); plt.close(fig)
 

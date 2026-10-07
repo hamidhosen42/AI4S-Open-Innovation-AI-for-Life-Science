@@ -15,6 +15,7 @@ cp report/figures/timelapse.png writeup/assets/gallery_4_timelapse.png
 cp report/figures/demo_panel_dense_t150.png writeup/assets/gallery_5_demo_panel.png
 cp report/figures/proliferation.png writeup/assets/gallery_6_proliferation.png
 [ -f report/figures/neural_examples.png ] && cp report/figures/neural_examples.png writeup/assets/gallery_7_neural.png
+python scripts/make_gallery.py                 # 16:9 copies for the Kaggle media gallery
 python scripts/image_register.py
 python scripts/build_report.py
 python scripts/build_writeup.py

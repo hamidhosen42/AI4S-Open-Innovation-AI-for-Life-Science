@@ -38,6 +38,10 @@ RULES = [
     ("writeup/assets/cover_560x280.png", "Kaggle cover / thumbnail", HELA, "380×380 crop of field F3 t150, resized, colour-mapped, title text added", "inline script (see git history)"),
     ("writeup/assets/cover_1280x720.png", "Kaggle cover / media image (16:9)", HELA, "320×360 crop of field F3 t150 (released model's prediction and σ), resized, colour-mapped, title text added", "inline script (see git history)"),
     ("writeup/assets/thumbnail_*.png", "Kaggle thumbnail variants", HELA, "crop of field F3 t150, resized, colour-mapped, text added", "inline script (see git history)"),
+    ("writeup/assets/gallery_16x9/gallery_7_neural.png", "16:9 Kaggle gallery version of the neural examples (2 × 3 layout)", ISL, "redrawn from the same arrays as report/figures/neural_examples.png, centred on a white 16:9 canvas", "scripts/make_gallery.py"),
+    ("writeup/assets/gallery_16x9/gallery_4_timelapse.png", "16:9 Kaggle gallery version of the time-lapse figure", HELA_TL, "report/figures/timelapse.png centred on a white 16:9 canvas", "scripts/make_gallery.py"),
+    ("writeup/assets/gallery_16x9/gallery_2_multiseed.png", "16:9 Kaggle gallery version of the three-seed comparison (2 × 2 layout)", CHART, "—", "scripts/make_gallery.py"),
+    ("writeup/assets/gallery_16x9/gallery_*.png", "16:9 Kaggle gallery versions of report figures", HELA + " (photographic panels) / none (charts)", "figure centred on a white 16:9 canvas", "scripts/make_gallery.py"),
     ("writeup/assets/gallery_7_neural.png", "Kaggle media-gallery copy of the neural-transfer figure", ISL, "copy of report/figures/neural_examples.png", "cp"),
     ("writeup/assets/gallery_4_timelapse.png", "Kaggle media-gallery copy of the time-lapse figure", HELA_TL, "copy of report/figures/timelapse.png", "cp"),
     ("writeup/assets/gallery_*.png", "Kaggle media-gallery copies of report figures", HELA + " (photographic panels) / none (charts)", "copies of report/figures/*", "cp"),
@@ -61,7 +65,7 @@ def describe(path):
 
 def main():
     check_generators()
-    files = sorted(set(glob.glob("report/figures/*.png") + glob.glob("writeup/assets/*.png") + glob.glob("demo/examples/*.tif")))
+    files = sorted(set(glob.glob("report/figures/*.png") + glob.glob("writeup/assets/*.png") + glob.glob("writeup/assets/gallery_16x9/*.png") + glob.glob("demo/examples/*.tif")))
     rows = []
     for f in files:
         try:

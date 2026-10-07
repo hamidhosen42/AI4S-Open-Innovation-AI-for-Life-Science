@@ -16,7 +16,7 @@ Nuclear read-outs on an organ-on-a-chip (cell number, proliferation, viability) 
 
 ## Technical report
 
-📄 **[Full technical report (PDF, 24 pages incl. appendices)](https://github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Science/blob/main/report/ChipStain_Technical_Report.pdf)**
+📄 **[Full technical report (PDF, 25 pages incl. appendices)](https://github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Science/blob/main/report/ChipStain_Technical_Report.pdf)**
 
 ### 1. Problem
 Nuclear read-outs (counts, proliferation, viability, morphology, dose–response) start from a nuclear stain, but on an organ-on-a-chip fixed DAPI ends the experiment, live DNA dyes are phototoxic and perturb the cell cycle, and reporter lines are impractical for primary or iPSC-derived (e.g. neural) tissue. In-silico labeling (ISL) predicts the stain from bright-field, but a point prediction gives no warning when it is wrong. **ChipStain asks: can we predict the nuclear stain and say — per pixel, per nucleus and per frame — how much to trust it, and does that signal beat simple alternatives?** Target users: OoC / cell-culture labs and CROs running live or high-content assays.
