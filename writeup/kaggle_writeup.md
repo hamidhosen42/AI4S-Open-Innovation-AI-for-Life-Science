@@ -81,5 +81,6 @@ Data: Zenodo 10.5281/zenodo.6140064 / 6139958 / 6140111 (R. Guiet, EPFL BIOP) an
 * **Md. Hamid Hosen** (team leader; Kaggle [@hosen42](https://www.kaggle.com/hosen42)) — Computer Science and Engineering
 * **Esfer Sami** (Kaggle [@esfersami50](https://www.kaggle.com/esfersami50)) — Computer Science and Engineering
 * **Foysal** (Kaggle [@foysalemonshanto](https://www.kaggle.com/foysalemonshanto)) — Computer Science and Engineering
+* **Kahakashan Ashraf** — Computer Science and Engineering
 
-All three members are in Computer Science and Engineering; no member has a biology/bioengineering/clinical background, so no cross-disciplinary bonus is claimed.
+All four members are in Computer Science and Engineering; no member has a biology/bioengineering/clinical background, so no cross-disciplinary bonus is claimed.

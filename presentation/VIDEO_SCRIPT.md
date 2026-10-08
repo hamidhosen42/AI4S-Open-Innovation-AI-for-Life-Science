@@ -1,6 +1,6 @@
 # ChipStain — video script
 
-Deck: `presentation/ChipStain_presentation.html` (14 slides). Narration: 610 words ≈ 4.2 min at a calm pace — the finished video must stay **under 5:00**.
+Deck: `presentation/ChipStain_presentation.html` (14 slides). Narration: 611 words ≈ 4.2 min at a calm pace — the finished video must stay **under 5:00**.
 
 ## How to record
 
@@ -16,7 +16,7 @@ Deck: `presentation/ChipStain_presentation.html` (14 slides). Narration: 610 wor
 
 | # | Slide | Say |
 |---|---|---|
-| 1 | ChipStain | We are team Hack2Publish — Hamid, Esfer and Foysal — and this is ChipStain. It predicts a nuclear stain from a plain bright-field image, and tells you where not to trust that prediction. |
+| 1 | ChipStain | We are team Hack2Publish — Hamid, Esfer, Foysal and Kahakashan — and this is ChipStain. It predicts a nuclear stain from a plain bright-field image, and tells you where not to trust that prediction. |
 | 2 | Every nuclear read-out on a chip starts with a stain — and every stain has a cost | On an organ-on-a-chip, cell counts, growth and viability all start from a nuclear stain. But fixation ends the experiment, live dyes harm the cells, and reporter lines are rare for stem-cell tissue. In-silico labeling predicts the stain — but never says when it is wrong. |
 | 3 | ChipStain | So our question is: can we predict the stain and say, per pixel and per frame, how much to trust it — and does that signal beat simple alternatives? |
 | 4 | Public data, a held-out well, and three training seeds per model | All data are public. We train on HeLa cells and test on a whole held-out well. We add a 60-hour time-lapse, stem-cell-derived neurons, and a competing segmentation model. Every model is trained three times — twenty-one runs. |
