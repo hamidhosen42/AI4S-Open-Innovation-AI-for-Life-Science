@@ -47,7 +47,7 @@ python scripts/download_data.py          # ~757 MB -> data/raw/hela_kyoto/{train
 ## Additional evaluation data
 
 * **60 h time-lapse of one held-out field** — `20210904_TL2 - R05-C03-F0.tif` from [10.5281/zenodo.6139958](https://doi.org/10.5281/zenodo.6139958) (CC BY 4.0): 240 frames every 15 min, same well as the test set (evaluation only).
-* **Neural transfer data** — Christiansen et al., *In silico labeling*, Cell 2018, Condition A (human iPSC-derived motor neurons; bright-field z-stack + widefield DAPI), `gs://in-silico-labeling/paper_data/{train,test}_single_channel_images/Rubin/`, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Download: `python scripts/download_isl_neurons.py`.
+* **Neural transfer data** — Christiansen et al., *In silico labeling*, Cell 2018, Condition A (human iPSC-derived motor neurons; bright-field z-stack + widefield Hoechst (channel named DAPI_WIDEFIELD)), `gs://in-silico-labeling/paper_data/{train,test}_single_channel_images/Rubin/`, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Download: `python scripts/download_isl_neurons.py`.
 
 ## Compliance and ethics statement
 

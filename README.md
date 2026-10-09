@@ -65,7 +65,8 @@ python scripts/ensemble_eval.py          # 3-seed deep ensembles
 python scripts/nucleus_uncertainty.py    # per-nucleus uncertainty
 python scripts/calibration.py            # coverage of mu +/- z*sigma
 python scripts/proliferation.py          # doubling times + validation-calibrated sigma gate
-python scripts/shift_test.py             # defocus / noise / contrast / modality shift
+python scripts/shift_test.py             # defocus / noise / modality shift
+python scripts/input_qc.py --out report/results   # input-level drift check (focus + encoder features)
 python scripts/timelapse.py              # 240-frame, 60 h read-out (needs the time-lapse file, see DATA.md)
 python scripts/download_isl_neurons.py && python scripts/neural_transfer.py   # neural transfer
 outputs/venv_cellpose/bin/python scripts/cellpose_baseline.py --model <nuclei_from_bf model>   # direct segmentation (see script)

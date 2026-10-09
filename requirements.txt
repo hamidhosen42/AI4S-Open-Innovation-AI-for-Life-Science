@@ -2,10 +2,12 @@ torch>=2.1
 segmentation-models-pytorch>=0.3.3
 tifffile
 scikit-image
+scikit-learn
 scipy
 numpy
 pyyaml
 tqdm
 matplotlib
 pandas
+pypdf
 gradio>=4.0
