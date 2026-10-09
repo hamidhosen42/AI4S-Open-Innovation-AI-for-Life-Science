@@ -101,7 +101,7 @@ DATA.md               data sources, licences, splits, usage note, ethics
 | Md. Hamid Hosen | team leader · Computer Science and Engineering | [@hosen42](https://www.kaggle.com/hosen42) | [@hamidhosen42](https://github.com/hamidhosen42) |
 | Esfer Sami | Computer Science and Engineering | [@esfersami50](https://www.kaggle.com/esfersami50) | — |
 | Foysal | Computer Science and Engineering | [@foysalemonshanto](https://www.kaggle.com/foysalemonshanto) | — |
-| Kahakashan Ashraf | Computer Science and Engineering | — | — |
+| Kahakashan Ashraf | Computer Science and Engineering | [@kahakashanashraf](https://www.kaggle.com/kahakashanashraf) | — |
 
 ## Citation of the data
 

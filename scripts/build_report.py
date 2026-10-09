@@ -219,12 +219,15 @@ def sec_shift():
          "We applied simulated shifts to 50 test images (time-points 10 and 100), for three training seeds of each model: Gaussian blur of 1, 2 and 4 px (a crude defocus proxy), "
          "added sensor noise (10 % and 20 %), and a modality swap to the dataset's digital phase-contrast rendering of the same fields.</p>",
          figure("shift_test.png", "<b>Figure 6.</b> (A) Pearson r with the real stain under each shift. (B) Mean σ relative to the clean image (log scale). "
-                "Dots are means over three seeds and thin bars the range over seeds; a mean above 1× can hide seeds in which σ falls (Table 7b). "
+                "In (A) dots are means over three seeds and thin bars the range over seeds; in (B) each dot is one seed, so seeds in which σ falls under a shift are visible (Table 7a). "
                 "All models use 8× TTA; for the L1 U-Nets σ is the TTA disagreement.")]
     tabs = md_tables(f"{RES}/shift_test.md")
     by = {h.split("(")[0].strip().lower(): rows for h, rows in tabs}
     fail = next((rows for h, rows in tabs if h.lower().startswith("failure detection")), None)
     det = next((rows for h, rows in tabs if h.lower().startswith("shift detection")), None)
+    # shift_test.md keeps the original run labels; use the report's names for the two L1 baselines
+    names = {"U-Net + TTA": "Scratch U-Net + TTA", "+ ImageNet encoder + TTA": "ImageNet-L1 U-Net + TTA (matched)"}
+    fail, det = ([[names.get(row[0], row[0])] + list(row[1:]) for row in t] if t else t for t in (fail, det))
     if det:
         s.append(html_table(det))
         s.append("<p class='small'><b>Table 7a.</b> Shift detection: AUROC of per-image mean σ for separating shifted from clean images, per uncertainty term, "

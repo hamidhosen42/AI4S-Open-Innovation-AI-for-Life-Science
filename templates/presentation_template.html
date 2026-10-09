@@ -144,7 +144,7 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
         <tr><th>Data</th><th>Use</th><th>Size</th></tr>
         <tr><td><b>HeLa "Kyoto"</b> — bright-field + H2B nuclear channel, 96-well plate (EPFL, CC BY 4.0)</td><td>train / validation / <b>held-out test well</b></td><td class="n">200 / 50 / 125</td></tr>
         <tr><td><b>60 h time-lapse</b> of one test field, a frame every 15 min</td><td>biological read-out</td><td class="n">240 frames</td></tr>
-        <tr><td><b>iPSC-derived motor neurons</b> — bright-field + DAPI (Christiansen et al. 2018)</td><td>transfer to neural cultures</td><td class="n">22 + 3 wells</td></tr>
+        <tr><td><b>iPSC-derived motor neurons</b> — bright-field + Hoechst (Christiansen et al. 2018)</td><td>transfer to neural cultures</td><td class="n">22 + 3 wells</td></tr>
         <tr><td><b>Cellpose bright-field model</b> from the dataset author</td><td>direct-segmentation competitor</td><td class="n">—</td></tr>
       </table>
     </div>
@@ -215,12 +215,12 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
         <!-- training band -->
         <rect x="275" y="555" width="925" height="120" rx="10" fill="#fbf1e2" stroke="#b86e0c" stroke-width="2"/>
         <text x="300" y="598" font-size="22" font-weight="700" fill="#b86e0c">Training</text>
-        <text x="300" y="634" font-size="21">β-NLL loss, β = 0.5:  ½ · (σ²)ᵝ · [ log σ² + (y − μ)² / σ² ]   — keeps hard pixels from being ignored</text>
+        <text x="300" y="634" font-size="21">β-NLL loss, β = 0.5:  ½ · sg[(σ²)ᵝ] · [ log σ² + (y − μ)² / σ² ]   (sg = stop-gradient)</text>
         <text x="300" y="662" font-size="19" fill="#46546a">256² crops · rotations and flips · AdamW · one-cycle LR · 40 epochs · best validation checkpoint</text>
         <rect x="1280" y="555" width="432" height="120" rx="10" fill="#e8f1fc" stroke="#2a78d6" stroke-width="2"/>
         <text x="1300" y="598" font-size="22" font-weight="700" fill="#2a78d6">Outputs per image</text>
         <text x="1300" y="634" font-size="20">prediction.tif · uncertainty.tif</text>
-        <text x="1300" y="662" font-size="19" fill="#46546a">CPU: {{cpu_single}} s single pass, {{cpu_tta}} s with TTA</text>
+        <text x="1300" y="662" font-size="19" fill="#46546a">Apple M5 CPU: {{cpu_single}} s, or {{cpu_tta}} s with TTA</text>
       </g>
     </svg>
   </div>
@@ -269,10 +269,10 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
         <g>
           <rect x="1056" y="20" width="300" height="440" rx="10" fill="#e4f5ee" stroke="#14a06f" stroke-width="2.5"/>
           <text x="1080" y="62" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="2" fill="#14a06f">4 · DECISIONS</text>
-          <text x="1080" y="108" font-size="22" font-weight="600">Nuclei count</text><text x="1080" y="136" font-size="19" fill="#46546a">segment the prediction</text>
-          <text x="1080" y="188" font-size="22" font-weight="600">Frame gate</text><text x="1080" y="216" font-size="19" fill="#46546a">flag frames with unusual σ</text><text x="1080" y="242" font-size="19" fill="#46546a">threshold set on validation</text>
-          <text x="1080" y="294" font-size="22" font-weight="600">Growth curve</text><text x="1080" y="322" font-size="19" fill="#46546a">doubling time from the</text><text x="1080" y="348" font-size="19" fill="#46546a">trusted frames only</text>
-          <text x="1080" y="400" font-size="22" font-weight="600">Review list</text><text x="1080" y="428" font-size="19" fill="#46546a">frames a person should check</text>
+          <text x="1080" y="102" font-size="22" font-weight="600">Input check</text><text x="1080" y="128" font-size="19" fill="#46546a">focus + feature distance:</text><text x="1080" y="152" font-size="19" fill="#46546a">flags blur / new modality</text>
+          <text x="1080" y="196" font-size="22" font-weight="600">Nuclei count</text><text x="1080" y="222" font-size="19" fill="#46546a">segment the prediction</text>
+          <text x="1080" y="266" font-size="22" font-weight="600">Frame gate</text><text x="1080" y="292" font-size="19" fill="#46546a">flag frames with unusual σ</text><text x="1080" y="316" font-size="19" fill="#46546a">threshold set on validation</text>
+          <text x="1080" y="360" font-size="22" font-weight="600">Growth curve</text><text x="1080" y="386" font-size="19" fill="#46546a">from trusted frames only;</text><text x="1080" y="410" font-size="19" fill="#46546a">the rest go to a review list</text>
         </g>
         <line x1="1362" y1="240" x2="1402" y2="240" stroke="#46546a" stroke-width="3" marker-end="url(#ar2)"/>
         <g>
@@ -301,18 +301,18 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
 
 <!-- 7 — DEMO CLEAN -->
 <section class="slide">
-  <div class="top"><span class="kicker">Demo · held-out well · laptop CPU</span><span class="num">7 / 14</span></div>
+  <div class="top"><span class="kicker">Demo · held-out well · CPU inference</span><span class="num">7 / 14</span></div>
   <h1>{{n_demo_count}} nuclei found — the reference annotation has {{n_demo_ref}}</h1>
   <div class="content">
     <div class="figure grow"><img src="{{fig:demo_panel_dense_t150.png}}" alt="Demo: input, prediction, uncertainty"></div>
     <div class="col" style="width:440px">
       <div class="stat"><div class="k">Nuclei counted</div><div class="v">{{n_demo_count}} <small>vs {{n_demo_ref}}</small></div><div class="d">on the predicted stain</div></div>
       <div class="stat teal"><div class="k">Mean σ</div><div class="v">{{n_demo_sigma_clean}}</div><div class="d">high on nuclei, near zero on background</div></div>
-      <div class="stat"><div class="k">Runtime</div><div class="v">{{cpu_tta}} <small>s</small></div><div class="d">CPU, with 8× augmentation</div></div>
+      <div class="stat"><div class="k">Runtime</div><div class="v">{{cpu_tta}} <small>s</small></div><div class="d">Apple M5 CPU, with 8× augmentation</div></div>
     </div>
   </div>
   <div class="footer"><span><b>ChipStain</b> · Hack2Publish</span><span>Data: R. Guiet, EPFL BIOP, Zenodo 10.5281/zenodo.6140064, CC BY 4.0</span></div>
-  <aside class="notes">Here is an image from a well the model never saw, on a laptop CPU. Sigma is high on nuclei and near zero on background. The app counts {{n_demo_count}} nuclei; the reference annotation has {{n_demo_ref}}.</aside>
+  <aside class="notes">Here is an image from a well the model never saw, running on a CPU. Sigma is high on nuclei and near zero on background. The app counts {{n_demo_count}} nuclei; the reference annotation has {{n_demo_ref}}.</aside>
 </section>
 
 <!-- 8 — DEMO BLUR -->
@@ -333,7 +333,7 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
 <!-- 9 — RESULTS -->
 <section class="slide">
   <div class="top"><span class="kicker">Results · 125 test images · 3 training seeds</span><span class="num">9 / 14</span></div>
-  <h1>Same fidelity as an equally strong baseline — a much better uncertainty</h1>
+  <h1>Same fidelity as a matched control — a much better uncertainty</h1>
   <div class="content" style="flex-direction:column;gap:26px;margin-top:30px">
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
       <div class="stat"><div class="k">Pearson r with real stain</div><div class="v">{{n_full_pearson}} <small>vs {{n_pm_pearson}}</small></div><div class="d">equal correlation</div></div>
@@ -374,7 +374,7 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
     <div class="figure grow"><img src="{{fig:timelapse.png}}" alt="60 hour time-lapse"></div>
     <div class="col" style="width:470px">
       <div class="stat teal"><div class="k">Doubling time, label-free</div><div class="v">{{n_tl_dt_pred}} <small>h</small></div><div class="d">from the real stain: {{n_tl_dt_real}} h</div></div>
-      <div class="stat"><div class="k">Doubling-time error</div><div class="v">{{n_pl_cs_bias_all}} → {{n_pl_cs_bias_gate}} <small>%</small></div><div class="d">all fields → σ-gated; mostly by sending failing fields to review ({{n_pl_cs_bias_same}} % on the same fields without the gate)</div></div>
+      <div class="stat"><div class="k">Doubling-time mean bias</div><div class="v">{{n_pl_cs_bias_all}} → {{n_pl_cs_bias_gate}} <small>%</small></div><div class="d">all fields → σ-gated; mostly by sending failing fields to review ({{n_pl_cs_bias_same}} % on the same fields without the gate)</div></div>
       <div class="stat amber"><div class="k">Fluorescence exposures</div><div class="v">0</div><div class="d">for the label-free curve</div></div>
     </div>
   </div>
@@ -392,13 +392,13 @@ body.export #ui,body.export #help,body.export #notesPanel{display:none!important
         <ul class="points" style="margin-top:14px">
           <li class="ok" style="font-size:25px">Added sensor noise raises σ in every model and seed</li>
           <li class="warn" style="font-size:25px">Blur or a new modality breaks every model; σ warns in only {{n_shift_cs_defocus_seeds_ok}} ChipStain seeds</li>
-          <li class="ok" style="font-size:25px">A cheap input check (focus + feature distance) flags {{n_qc_focus_gate_dpc}} % of blurred and phase-contrast images, every seed; cost: {{n_qc_focus_gate_clean}} % false alarms</li>
+          <li class="ok" style="font-size:25px">A cheap input check (focus + feature distance) flags {{n_qc_focus_gate_dpc}} % of simulated-blur and phase-contrast images, every seed; cost: {{n_qc_focus_gate_clean}} % false alarms</li>
         </ul></div>
       <div class="card"><div class="tag">Neural cultures · iPSC motor neurons</div><h3>A small paired set adapts the model</h3>
         <ul class="points" style="margin-top:14px">
-          <li style="font-size:25px">Zero-shot: Pearson r <b>{{n_nz_cs_r}}</b>, but nuclei undercounted</li>
-          <li class="ok" style="font-size:25px">Fine-tuned on one well: r <b>{{n_nf_cs_k1_r}}</b>; on {{n_nf_kmax}} wells: <b>{{n_nf_cs_k20_r}}</b></li>
-          <li class="warn" style="font-size:25px">Zero-shot σ stayed in the normal range — it did not warn</li>
+          <li style="font-size:25px">No weight updates (scale and plane set on 2 labelled wells): Pearson r <b>{{n_nz_cs_r}}</b>, but nuclei undercounted</li>
+          <li class="ok" style="font-size:25px">Fine-tuned on one well: r <b>{{n_nf_cs_k1_r}}</b>; on {{n_nf_kmax}} wells: <b>{{n_nf_cs_k20_r}}</b> (one seed)</li>
+          <li class="warn" style="font-size:25px">Before fine-tuning, σ stayed in the normal range — it did not warn</li>
         </ul></div>
     </div>
   </div>
