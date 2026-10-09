@@ -70,9 +70,10 @@ Data: Zenodo 10.5281/zenodo.6140064 / 6139958 / 6140111 (R. Guiet, EPFL BIOP) an
 🖥 **{{demo_link}}** — the Gradio demo runs locally with `python demo/app.py --weights weights/chipstain.pt` (it shows the prediction, the σ map and a nuclei count, and warns when mean σ exceeds a fixed threshold); example outputs: `report/figures/demo_panel_dense_t150.png`, `report/figures/demo_panel_sparse_t010.png`.
 
 ## Team — Hack2Publish
-* **Md. Hamid Hosen** (team leader; Kaggle [@hosen42](https://www.kaggle.com/hosen42)) — Computer Science and Engineering
+* **Md. Hamid Hosen** (Kaggle [@hosen42](https://www.kaggle.com/hosen42)) — Computer Science and Engineering
 * **Esfer Sami** (Kaggle [@esfersami50](https://www.kaggle.com/esfersami50)) — Computer Science and Engineering
 * **Foysal** (Kaggle [@foysalemonshanto](https://www.kaggle.com/foysalemonshanto)) — Computer Science and Engineering
 * **Kahakashan Ashraf** (Kaggle [@kahakashanashraf](https://www.kaggle.com/kahakashanashraf)) — Computer Science and Engineering
+* **Md Kishor Morol** (Kaggle [@kishormorol](https://www.kaggle.com/kishormorol)) — Computer Science and Engineering
 
-All four members are in Computer Science and Engineering; no member has a biology/bioengineering/clinical background, so no cross-disciplinary bonus is claimed.
+All five members are in Computer Science and Engineering; no member has a biology/bioengineering/clinical background, so no cross-disciplinary bonus is claimed.
