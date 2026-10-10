@@ -66,7 +66,7 @@ def main():
                             "file://" + os.path.abspath(deck) + f"?export=1&slide={k}"], capture_output=True)
 
     words = sum(len(n.split()) for _, _, n in rows)
-    md = ["# ChipStain — video script", "",
+    md = ["# ChipStain — video script", "", "Final video (4 min 55 s): https://youtu.be/bxuVhUkyIOY", "",
           f"Deck: `presentation/ChipStain_presentation.html` ({len(rows)} slides). Narration: {words} words ≈ {words / 145:.1f} min at a calm pace — "
           "the finished video must stay **under 5:00**.", "",
           "## How to record", "",

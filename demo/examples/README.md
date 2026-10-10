@@ -8,4 +8,4 @@ Example images from the held-out test well (R05-C03, field 3) of the HeLa "Kyoto
 
 Reference nuclei (StarDist on the real H2B, from the dataset): 64 at t010 and 180 at t150.
 * `example_bf_dense_t150_blur1px.tif` — the dense bright-field example with a Gaussian blur of σ = 1 px (a crude
-  defocus proxy, made by this project) to demonstrate the uncertainty response; derived from the CC BY 4.0 original.
+  defocus proxy, made by this project) to demonstrate the input focus check and the uncertainty response; derived from the CC BY 4.0 original.

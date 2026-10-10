@@ -35,7 +35,6 @@ RULES = [
     ("report/figures/uncertainty_quality.png", "Uncertainty quality bars (seed 0)", CHART, "—", "scripts/make_figures.py"),
     ("report/figures/ablation.png", "Seed-0 ablation bars (superseded by multiseed.png)", CHART, "—", "scripts/make_figures.py"),
     ("report/figures/training_curves.png", "Validation curves per epoch", CHART, "—", "scripts/make_figures.py"),
-    ("writeup/assets/cover_560x280.png", "Kaggle cover / thumbnail", HELA, "380×380 crop of field F3 t150, resized, colour-mapped, title text added", "inline script (see git history)"),
     ("writeup/assets/cover_1280x720.png", "Kaggle cover / media image (16:9)", HELA, "320×360 crop of field F3 t150 (released model's prediction and σ), resized, colour-mapped, title text added", "inline script (see git history)"),
     ("writeup/assets/thumbnail_*.png", "Kaggle thumbnail variants", HELA, "crop of field F3 t150, resized, colour-mapped, text added", "inline script (see git history)"),
     ("writeup/assets/gallery_16x9/gallery_7_neural.png", "16:9 Kaggle gallery version of the neural examples (2 × 3 layout)", ISL, "redrawn from the same arrays as report/figures/neural_examples.png, centred on a white 16:9 canvas", "scripts/make_gallery.py"),
@@ -45,6 +44,7 @@ RULES = [
     ("writeup/assets/gallery_7_neural.png", "Kaggle media-gallery copy of the neural-transfer figure", ISL, "copy of report/figures/neural_examples.png", "cp"),
     ("writeup/assets/gallery_4_timelapse.png", "Kaggle media-gallery copy of the time-lapse figure", HELA_TL, "copy of report/figures/timelapse.png", "cp"),
     ("writeup/assets/gallery_*.png", "Kaggle media-gallery copies of report figures", HELA + " (photographic panels) / none (charts)", "copies of report/figures/*", "cp"),
+    ("demo/demo_app_screenshot.png", "Screenshot of the running Gradio demo (example_bf_dense_t150.tif)", HELA, "screen capture of the app; panels are the input and the released model's output, colour-mapped", "screen capture"),
     ("demo/examples/*_blur1px.tif", "Demo input with simulated defocus", HELA, "Gaussian blur σ = 1 px applied by this project", "inline script (see git history)"),
     ("demo/examples/*.tif", "Demo inputs and matching real H2B", HELA, "unmodified (H2B: channel 1 of the original 2-channel file)", "copied from the dataset"),
 ]
@@ -65,7 +65,7 @@ def describe(path):
 
 def main():
     check_generators()
-    files = sorted(set(glob.glob("report/figures/*.png") + glob.glob("writeup/assets/*.png") + glob.glob("writeup/assets/gallery_16x9/*.png") + glob.glob("demo/examples/*.tif")))
+    files = sorted(set(glob.glob("report/figures/*.png") + glob.glob("writeup/assets/*.png") + glob.glob("writeup/assets/gallery_16x9/*.png") + glob.glob("demo/*.png") + glob.glob("demo/examples/*.tif")))
     rows = []
     for f in files:
         try:

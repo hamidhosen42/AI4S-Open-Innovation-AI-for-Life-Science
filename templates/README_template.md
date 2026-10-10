@@ -42,6 +42,8 @@ python scripts/inference.py --image demo/examples/example_bf_dense_t150.tif --we
 python demo/app.py --weights weights/chipstain.pt     # interactive demo, http://localhost:7860
 ```
 
+<p align="center"><img src="demo/demo_app_screenshot.png" width="900" alt="The Gradio demo: bright-field input, predicted nuclear stain, uncertainty map and nuclei count"></p>
+
 Tested with Python 3.12.11, PyTorch 2.14.0, segmentation-models-pytorch 0.5.0, NumPy 2.5.2, scikit-image 0.26.0 (macOS arm64). Training the pretrained configurations downloads the ResNet-34 ImageNet weights once from the Hugging Face Hub (`smp-hub/resnet34.imagenet`, free, no login); inference needs no download. The PDF build needs Chrome/Chromium (`CHROME=/path`); the HTML is always written. On Kaggle: *Settings → Internet: On*.
 
 ## Reproduce everything
@@ -82,11 +84,11 @@ python scripts/image_register.py && python scripts/build_report.py && python scr
 chipstain/            package: data.py, model.py, losses.py, metrics.py
 scripts/              train / evaluate / inference / analyses / figures / report
 configs/              baseline, pretrained, ours (ChipStain) and ablation arms
-demo/                 Gradio app + example images (see demo/examples/README.md)
+demo/                 Gradio app, screenshot, example images (see demo/examples/README.md)
 notebooks/            Kaggle notebook: train + evaluate
 report/               technical report (PDF), figures, result files, IMAGES.md (image register)
 writeup/              Kaggle Writeup and gallery assets
-presentation/         slide deck (single HTML) and video script
+presentation/         slide deck (single HTML) and video script (final video: YouTube link above)
 templates/            sources of the report, README, Writeup and deck (numbers filled from report/results)
 DATA.md               data sources, licences, splits, usage note, ethics
 ```
