@@ -8,13 +8,6 @@ cd "$(dirname "$0")/.."
 python scripts/make_figures.py
 python scripts/make_figures_extra.py
 python scripts/demo_numbers.py
-cp report/figures/qualitative_chipstain_nll_s0_tta.png writeup/assets/gallery_1_qualitative.png
-cp report/figures/multiseed.png writeup/assets/gallery_2_multiseed.png
-cp report/figures/shift_test.png writeup/assets/gallery_3_shift_test.png
-cp report/figures/timelapse.png writeup/assets/gallery_4_timelapse.png
-cp report/figures/demo_panel_dense_t150.png writeup/assets/gallery_5_demo_panel.png
-cp report/figures/proliferation.png writeup/assets/gallery_6_proliferation.png
-[ -f report/figures/neural_examples.png ] && cp report/figures/neural_examples.png writeup/assets/gallery_7_neural.png
 python scripts/make_gallery.py                 # 16:9 copies for the Kaggle media gallery
 python scripts/image_register.py
 python scripts/build_report.py
