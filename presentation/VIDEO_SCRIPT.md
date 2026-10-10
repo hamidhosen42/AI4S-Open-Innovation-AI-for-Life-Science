@@ -1,5 +1,7 @@
 # ChipStain — video script
 
+Final video (4 min 55 s): https://youtu.be/bxuVhUkyIOY
+
 Deck: `presentation/ChipStain_presentation.html` (14 slides). Narration: 612 words ≈ 4.2 min at a calm pace — the finished video must stay **under 5:00**.
 
 ## How to record
