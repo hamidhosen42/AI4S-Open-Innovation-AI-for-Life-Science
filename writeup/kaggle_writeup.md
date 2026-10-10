@@ -78,7 +78,7 @@ Data: Zenodo 10.5281/zenodo.6140064 / 6139958 / 6140111 (R. Guiet, EPFL BIOP) an
 🖥 **Local demo (no hosted Space)** — the Gradio demo runs locally with `python demo/app.py --weights weights/chipstain.pt` (upload a bright-field image → predicted nuclear stain, σ map and nuclei count; it runs the input focus check and warns on blurred or unfamiliar inputs, and when mean σ exceeds a fixed threshold). [Screenshot of the running app](https://github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Science/blob/main/demo/demo_app_screenshot.png); example outputs: `report/figures/demo_panel_dense_t150.png`, `report/figures/demo_panel_sparse_t010.png`.
 
 ## Team — Hack2Publish
-* **Md. Hamid Hosen** (Kaggle [@hosen42](https://www.kaggle.com/hosen42)) — Computer Science and Engineering
+* **Md. Hamid Hosen** (team leader; Kaggle [@hosen42](https://www.kaggle.com/hosen42)) — Computer Science and Engineering
 * **Esfer Sami** (Kaggle [@esfersami50](https://www.kaggle.com/esfersami50)) — Computer Science and Engineering
 * **Foysal** (Kaggle [@foysalemonshanto](https://www.kaggle.com/foysalemonshanto)) — Computer Science and Engineering
 * **Kahakashan Ashraf** (Kaggle [@kahakashanashraf](https://www.kaggle.com/kahakashanashraf)) — Computer Science and Engineering
