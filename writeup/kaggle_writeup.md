@@ -4,7 +4,7 @@
 
 ## Demo video
 
-▶ **[VIDEO LINK — paste the YouTube link here]** (≤ 5 min)
+▶ **[Watch the demo video on YouTube](https://youtu.be/bxuVhUkyIOY)** (4 min 55 s)
 
 ## Code repository
 

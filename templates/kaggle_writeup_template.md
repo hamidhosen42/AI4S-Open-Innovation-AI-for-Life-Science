@@ -4,7 +4,7 @@
 
 ## Demo video
 
-▶ **{{video_link}}** (≤ 5 min)
+▶ **{{video_link}}** (4 min 55 s)
 
 ## Code repository
 

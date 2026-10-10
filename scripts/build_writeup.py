@@ -48,7 +48,7 @@ def main():
     vals["results_table"] = main_table_md()
     vals["report_pages"] = pdf_pages()
     vals.setdefault("report_link", "https://github.com/hamidhosen42/AI4S-Open-Innovation-AI-for-Life-Science/blob/main/report/ChipStain_Technical_Report.pdf")
-    vals.setdefault("video_link", "[VIDEO LINK — paste the YouTube link here]")
+    vals.setdefault("video_link", "[Watch the demo video on YouTube](https://youtu.be/bxuVhUkyIOY)")
     vals.setdefault("demo_link", "Local demo (no hosted Space)")
     render("templates/README_template.md", "README.md", vals)
     w = render("templates/kaggle_writeup_template.md", "writeup/kaggle_writeup.md", vals)
